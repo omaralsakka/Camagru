@@ -29,7 +29,7 @@ option to log in -->
 			/* color: #000; */
 			font-family: 'Space Grotesk', sans-serif;
 		}
-		
+
 		body{
 			background-color: #F6F6F6;
 		}
@@ -117,7 +117,12 @@ option to log in -->
 			text-align: center;
 			color: #aaa;
 		}
-
+		
+		.or{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 		.instagram-bottom-container{
 			width: 100%;
 			max-width: 350px;
@@ -165,7 +170,11 @@ option to log in -->
 				<!-- Sign in button tag -->
 				<button>Log In</button>
 				
-				<h5>OR</h5>
+				<div class="or">
+					<hr style="width:30%; margin: 10px; opacity: 0.3;">
+					<h5 style="opacity: 0.5;">OR</h5>
+					<hr style="width:30%; margin: 10px; opacity: 0.3;">
+				</div>
 				
 				<!-- provided by fontawesome.com / to log in with facebook account -->
 				<h5><i class="fa-brands fa-facebook-square"></i> Log in with 

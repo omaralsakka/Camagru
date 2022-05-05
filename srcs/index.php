@@ -115,7 +115,11 @@ option to log in -->
 			text-align: center;
 			color: #aaa;
 		}
-
+		.or{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 		.instagram-bottom-container{
 			width: 100%;
 			max-width: 350px;
@@ -163,8 +167,12 @@ option to log in -->
 				<!-- provided by fontawesome.com / to log in with facebook account -->
 				<button><i class="fa-brands fa-facebook-square"></i> Log in with 
 				facebook</button>
-
-				<h5>OR</h5>
+				
+				<div class="or">
+					<hr style="width:30%; margin: 10px; opacity: 0.3;">
+					<h5 style="opacity: 0.5;">OR</h5>
+					<hr style="width:30%; margin: 10px; opacity: 0.3;">
+				</div>
 
 				<!-- Sign up options -->
 				<input type="email" placeholder="Phone Number or Email">
