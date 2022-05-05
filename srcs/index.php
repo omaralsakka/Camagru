@@ -1,6 +1,6 @@
 <!-- This is the entry file for the application. It starts by sending the
 user to the sign up page. Incase the user has an account, there is a bottom
-option to log in -->
+option to log in and leads to signin.php file -->
 
 <!DOCTYPE html>
 <html>
@@ -115,11 +115,13 @@ option to log in -->
 			text-align: center;
 			color: #aaa;
 		}
+
 		.or{
 			display: flex;
 			justify-content: center;
 			align-items: center;
 		}
+
 		.instagram-bottom-container{
 			width: 100%;
 			max-width: 350px;
@@ -147,6 +149,8 @@ option to log in -->
 	</style>
 </head>
 <body>
+
+	<!-- container for user entry box -->
 	<div class="credentials-container">
 		<!-- sign up container box -->
 		<div class="instagram-container">
@@ -162,12 +166,14 @@ option to log in -->
 				<p>from your friends. </p>
 			</div>
 
+			<!-- container for the user entry elements -->
 			<div class="instagram-container-inside">
 				
 				<!-- provided by fontawesome.com / to log in with facebook account -->
 				<button><i class="fa-brands fa-facebook-square"></i> Log in with 
 				facebook</button>
 				
+				<!-- the word or surrounded by 2 horizontal lines -->
 				<div class="or">
 					<hr style="width:30%; margin: 10px; opacity: 0.3;">
 					<h5 style="opacity: 0.5;">OR</h5>

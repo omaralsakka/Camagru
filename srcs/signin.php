@@ -1,6 +1,6 @@
-<!-- This is the entry file for the application. It starts by sending the
-user to the sign up page. Incase the user has an account, there is a bottom
-option to log in -->
+<!-- This is the 2nd entry file for the application. It lets the user log in
+if they have an account. Incase the user don't have an account, there is a bottom
+option to sign up and leads to index.php "sign up page" -->
 
 <!DOCTYPE html>
 <html>
@@ -123,6 +123,7 @@ option to log in -->
 			justify-content: center;
 			align-items: center;
 		}
+
 		.instagram-bottom-container{
 			width: 100%;
 			max-width: 350px;
@@ -151,6 +152,8 @@ option to log in -->
 	</style>
 </head>
 <body>
+
+	<!-- container for user entry box -->
 	<div class="credentials-container">
 
 		<!-- sign up container box -->
@@ -161,6 +164,7 @@ option to log in -->
 				<img src="../media/logos/Camagru-logos_sideBySide_black.png" alt="brand logo">
 			</div>
 
+			<!-- container for the user entry elements -->
 			<div class="instagram-container-inside">
 
 				<!-- Sign in options -->
@@ -170,6 +174,7 @@ option to log in -->
 				<!-- Sign in button tag -->
 				<button>Log In</button>
 				
+				<!-- the word or surrounded by 2 horizontal lines -->
 				<div class="or">
 					<hr style="width:30%; margin: 10px; opacity: 0.3;">
 					<h5 style="opacity: 0.5;">OR</h5>
@@ -187,10 +192,10 @@ option to log in -->
 
 		</div>
 		
-		<!-- Bottom container has the log in option -->
+		<!-- Bottom container has the sign up option -->
 		<div class="instagram-bottom-container">
 			
-			<!-- Log in option -->
+			<!-- Sign up option -->
 			<h4>Don't have an account? <a href="index.php" style="text-decoration: none; 
 			">Sign Up</a></h4>
 
