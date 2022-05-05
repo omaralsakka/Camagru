@@ -20,6 +20,12 @@ option to log in and leads to signin.php file -->
 
 	<style>
 		
+		html{
+			background-image: url("../media/031 Blessing.png");
+			/* background-image: url("../media/122 Cheerful Caramel.png"); */
+			/* background-image: url("../media/076 Premium Dark.png"); */
+		}
+		
 		/* default settings for all elements */
 		*{
 			margin:0;
@@ -29,23 +35,23 @@ option to log in and leads to signin.php file -->
 			/* color: #000; */
 			font-family: 'Space Grotesk', sans-serif;
 		}
-		
-		body{
-			background-color: #F6F6F6;
-		}
-		
+
 		.credentials-container{
 			display: flex;
 			flex-direction: column;
 			margin-top: 10%;
 		}
+
 		.instagram-container{
 			width: 100%;
 			max-width: 350px;
 			margin: auto;
-			border: 1px solid #ccc;
+			/* border: 1px solid #ccc; */
 			margin-top: 15px;
 			padding: 5px;
+			border-radius: 5px;
+			box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
+			background-color: #F6F6F6;
 		}
 
 		.instagram-logo{
@@ -126,8 +132,11 @@ option to log in and leads to signin.php file -->
 			width: 100%;
 			max-width: 350px;
 			margin: auto;
-			border: 1px solid #ccc;
+			/* border: 1px solid #ccc; */
 			margin-top: 15px;
+			border-radius: 5px;
+			box-shadow: 7.2px 14.4px 14.4px hsl(0deg 0% 0% / 0.28);
+			background-color: #F6F6F6;
 		}
 
 		.instagram-bottom-container h4{
