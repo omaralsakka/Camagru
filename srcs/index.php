@@ -2,6 +2,71 @@
 user to the sign up page. Incase the user has an account, there is a bottom
 option to log in and leads to signin.php file -->
 
+<?php
+
+error_reporting(0);
+
+// including the connection to mysql database file.
+include('config.php');
+
+// starting session to pass through server the user data.
+session_start();
+
+// if $_POST global variable in session have received submit button clicked,
+// save the values of those keys into variables.
+if(isset($_POST['submit'])){
+	
+	$email = $_POST['email'];
+	$password = $_POST['password'];
+	$fullname = $_POST['fulname'];
+	$username = $_POST['username'];
+
+	// created an sql query to fetch from the db the info of one user. 
+	$sql = "SELECT * FROM `user` WHERE `fullname` = '$fullname'";
+
+	// we use the query line to fetch the data from $connection that is already
+	// connected to the db, and save the results into $results variable.
+	$result = mysqli_query($connection, $sql);
+
+	// if on sign up we found that there are data saved for this user.
+	// it means we cant re-create it and we inform that user exists.
+	if(mysqli_num_rows($result)>0){
+
+		$message = "<h6>"."username already exist"."<h6>";
+
+	} else {
+
+		// check if one info is not givin by user, return error message
+		if(empty($email) || empty($password) || empty($fullname) || 
+		empty($username)){
+
+			$message = "<h6>"."please fill all the fields"."<h6>";
+
+		} else {
+			
+			// we create a query message that will take the given variables and
+			// insert them into the db into each corresponding column.
+			$query = "INSERT INTO `user`(`fullname`, `username`, `email`, `password`) 
+			VALUES ('$fullname','$username','$email','$password')";
+
+			$query_result = mysqli_query($connection, $query);
+
+			// if the query result valid print success message, else print error
+			if($query_result){
+				
+				$message = "<h6>"."user created successfully"."<h6>";
+			
+			} else {
+			
+				$message = "<h6>"."error.."."<h6>";
+			
+			}
+		}
+	}
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,6 +176,7 @@ option to log in and leads to signin.php file -->
 			box-sizing: border-box;
 			box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
 			border: 1px solid #e9e9e9;
+			/* border: 1px solid yellow; */
 			background-color: #F0F0F0;
 			font-size: 12px;
 			border-radius: 4px;
@@ -126,6 +192,13 @@ option to log in and leads to signin.php file -->
 			display: flex;
 			justify-content: center;
 			align-items: center;
+		}
+
+		/* The error message */
+		.instagram-container-inside h6{
+			text-align: center;
+			color: red;
+			font-size: 18px;
 		}
 
 		.instagram-bottom-container{
@@ -161,6 +234,7 @@ option to log in and leads to signin.php file -->
 
 	<!-- container for user entry box -->
 	<div class="credentials-container">
+		
 		<!-- sign up container box -->
 		<div class="instagram-container">
 			
@@ -175,35 +249,45 @@ option to log in and leads to signin.php file -->
 				<p>from your friends. </p>
 			</div>
 
-			<!-- container for the user entry elements -->
-			<div class="instagram-container-inside">
-				
-				<!-- provided by fontawesome.com / to log in with facebook account -->
-				<button><i class="fa-brands fa-facebook-square"></i> Log in with 
-				facebook</button>
-				
-				<!-- the word or surrounded by 2 horizontal lines -->
-				<div class="or">
-					<hr style="width:30%; margin: 10px; opacity: 0.3;">
-					<h5 style="opacity: 0.5;">OR</h5>
-					<hr style="width:30%; margin: 10px; opacity: 0.3;">
+			<!-- form that will send the created user to config.php -->
+			<form action="" method="POST">
+
+				<!-- container for the user entry elements -->
+				<div class="instagram-container-inside">
+					
+					<!-- provided by fontawesome.com / to log in with facebook account -->
+					<button><i class="fa-brands fa-facebook-square"></i> Log in with 
+					facebook</button>
+					
+					<!-- the word or surrounded by 2 horizontal lines -->
+					<div class="or">
+						<hr style="width:30%; margin: 10px; opacity: 0.3;">
+						<h5 style="opacity: 0.5;">OR</h5>
+						<hr style="width:30%; margin: 10px; opacity: 0.3;">
+					</div>
+
+					<!-- the message which will appear when submit is clicked -->
+					<?php
+						echo $message;
+					?>
+
+					<!-- Sign up options -->
+					<input type="email" name="email" placeholder="Phone Number or Email">
+					<input type="text" name="fullname" placeholder="Full Name">
+					<input type="text" name="username" placeholder="Username">
+					<input type="password" name="password" placeholder="Password">
+
+					<!-- Sign up button tag -->
+					<button type="submit" name="submit">Sign up</button>
+
+					<!-- Terms and policy text -->
+					<p>By signing up, you agree to our</p>
+					<p>Terms, Data policy and Cookies</p>
+					<p>Policy.</p>
+
 				</div>
 
-				<!-- Sign up options -->
-				<input type="email" placeholder="Phone Number or Email">
-				<input type="text" placeholder="Full Name">
-				<input type="text" placeholder="Username">
-				<input type="password" placeholder="Password">
-
-				<!-- Sign up button tag -->
-				<button>Sign up</button>
-
-				<!-- Terms and policy text -->
-				<p>By signing up, you agree to our</p>
-				<p>Terms, Data policy and Cookies</p>
-				<p>Policy.</p>
-
-			</div>
+			</form>
 
 		</div>
 		
