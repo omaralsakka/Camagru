@@ -7,18 +7,33 @@ option to log in -->
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
 	<!-- font awesome cdn to include their styling kit -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+	<!-- google fonts cdn -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet"> 
+	
 	<title>Camagru Signup</title>
 
 	<style>
 		
-		/* default size for all elements */
+		/* default settings for all elements */
 		*{
 			margin:0;
 			padding:0;
 			box-sizing: border-box;
+			font-size: 1em;
+			/* color: #000; */
+			font-family: 'Space Grotesk', sans-serif;
 		}
+		
+		body{
+			background-color: #F6F6F6;
+		}
+		
 		.credentials-container{
 			display: flex;
 			flex-direction: column;
@@ -65,16 +80,21 @@ option to log in -->
 			margin: 8px;
 			border: none;
 			font-size: 12px;
-			color: white;
-			background-color: #3897f0;
+			color: #111111;
+			background-color: #FFCB74;
+			/* color: white; */
+			/* background-color: #3897f0; */
 			border-radius: 5px;
 			cursor: pointer;
+			box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
 		}
 
 		.instagram-container-inside h5{
-			color: #C0C0C0;
+			color: #111111;
+			/* color: #C0C0C0; */
 			text-align: center;
 		}
+
 		
 		.instagram-container-inside input[type=email], input[type=text], 
 		input[type=password]{
@@ -83,6 +103,7 @@ option to log in -->
 			margin: 6px;
 			display: inline-block;
 			box-sizing: border-box;
+			box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
 			border: 1px solid #e9e9e9;
 			background-color: #F0F0F0;
 			font-size: 12px;
@@ -107,6 +128,17 @@ option to log in -->
 			margin-top: 20px;
 			margin-bottom: 20px;
 			text-align: center;
+		}
+
+		.instagram-bottom-container a{
+			color: #111111;
+			background-color: #FFCB74;
+			border-radius: 5px;
+			padding: 5px;
+			margin: 8px;
+			border: none;
+			cursor: pointer;
+			box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
 		}
 	</style>
 </head>
@@ -157,7 +189,7 @@ option to log in -->
 			
 			<!-- Log in option -->
 			<h4>Have an account? <a href="signin.php" style="text-decoration: none; 
-			color: #3897f0;">Log In</a></h4>
+			">Log In</a></h4>
 
 		</div>
 	</div>
