@@ -7,9 +7,10 @@ option to log in -->
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- font awesome cdn to include their styling kit -->
+	<!-- font awesome cdn to include their styling kits -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<title>Camagru Signup</title>
+	
+	<title>Camagru Signin</title>
 
 	<style>
 		
@@ -19,11 +20,13 @@ option to log in -->
 			padding:0;
 			box-sizing: border-box;
 		}
+		
 		.credentials-container{
 			display: flex;
 			flex-direction: column;
 			margin-top: 10%;
 		}
+		
 		.instagram-container{
 			width: 100%;
 			max-width: 350px;
@@ -43,10 +46,10 @@ option to log in -->
 
 		.instagram-logo img{
 			width: 100%;
-			/* object-fit: cover;
-			object-position: center;
-			height: 100px;
-			width: 250px; */
+			object-fit: cover;
+			/* object-position: center; */
+			/* height: 100px;
+			width: 350px; */
 		}
 
 		.instagram-status{
@@ -72,8 +75,10 @@ option to log in -->
 		}
 
 		.instagram-container-inside h5{
-			color: #C0C0C0;
+			color: #3897f0;
 			text-align: center;
+			margin-bottom: 10px;
+			margin-top: 10px;
 		}
 		
 		.instagram-container-inside input[type=email], input[type=text], 
@@ -112,6 +117,7 @@ option to log in -->
 </head>
 <body>
 	<div class="credentials-container">
+
 		<!-- sign up container box -->
 		<div class="instagram-container">
 			
@@ -119,34 +125,24 @@ option to log in -->
 			<div class="instagram-logo">
 				<img src="../media/logos/Camagru-logos_sideBySide_black.png" alt="brand logo">
 			</div>
-			
-			<!-- text status -->
-			<div class="instagram-status">
-				<p>Sign up to see photos and videos</p>
-				<p>from your friends. </p>
-			</div>
 
 			<div class="instagram-container-inside">
-				
-				<!-- provided by fontawesome.com / to log in with facebook account -->
-				<button><i class="fa-brands fa-facebook-square"></i> Log in with 
-				facebook</button>
 
-				<h5>OR</h5>
-
-				<!-- Sign up options -->
-				<input type="email" placeholder="Phone Number or Email">
-				<input type="text" placeholder="Full Name">
-				<input type="text" placeholder="Username">
+				<!-- Sign in options -->
+				<input type="email" placeholder="Phone Number, username or Email">
 				<input type="password" placeholder="Password">
 
-				<!-- Sign up button tag -->
-				<button>Sign up</button>
+				<!-- Sign in button tag -->
+				<button>Log In</button>
+				
+				<h5>OR</h5>
+				
+				<!-- provided by fontawesome.com / to log in with facebook account -->
+				<h5><i class="fa-brands fa-facebook-square"></i> Log in with 
+				facebook</h5>
 
-				<!-- Terms and policy text -->
-				<p>By signing up, you agree to our</p>
-				<p>Terms, Data policy and Cookies</p>
-				<p>Policy.</p>
+				<!-- Forgot password tag text -->
+				<p>Forgot password?</p>
 
 			</div>
 
@@ -156,8 +152,8 @@ option to log in -->
 		<div class="instagram-bottom-container">
 			
 			<!-- Log in option -->
-			<h4>Have an account? <a href="signin.php" style="text-decoration: none; 
-			color: #3897f0;">Log In</a></h4>
+			<h4>Don't have an account? <a href="index.php" style="text-decoration: none; 
+			color: #3897f0;">Sign Up</a></h4>
 
 		</div>
 	</div>
