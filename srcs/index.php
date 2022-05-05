@@ -7,8 +7,8 @@ option to log in and leads to signin.php file -->
 error_reporting(0);
 
 // including the connection to mysql database file.
-include('config.php');
-
+// include('config.php');
+require_once('config.php');
 // starting session to pass through server the user data.
 session_start();
 
@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
 	
 	$email = $_POST['email'];
 	$password = $_POST['password'];
-	$fullname = $_POST['fulname'];
+	$fullname = $_POST['fullname'];
 	$username = $_POST['username'];
 
 	// created an sql query to fetch from the db the info of one user. 
@@ -30,27 +30,28 @@ if(isset($_POST['submit'])){
 
 	// if on sign up we found that there are data saved for this user.
 	// it means we cant re-create it and we inform that user exists.
-	if(mysqli_num_rows($result)>0){
+	if(mysqli_num_rows($result) > 0){
 
 		$message = "<h6>"."username already exist"."<h6>";
 
 	} else {
 
+
 		// check if one info is not givin by user, return error message
-		if(empty($email) || empty($password) || empty($fullname) || 
-		empty($username)){
+		if(empty($email) || empty($password) || empty($fullname) || empty($username)){
 
 			$message = "<h6>"."please fill all the fields"."<h6>";
-
+		
 		} else {
 			
 			// we create a query message that will take the given variables and
 			// insert them into the db into each corresponding column.
-			$query = "INSERT INTO `user`(`fullname`, `username`, `email`, `password`) 
+			$query1 = "INSERT INTO `user` (`fullname`, `username`, `email`, `password`) 
 			VALUES ('$fullname','$username','$email','$password')";
 
+			$query = "INSERT INTO `user`(`fullname`, `username`, `email`, `password`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]')";
+			
 			$query_result = mysqli_query($connection, $query);
-
 			// if the query result valid print success message, else print error
 			if($query_result){
 				
@@ -272,7 +273,7 @@ if(isset($_POST['submit'])){
 					?>
 
 					<!-- Sign up options -->
-					<input type="email" name="email" placeholder="Phone Number or Email">
+					<input type="email" name="email" placeholder="Mobile Number or Email">
 					<input type="text" name="fullname" placeholder="Full Name">
 					<input type="text" name="username" placeholder="Username">
 					<input type="password" name="password" placeholder="Password">
