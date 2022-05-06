@@ -8,15 +8,15 @@ require_once('database.php');
 // 	$qr = $db->exec($sql);
 // 	echo "Done !<br><br>";
 // }
-$connection = mysqli_connect("localhost","root","","camagru_website");
+$connection = mysqli_connect("localhost","root","123456","camagru_website");
 
 // if connection to database successed will print success, else print error, 
 // needed only when debugging
-if($connection){
-	echo "SUCCESS: database connected\n";
-	echo $connection->host_info;
-} else {
-	exit();
-	echo "ERROR: database not connected";
-}
+// if($connection){
+// 	echo "SUCCESS: database connected\n";
+// 	echo $connection->host_info;
+// } else {
+// 	exit();
+// 	echo "ERROR: database not connected";
+// }
 ?>

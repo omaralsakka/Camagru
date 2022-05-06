@@ -2,6 +2,27 @@
 if they have an account. Incase the user don't have an account, there is a bottom
 option to sign up and leads to index.php "sign up page" -->
 
+<?php
+
+error_reporting(0);
+
+// including the connection to mysql database file.
+require_once('config.php');
+
+// starting session to pass through server the user data.
+session_start();
+
+if(isset($_POST['submit'])){
+	
+	$email = $_POST['email'];
+	$password = $_POST['password'];
+	$message = "all well";
+
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,9 +86,6 @@ option to sign up and leads to index.php "sign up page" -->
 		.instagram-logo img{
 			width: 100%;
 			object-fit: cover;
-			/* object-position: center; */
-			/* height: 100px;
-			width: 350px; */
 		}
 
 		.instagram-status{
@@ -188,6 +206,9 @@ option to sign up and leads to index.php "sign up page" -->
 					<h5 style="opacity: 0.5;">OR</h5>
 					<hr style="width:30%; margin: 10px; opacity: 0.3;">
 				</div>
+
+				<!-- the message which will appear when submit is clicked -->
+				<?php echo $message;?>
 				
 				<!-- provided by fontawesome.com / to log in with facebook account -->
 				<h5><i class="fa-brands fa-facebook-square"></i> Log in with 

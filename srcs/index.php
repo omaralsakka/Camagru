@@ -7,8 +7,8 @@ option to log in and leads to signin.php file -->
 error_reporting(0);
 
 // including the connection to mysql database file.
-// include('config.php');
 require_once('config.php');
+
 // starting session to pass through server the user data.
 session_start();
 
@@ -46,10 +46,9 @@ if(isset($_POST['submit'])){
 			
 			// we create a query message that will take the given variables and
 			// insert them into the db into each corresponding column.
-			$query1 = "INSERT INTO `user` (`fullname`, `username`, `email`, `password`) 
+			$query = "INSERT INTO `user` (`fullname`, `username`, `email`, `password`) 
 			VALUES ('$fullname','$username','$email','$password')";
 
-			$query = "INSERT INTO `user`(`fullname`, `username`, `email`, `password`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]')";
 			
 			$query_result = mysqli_query($connection, $query);
 			// if the query result valid print success message, else print error
@@ -130,10 +129,6 @@ if(isset($_POST['submit'])){
 
 		.instagram-logo img{
 			width: 100%;
-			/* object-fit: cover;
-			object-position: center;
-			height: 100px;
-			width: 250px; */
 		}
 
 		.instagram-status{
@@ -251,7 +246,7 @@ if(isset($_POST['submit'])){
 			</div>
 
 			<!-- form that will send the created user to config.php -->
-			<form action="" method="POST">
+			<form action="" method="post">
 
 				<!-- container for the user entry elements -->
 				<div class="instagram-container-inside">
@@ -268,9 +263,7 @@ if(isset($_POST['submit'])){
 					</div>
 
 					<!-- the message which will appear when submit is clicked -->
-					<?php
-						echo $message;
-					?>
+					<?php echo $message;?>
 
 					<!-- Sign up options -->
 					<input type="email" name="email" placeholder="Mobile Number or Email">
