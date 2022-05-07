@@ -37,13 +37,17 @@ if(!isset($_SESSION['user_id'])){
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="../style/style.css">
 	
 	<title>Home</title>
 </head>
 <body>
 
-    <!-- this button will lead the user to the log out file -->
-    <button><a href="signout.php">Signout</a></button>
-    
+    <div class="home-container">
+        <div class="home-top-nav">
+
+        </div>
+    </div>
+
 </body>
 </html>
