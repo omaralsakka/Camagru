@@ -79,29 +79,41 @@ if(!isset($_SESSION['user_id'])){
 					</div>
 					<div class="home-top-nav-icons">
 		
-						<a class="outline" href=""><img src="../media/icons/icons8-cursor-outline.png" alt="cursor icon"></a>
+						<a class="outline" href=""><img src="../media/icons/icons8-cursor-outline.png" 
+						onmouseover="this.src='../media/icons/icons8-cursor-filled.png'" 
+						onmouseout="this.src='../media/icons/icons8-cursor-outline.png'"alt="cursor icon"></a>
 
-						<a class="inline" href=""><img src="../media/icons/icons8-cursor-filled.png" alt="cursor icon"></a>
+						<!-- <a class="inline" href=""><img src="../media/icons/icons8-cursor-filled.png" alt="cursor icon"></a> -->
 
 					</div>
-					<div class="home-top-nav-icons">
+					<!-- <div class="home-top-nav-icons">
 		
 						<a class="outline" href=""><img src="../media/icons/icons8-explore-outline.png" alt="explore icon"></a>
 						
 						<a class="inline" href=""><img src="../media/icons/icons8-explore-inline.png" alt="explore icon"></a>
 		
-					</div>
-					<div class="home-top-nav-icons">
+					</div> -->
+					<!-- <div class="home-top-nav-icons">
 		
 						<a class="outline" href=""><img src="../media/icons/icons8-heart-outline.png" alt="heart icon"></a>
 
 						<a class="inline" href=""><img src="../media/icons/icons8-heart-inline-red.png" alt="heart icon"></a>
 
-					</div>
+					</div> -->
 					<div class="home-top-nav-icons">
 		
-						<a class="outline" href=""><img src="../media/icons/icons8-cat-profile-outline.png" alt="profile image icon"></a>
+						<a class="outline" href=""><img src="../media/icons/icons8-cat-profile-outline.png" 
+						onmouseover="this.src='../media/icons/icons8-cat-profile-inline.png'" 
+						onmouseout="this.src='../media/icons/icons8-cat-profile-outline.png'"alt="profile image icon"></a>
 
+					</div>
+
+					<div class="home-top-nav-icons">
+		
+						<a class="outline" href=""><img id="logout" src="../media/icons/icons8-sign-out-outline.png" 
+							onmouseover="this.src='../media/icons/icons8-sign-out-inline.png'" 
+							onmouseout="this.src='../media/icons/icons8-sign-out-outline.png'" alt="log out image icon">
+						</a>
 					</div>
 
 				</div>
