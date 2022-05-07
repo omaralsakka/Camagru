@@ -33,7 +33,17 @@ if(isset($_POST['submit'])){
 		// it means we cant re-create it and we inform that user exists.
 		if(mysqli_num_rows($result) > 0){
 
-			$message = "<h6>"."Log in success"."<h6>";
+			
+			//we get the row of the user with the mentioned fullname
+			while($row = mysqli_fetch_assoc($result)){
+				//we save the specific user id into the session
+				$_SESSION['user_id'] = $row['user_id'];
+				
+				//we use this session inside home.php file
+				header('location:home.php');
+				
+				$message = "<h6>"."Log in success"."<h6>";
+			}
 		
 		} else {
 			
