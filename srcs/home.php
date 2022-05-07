@@ -57,14 +57,6 @@ if(!isset($_SESSION['user_id'])){
 			<div class="home-top-nav-icon">
 				<div class="home-top-nav-search">
 					<input type="text" placeholder="Search">
-					<!-- <script>
-						function hideGlass(){
-							let glass = document.getElementById("searchbar");
-							if (glass.style.backgroundImage == 'url("../media/icons/icons8-search.svg")')
-								glass.style.backgroundImage = "none";
-							document.getElementById("searchbar").style.backgroundImage = "none";
-						}
-					</script> -->
 				</div> 
 			</div>
 			
