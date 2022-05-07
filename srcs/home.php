@@ -55,6 +55,14 @@ if(!isset($_SESSION['user_id'])){
 			<div class="home-top-nav-icon">
 				<div class="home-top-nav-search">
 					<input type="text" placeholder="Search">
+					<!-- <script>
+						function hideGlass(){
+							let glass = document.getElementById("searchbar");
+							if (glass.style.backgroundImage == 'url("../media/icons/icons8-search.svg")')
+								glass.style.backgroundImage = "none";
+							document.getElementById("searchbar").style.backgroundImage = "none";
+						}
+					</script> -->
 				</div> 
 			</div>
 			
@@ -64,9 +72,9 @@ if(!isset($_SESSION['user_id'])){
 					
 					<div class="home-top-nav-icons">
 
-						<a class="outline" href=""><img src="../media/icons/icons8-home-empty.svg" alt="home icon"></a>
+						<a class="outline active" href=""><img src="../media/icons/icons8-home-empty.svg" alt="home icon"></a>
 						
-						<a class="inline" href=""><img src="../media/icons/icons8-home-filled.svg" alt="home icon"></a>
+						<a class="inline active" href=""><img src="../media/icons/icons8-home-filled.svg" alt="home icon"></a>
 
 					</div>
 					<div class="home-top-nav-icons">

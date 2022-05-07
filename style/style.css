@@ -4,6 +4,9 @@
     box-sizing: border-box;
 }
 
+html{
+    background-image: url("../media/031 Blessing.png");
+}
 .home-container{
     width: 100%;
     height: 100%;
@@ -28,9 +31,10 @@
 .home-top-nav-logo{
     width: 200px;
     margin: auto;
+    margin-left: 0;
     height: 50px;
     display: flex;
-    align-items: center;
+    align-items:center;
 }
 
 .home-top-nav-logo img{
@@ -57,10 +61,15 @@
     background-position: 60px;
     background-size: 10px 10px;
 }
+.home-top-nav-search input[type=text]:focus{
+    background-image: none;
+}
 
 .home-top-nav-icon-inside{
-    width: 200px;
+    max-width: 200px;
+    min-width: 1vw;
     margin: auto;
+    margin-right: 0;
     height: 50px;
     display: flex;
     justify-content: center;
@@ -69,9 +78,29 @@
 
 .home-top-nav-icons{
     flex: 1;
+    
 }
 
 .home-top-nav-icons img{
-    width: 20px;
-    height: 20px;
+    width: 100%;
+    height: auto;
+    max-width: 1vw;
+    min-width: 20px;
+    /* width: 20px;
+    height: 20px; */
+}
+
+.home-top-nav-icons .inline{
+    display: none;
+    cursor: pointer;
+}
+
+.home-top-nav-icons .inline.active{
+    display: block;
+    cursor: pointer;
+}
+
+.home-top-nav-icons .outline.active{
+    display: none;
+    cursor: pointer;
 }
