@@ -15,4 +15,63 @@
     position: fixed;
     top: 0;
     border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-top-nav-icon{
+    flex: 1;
+
+}
+
+.home-top-nav-logo{
+    width: 200px;
+    margin: auto;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.home-top-nav-logo img{
+    width: 100%;
+    height: 100%;
+}
+
+.home-top-nav-search{
+    width: 200px;
+    margin: auto;
+}
+
+/* search glasses icon coming from here */
+.home-top-nav-search input[type=text]{
+    width: 100%;
+    padding: 5px;
+    border: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+    box-sizing: border-box;
+    background-image: url("../media/icons/icons8-search.svg");
+    background-repeat: no-repeat;
+    background-position: 60px;
+    background-size: 10px 10px;
+}
+
+.home-top-nav-icon-inside{
+    width: 200px;
+    margin: auto;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-top-nav-icons{
+    flex: 1;
+}
+
+.home-top-nav-icons img{
+    width: 20px;
+    height: 20px;
 }
