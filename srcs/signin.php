@@ -38,6 +38,7 @@ if(isset($_POST['submit'])){
 			while($row = mysqli_fetch_assoc($result)){
 				//we save the specific user id into the session
 				$_SESSION['user_id'] = $row['user_id'];
+				$_SESSION['fullname'] = $row['fullname'];
 				
 				//we use this session inside home.php file
 				header('location:home.php');

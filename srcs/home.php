@@ -19,7 +19,7 @@ if(!isset($_SESSION['user_id'])){
 
     // save the user_id into a variable
     $userId = $_SESSION['user_id'];
-
+	$message = "Hello ".$_SESSION['fullname'];
 }
 
 ?>
@@ -44,6 +44,8 @@ if(!isset($_SESSION['user_id'])){
 <body>
 
     <div class="home-container">
+		
+		<!-- top navagation bar -->
         <div class="home-top-nav">
 
 			<div class="home-top-nav-icon">
@@ -66,6 +68,7 @@ if(!isset($_SESSION['user_id'])){
 				</div> 
 			</div>
 			
+			<!-- top right side icons -->
 			<div class="home-top-nav-icon">
 				
 				<div class="home-top-nav-icon-inside">
@@ -110,7 +113,7 @@ if(!isset($_SESSION['user_id'])){
 
 					<div class="home-top-nav-icons">
 		
-						<a class="outline" href=""><img id="logout" src="../media/icons/icons8-sign-out-outline.png" 
+						<a class="outline" href="signout.php"><img id="logout" src="../media/icons/icons8-sign-out-outline.png" 
 							onmouseover="this.src='../media/icons/icons8-sign-out-inline.png'" 
 							onmouseout="this.src='../media/icons/icons8-sign-out-outline.png'" alt="log out image icon">
 						</a>
