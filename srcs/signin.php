@@ -16,7 +16,30 @@ if(isset($_POST['submit'])){
 	
 	$email = $_POST['email'];
 	$password = $_POST['password'];
-	$message = "all well";
+
+	// check if one info is not givin by user, return error message
+	if(empty($email) || empty($password)){
+		$message = "<h6>"."please fill all the fields"."<h6>";
+	
+	} else {
+		// created an sql query to fetch from the db the info of one user. 
+		$sql = "SELECT * FROM `user` WHERE `email` = '$email' AND `password` = '$password'";
+
+		// we use the query line to fetch the data from $connection that is already
+		// connected to the db, and save the results into $results variable.
+		$result = mysqli_query($connection, $sql);
+
+		// if on sign up we found that there are data saved for this user.
+		// it means we cant re-create it and we inform that user exists.
+		if(mysqli_num_rows($result) > 0){
+
+			$message = "<h6>"."Log in success"."<h6>";
+		
+		} else {
+			
+			$message = "<h6>"."Incorrect email or password"."<h6>";
+		}
+	}
 
 }
 
@@ -147,6 +170,13 @@ if(isset($_POST['submit'])){
 			align-items: center;
 		}
 
+		/* The error message */
+		.instagram-container-inside h6{
+			text-align: center;
+			color: red;
+			font-size: 18px;
+		}
+
 		.instagram-bottom-container{
 			width: 100%;
 			max-width: 350px;
@@ -190,34 +220,39 @@ if(isset($_POST['submit'])){
 				<img src="../media/logos/Camagru-logos_sideBySide_black.png" alt="brand logo">
 			</div>
 
-			<!-- container for the user entry elements -->
-			<div class="instagram-container-inside">
-
-				<!-- Sign in options -->
-				<input type="email" placeholder="Phone Number, username or Email">
-				<input type="password" placeholder="Password">
-
-				<!-- Sign in button tag -->
-				<button>Log In</button>
+			<form action="" method="post">
 				
-				<!-- the word or surrounded by 2 horizontal lines -->
-				<div class="or">
-					<hr style="width:30%; margin: 10px; opacity: 0.3;">
-					<h5 style="opacity: 0.5;">OR</h5>
-					<hr style="width:30%; margin: 10px; opacity: 0.3;">
+				<!-- container for the user entry elements -->
+				<div class="instagram-container-inside">
+
+					<!-- the message which will appear when submit is clicked -->
+					<?php echo $message;?>
+
+					<!-- Sign in options -->
+					<input type="email" name="email" placeholder="Phone Number, username or Email">
+					<input type="password" name="password"  placeholder="Password">
+
+					<!-- Sign in button tag -->
+					<button type="submit" name="submit">Log In</button>
+					
+					<!-- the word or surrounded by 2 horizontal lines -->
+					<div class="or">
+						<hr style="width:30%; margin: 10px; opacity: 0.3;">
+						<h5 style="opacity: 0.5;">OR</h5>
+						<hr style="width:30%; margin: 10px; opacity: 0.3;">
+					</div>
+
+					
+					<!-- provided by fontawesome.com / to log in with facebook account -->
+					<h5><i class="fa-brands fa-facebook-square"></i> Log in with 
+					facebook</h5>
+
+					<!-- Forgot password tag text -->
+					<p>Forgot password?</p>
+
 				</div>
 
-				<!-- the message which will appear when submit is clicked -->
-				<?php echo $message;?>
-				
-				<!-- provided by fontawesome.com / to log in with facebook account -->
-				<h5><i class="fa-brands fa-facebook-square"></i> Log in with 
-				facebook</h5>
-
-				<!-- Forgot password tag text -->
-				<p>Forgot password?</p>
-
-			</div>
+			</form>
 
 		</div>
 		
