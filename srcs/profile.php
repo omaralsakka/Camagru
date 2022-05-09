@@ -1,6 +1,23 @@
 <?php
     session_start();
+    ini_set('display_errors', '1');
+    ini_set('display_startup_errors', '1');
+    error_reporting(E_ALL);
+    $dbh = new PDO("mysql:host=localhost;dbname=camagru_website", "root", "123456");
 
+    if(isset($_POST['btn'])){
+        $name = $_FILES['myfile']['name'];
+        $type = $_FILES['myfile']['type'];
+        $usrName = $_SESSION['username'];
+        $data = file_get_contents($_FILES['myfile']['tmp_name']);
+        $stmt = $dbh->prepare("INSERT INTO user_images(`username`,`name`, `type`, `data`) 
+        VALUES (:username, :name, :type, :data)");
+        $stmt->bindParam('username',$usrName);
+        $stmt->bindParam('name',$name);
+        $stmt->bindParam('type',$type);
+        $stmt->bindParam('data',$data);
+        $stmt->execute();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,11 +62,22 @@
     <div id="upload-container">
   
     <form class="upload-form" method="POST" action="" enctype="multipart/form-data">
-            <input type="file" name="myimage" value="" />
+            <input type="file" name="myfile" value="" />
             <div>
-                <button type="submit" name="submit_image">UPLOAD</button>
+                <button type="submit" name="btn">UPLOAD</button>
             </div>
         </form>
+    </div>
+    <div class="image-preview">
+    <?php
+            $usrName = $_SESSION['username'];
+			$stat = $dbh->prepare("SELECT * FROM user_images");
+			$stat->execute();
+			while($row = $stat->fetch()){
+				echo "<br/>
+				<embed class='image' src='data:".$row['type']. ";base64,".base64_encode($row['data'])."'width='200'/></li>";
+			}
+	?>
     </div>
 </body>
 </html>
