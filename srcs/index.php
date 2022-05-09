@@ -6,6 +6,7 @@ option to log in and leads to signin.php file -->
 
 error_reporting(0);
 
+// NOTE, check about adding require_once(deploy.php) soo it creates the schema on load.
 // including the connection to mysql database file.
 require_once('config.php');
 

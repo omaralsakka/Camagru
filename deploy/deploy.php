@@ -1,15 +1,14 @@
 <?php
 
-$DB_DSN = "localhost";
-$DB_USER = "root";
-$DB_PASSWORD = "123456";
-$DB_NAME = "camagru_website";
+include("../srcs/database.php");
+$DB_DSN_INIT = "mysql:host=localhost";
 $USER_TABLE_QUERY = file_get_contents("./usertable.sql");
+$IMAGE_TABLE_QUERY = file_get_contents("./images.sql");
 $state = 1;
 
 if(isset($_POST['submit'])){
     try {
-        $conn = new PDO("mysql:host=$DB_DSN", $DB_USER, $DB_PASSWORD);
+        $conn = new PDO($DB_DSN_INIT, $DB_USER, $DB_PASSWORD);
 
         // if failed to connect to the server
         if($conn){
@@ -22,13 +21,12 @@ if(isset($_POST['submit'])){
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // create the query.
-        $sql = "CREATE DATABASE IF NOT EXISTS $DB_NAME";
+        $sql = "CREATE DATABASE IF NOT EXISTS $DB_BASE";
 
         // use exec() because no results are returned
         $conn->exec($sql);
         echo "Database camagru_website created successfully<br>";
-        
-        $state = 1;
+
         // incase of error, write this message
     } catch(PDOException $error){
         echo $sql . "<br>" . $error->getMessage();
@@ -40,18 +38,23 @@ if(isset($_POST['submit'])){
         try {
             
             // make a new connection with the created database
-            $conn = new PDO("mysql:host=$DB_DSN;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
+            $conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
             
             // set the PDO error mode to exxception
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // execute the table creation query
+            // execute the user table creation query
             $conn->exec($USER_TABLE_QUERY);
             echo "User Table has been created succesfully<br>";
+
+            // execute the images table creation query
+            $conn->exec($IMAGE_TABLE_QUERY);
+            echo "Images Table has been created succesfully<br>";
         
         // incase of error
         } catch(PDOException $error){
-            echo $USER_TABLE_QUERY . "<br>" . $error->getMessage();
+            // echo $USER_TABLE_QUERY . "<br>" . $error->getMessage();
+            echo $IMAGE_TABLE_QUERY . "<br>" . $error->getMessage();
         }
     }
     $conn = null;
