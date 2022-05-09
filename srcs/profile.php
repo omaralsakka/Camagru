@@ -59,6 +59,9 @@
 </head>
 
 <body>
+    <div class="navbar">
+        <?php include_once("../frontend/navbar.html");?>
+    </div>
     <div id="upload-container">
   
     <form class="upload-form" method="POST" action="" enctype="multipart/form-data">
