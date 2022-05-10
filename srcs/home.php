@@ -66,9 +66,11 @@ if(!isset($_SESSION['user_id'])){
 					
 					<div class="home-top-nav-icons">
 
-						<a class="outline active" href=""><img src="../media/icons/icons8-home-empty.svg" alt="home icon"></a>
+						<a class="outline" href="home.php"><img src="../media/icons/icons8-home-empty.svg" 
+						onmouseover="this.src='../media/icons/icons8-home-filled.svg'" 
+						onmouseout="this.src='../media/icons/icons8-home-empty.svg'" alt="home icon"></a>
 						
-						<a class="inline active" href=""><img src="../media/icons/icons8-home-filled.svg" alt="home icon"></a>
+						<!-- <a class="inline active" href=""><img src="../media/icons/icons8-home-filled.svg" alt="home icon"></a> -->
 
 					</div>
 					<div class="home-top-nav-icons">

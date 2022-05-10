@@ -23,7 +23,7 @@ if(isset($_POST['submit'])){
 	$username = $_POST['username'];
 
 	// created an sql query to fetch from the db the info of one user. 
-	$sql = "SELECT * FROM `user` WHERE `fullname` = '$fullname'";
+	$sql = "SELECT * FROM `user` WHERE `username` = '$username'";
 
 	// we use the query line to fetch the data from $connection that is already
 	// connected to the db, and save the results into $results variable.
@@ -56,7 +56,7 @@ if(isset($_POST['submit'])){
 			if($query_result){
 
 				// created an sql query to fetch from the db the info of one user. 
-				$sql = "SELECT * FROM `user` WHERE `fullname` = '$fullname'";
+				$sql = "SELECT * FROM `user` WHERE `username` = '$username'";
 
 				// we use the query line to fetch the data from $connection that is already
 				// connected to the db, and save the results into $results variable.
@@ -67,6 +67,7 @@ if(isset($_POST['submit'])){
 
 					//we save the specific user id into the session
 					$_SESSION['user_id'] = $row['user_id'];
+					$_SESSION['username'] = $row['username'];
 
 					//we use this session inside home.php file
 					header('location:home.php');
