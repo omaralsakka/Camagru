@@ -103,6 +103,14 @@ if(!isset($_SESSION['user_id'])){
 						onmouseout="this.src='../media/icons/icons8-cat-profile-outline.png'"alt="profile image icon"></a>
 
 					</div>
+					
+					<div class="home-top-nav-icons">
+						<a class="outline" href="editing.php">
+							<img id="editing" src="../media/icons/icons8-camera-100-outline.png"
+							onmouseover="this.src='../media/icons/icons8-camera-100-inline.png'"
+							onmouseout="this.src='../media/icons/icons8-camera-100-outline.png'" alt="camera image icon" />
+						</a>
+					</div>
 
 					<div class="home-top-nav-icons">
 		
