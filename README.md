@@ -1,5 +1,5 @@
 # Camagru 
-Camagru/Hive Helsinki
+Camagru/Hive Helsinki  --- **ON GOING PROJECT**
 
 ## :diamond_shape_with_a_dot_inside: **Project's goal:**
 
