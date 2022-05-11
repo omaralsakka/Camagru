@@ -33,8 +33,41 @@
     <title>Profile</title>
     
     <?php include_once("../frontend/head.html")?>
-    
     <style>
+
+        .main-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40vh auto;
+            width: 50%;
+        }
+
+        #upload-container{
+            display: none;
+            width: 50%;
+            border: 1px solid #cbcbcb;
+			padding: 5px;
+			border-radius: 5px;
+			box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
+			background-color: #F6F6F6;
+        }
+
+        .upload-container button{
+            padding: 5px;
+        }
+        .upload-form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin: 20px auto;
+        }
+        .upload-form div{
+            margin-top: 20px;
+        }
+
         .footer-container{
             position: fixed;
             width: 100%;
@@ -81,23 +114,6 @@
             box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
             font-family: 'Space Grotesk', sans-serif;
         }
-        #upload-container{
-            display: none;
-            width: 20%;
-            margin: 20px auto;
-            border: 1px solid #cbcbcb;
-			padding: 5px;
-			border-radius: 5px;
-			box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-			background-color: #F6F6F6;
-        }
-        .upload-form{
-            width: 50%;
-            margin: 20px auto;
-        }
-        .upload-form div{
-            margin-top: 5px;
-        }
         #img_div{
             width: 80%;
             padding: 5px;
@@ -125,26 +141,41 @@
         <?php include_once("../frontend/navbar.html");?>
     </div>
 
-    <div class="footer-container">
-        <div class="footer-elements">
-            <div id="upload-container">
-                <!-- to upload an image -->
+    <div class="main-container">
+        <div id="upload-container">
                 <form class="upload-form" method="POST" action="" enctype="multipart/form-data">
                     <input type="file" name="myfile" value="" />
                     <div>
-                        <button type="submit" name="btn">UPLOAD</button>
+                        <button type="submit" name="btn">Confirm</button>
                     </div>
                 </form>
-            </div>
+        </div>
+    </div>
+    <div class="footer-container">
+        <div class="footer-elements">
+
             <div class="buttons">
                 <button name="camera">Snap it!</button>
             </div>
             <div class="buttons">
-                <button name="upload">Upload it!</button>
+                <button name="upload" onclick="displayUpload()">Upload it!</button>
             </div>
         </div>
     </div>
     <!-- <div class="image-preview"> -->
 </body>
+<script>
+    
+    // function to display upload image box
+    function displayUpload(){
+        var upload = document.getElementById("upload-container");
+        
+        if (upload.style.display === "flex"){
+            upload.style.display = "none";
+        } else {
+            upload.style.display = "flex";
+        }
+    }
+</script>
 </html>
         
