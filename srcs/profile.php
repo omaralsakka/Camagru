@@ -31,20 +31,10 @@
   
 <head>
     <title>Profile</title>
-    <link rel="stylesheet" href="../style/style.css" />
+    
+    <?php include_once("../frontend/head.html")?>
+    
     <style>
-        #upload-container{
-            width: 50%;
-            margin: 20px auto;
-            border: 1px solid #cbcbcb;
-        }
-        .upload-form{
-            width: 50%;
-            margin: 20px auto;
-        }
-        .upload-form div{
-            margin-top: 5px;
-        }
         #img_div{
             width: 80%;
             padding: 5px;
@@ -68,32 +58,24 @@
 
 <body>
     <!-- nav bar -->
-    <div class="navbar">
-        <?php include_once("../frontend/navbar.html");?>
-    </div>
+    <div class="profile-container">
+        <div class="navbar">
+            <?php include_once("../frontend/navbar.html");?>
+        </div>
 
-    <div id="upload-container">
-  
-    <!-- to upload an image -->
-    <form class="upload-form" method="POST" action="" enctype="multipart/form-data">
-            <input type="file" name="myfile" value="" />
-            <div>
-                <button type="submit" name="btn">UPLOAD</button>
-            </div>
-        </form>
-    </div>
-    <div class="image-preview">
-    
-    <!-- fetching from the db all the images where the logged in user matchs the image username -->
-    <?php
-            $usrName = $_SESSION['username'];
-			$stat = $dbh->prepare("SELECT * FROM user_images WHERE `username`='$usrName'");
-			$stat->execute();
-            while($row = $stat->fetch()){
-                echo "<br/>
-                <embed class='image' src='data:".$row['type']. ";base64,".base64_encode($row['data'])."'width='200'/></li>";
-            }
-	?>
+        <!-- this will provide the preview of the user images -->
+        <div class="image-preview">
+            <!-- fetching from the db all the images where the logged in user matchs the image username -->
+            <?php
+                    $usrName = $_SESSION['username'];
+                    $stat = $dbh->prepare("SELECT * FROM user_images WHERE `username`='$usrName'");
+                    $stat->execute();
+                    while($row = $stat->fetch()){
+                        echo "<br/>
+                        <embed class='image' src='data:".$row['type']. ";base64,".base64_encode($row['data'])."'width='200'/></li>";
+                    }
+            ?>
+        </div>
     </div>
 </body>
 </html>

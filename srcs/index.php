@@ -4,11 +4,49 @@ option to log in and leads to signin.php file -->
 
 <?php
 
+	include("../srcs/database.php");
+	$DB_DSN_INIT = "mysql:host=localhost";
+	$sql = file_get_contents("../sql/init.sql");
+
+	try {
+
+		// connect to the server
+		$conn = new PDO($DB_DSN_INIT, $DB_USER, $DB_PASSWORD);
+		
+		// on connection status
+		if($conn){
+			echo "Conncetions success to server<br>";
+		} else {
+			echo "connection error to server<br>";
+		}
+
+		// set the PDO error mode to exception
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		
+		// execute the sql query
+		$conn->exec($sql);
+
+		// an output result just for testing purposes.
+		echo "Database camagru_website created successfully<br>";
+		echo "User Table has been created succesfully<br>";
+		echo "Images Table has been created succesfully<br>";
+		
+		// incase of error, write this message
+	} catch(PDOException $error){
+		echo $sql . "<br>" . $error->getMessage();
+	}
+
+	$conn = null;
+
+?>
+
+<?php
+
 error_reporting(0);
 
 // NOTE, check about adding require_once(deploy.php) soo it creates the schema on load.
 // including the connection to mysql database file.
-require_once('config.php');
+include('config.php');
 
 // starting session to pass through server the user data.
 session_start();
@@ -36,7 +74,6 @@ if(isset($_POST['submit'])){
 		$message = "<h6>"."username already exist"."<h6>";
 
 	} else {
-
 
 		// check if one info is not givin by user, return error message
 		if(empty($email) || empty($password) || empty($fullname) || empty($username)){
@@ -92,37 +129,11 @@ if(isset($_POST['submit'])){
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<!-- font awesome cdn to include their styling kit -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	
-	<!-- google fonts cdn -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet"> 
-	
+	<?php include_once("../frontend/head.html")?>	
 	<title>Camagru Signup</title>
 
 	<style>
 		
-		html{
-			background-image: url("../media/031 Blessing.png");
-			/* background-image: url("../media/122 Cheerful Caramel.png"); */
-			/* background-image: url("../media/076 Premium Dark.png"); */
-		}
-		
-		/* default settings for all elements */
-		*{
-			margin:0;
-			padding:0;
-			box-sizing: border-box;
-			font-size: 1em;
-			/* color: #000; */
-			font-family: 'Space Grotesk', sans-serif;
-		}
-
 		.credentials-container{
 			display: flex;
 			flex-direction: column;

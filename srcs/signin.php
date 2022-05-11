@@ -61,23 +61,14 @@ if(isset($_POST['submit'])){
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	<!-- font awesome cdn to include their styling kits -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	
-	<!-- google fonts cdn -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet"> 
-
+	<?php include_once("../frontend/head.html")?>
 	<title>Camagru Signin</title>
 
 	<style>
 
 		html{
-			background-image: url("../media/031 Blessing.png");
+			/* background-image: url("../media/031 Blessing.png"); */
 			/* background-image: url("../media/122 Cheerful Caramel.png"); */
 			/* background-image: url("../media/076 Premium Dark.png"); */
 		}
