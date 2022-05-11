@@ -165,7 +165,7 @@
     <!-- <div class="image-preview"> -->
 </body>
 <script>
-    
+
     // function to display upload image box
     function displayUpload(){
         var upload = document.getElementById("upload-container");
@@ -178,4 +178,3 @@
     }
 </script>
 </html>
-        
