@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax button</title>
+</head>
+<body>
+
+    <!-- create a button that on click, it will run get method -->
+    <button type="button" onclick="getMethod()">Click me I am Get</button>
+    <br><br>
+
+    <!-- same as above but with post method -->
+    <button type="button" onclick="postMethod()">Click me I am Post</button>
+    <br><br>
+    
+    <!-- results will be displayed inside this div -->
+    <div id="result"></div>
+</body>
+<script>
+
+    // function which will use get method  
+    function getMethod(){
+
+        // open http request
+        let xhr = new XMLHttpRequest();
+
+        // create some variable with a name
+        let name = "omar";
+
+        // when the request loads, we will do some actions according to the status
+        // onload does similar job for the method .onreadystatechange
+        xhr.onload = function(){
+            
+            // if the status 200 which means all went well without errors
+            if (this.status == 200){
+                
+                // display the response which is coming from php file into the result div
+                document.getElementById("result").innerHTML = this.response;
+            };
+        };
+
+        // we open get request, send to the php file including the keys, and values
+        // true to make the request async
+        xhr.open('GET', 'resp.php?name='+name, true);
+
+        // send the request
+        xhr.send();
+    }
+
+    // same as get request except at the bottom
+    function postMethod(){
+        let xhr =  new XMLHttpRequest();
+        let name = "omar";
+        
+        xhr.onload = function(){
+            if (this.status == 200){
+                document.getElementById("result").innerHTML = this.response;
+            };
+        };
+
+        // we open this time with POST, and notice we don't send keys, values here.
+        xhr.open('POST', 'resp.php', true);
+
+        // we have to set th request header this time.
+        // for different content types, check
+        // check url(https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        
+        // here we have to send the keys, and values if they exist.
+        xhr.send("name="+name);
+    }
+
+</script>
+</html>
