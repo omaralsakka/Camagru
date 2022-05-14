@@ -5,7 +5,12 @@
     <style>
         .main-container{
             display: flex;
-
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            /* margin: 30px auto; */
+            padding: 30px;
+            
         }
         .result{
             display: flex;
@@ -19,24 +24,28 @@
             justify-content: center;
             align-items: center;
         }
-        .filters{
+        .filters-container{
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 10%;
-            background-color: yellow;
-            border: none;
-            border-radius: 10px;
+            height: 59vh;
+            padding: 10px;
+            margin-right: 50px;
             margin-left: auto;
-        }
-        .filters img{
-            width: 100px;
-            margin: 5px;
-            background-color: red;
+            background-color: coral;
             border: none;
             border-radius: 10px;
-
+            overflow: scroll;
+        }
+        .filter{
+            background-color: wheat;
+            border-radius: 10px;
+            margin: 10px;
+        }
+        .filter img{
+            width: 100px;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -53,16 +62,37 @@
                     <input id="hidden" type="hidden" name="base64image">
                 </form>
             </div>
-            <div class="filters">
-                <button type="submit" class="filter" id="f1" value="submit" ><img src="../media/filters/pngegg.png" alt=""></button>
-                <button class="filter" id="f2" value="submit" ><img src="../media/filters/pngegg(4).png" alt="" ></button>
-                <button class="filter" id="f3" value="submit" ><img src="../media/filters/pngegg(2).png" alt="" ></button>
+
+            <div class="result">
+                <img id="result" src="" alt="">
+            </div>
+
+            <div class="filters-container">
+                <button class="filter" type="button" value="button" id="f1.png"
+                onclick="selectF(this.id)">
+                    <img src="../media/filters/f1.png" alt="filterimage">
+                </button>
+                <button class="filter" type="button" value="button" id="f2.png"
+                onclick="selectF(this.id)">
+                    <img src="../media/filters/f2.png" alt="filterimage">
+                </button>
+                <button class="filter" type="button" value="button" id="f3.png"
+                onclick="selectF(this.id)">
+                    <img src="../media/filters/f3.png" alt="filterimage">
+                <button class="filter" type="button" value="button" id="f4.png"
+                onclick="selectF(this.id)">
+                    <img src="../media/filters/f4.png" alt="filterimage">
+                </button>
+                <button class="filter" type="button" value="button">
+                </button>
+                <button class="filter" type="button" value="button" id="f8.png"
+                onclick="selectF(this.id)">
+                    <img src="../media/filters/f8.png" alt="filterimage">
+                </button>
             </div>
         </div>
-        <br><br>
-        <div class="result">
-            <?php include('image.php')?>
-        </div>
+        <!-- <br><br> -->
+
     </body>
 
     <script>
@@ -71,12 +101,11 @@
         let form = document.getElementById('imgForm');
         let canvas = document.querySelector("#canvas");
         let hidden = document.getElementById("hidden");
-        // var filterNum;
-        // function filterChoice(filterId){
-            
-        //     filterNum = filterId;
-            
-        // }
+        let filter = ""
+
+        function selectF(id){
+        filter = id;
+        }
 
         camera_button.addEventListener('click', async function() {
             let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
@@ -84,21 +113,24 @@
         });
 
         form.addEventListener('submit', function(e) {
-            // console.log(filterNum);
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'image.php', true);
-            xhr.onload = function(){
-                if (this.status == 200){
-                    // console.log(this.responseText);
-                    console.log(filterNum);
-                };
-            }
+            e.preventDefault();
             canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
             image_data_url = canvas.toDataURL();
             hidden.value = image_data_url;
-            // console.log(hidden.value);
-            var filter = "filter="+filterNum;
-            var response = "base64image="+hidden.value+"&"+filter;
+            
+            let xhr = new XMLHttpRequest();
+            let response = "image="+image_data_url+"&filterNumber="+filter;
+            xhr.responseType = 'blob';
+            xhr.onload = function(){
+                if (this.status == 200){
+                    let imgResult = URL.createObjectURL(this.response);
+                    document.getElementById('result').src = imgResult;
+                    console.log(this.response);
+                };
+            }
+            xhr.open('POST', 'image.php', true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.setRequestHeader("Content-type", "image/png");
             xhr.send(response);
         });
         
