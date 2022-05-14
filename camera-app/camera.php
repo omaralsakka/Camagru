@@ -12,13 +12,6 @@
             padding: 30px;
             
         }
-        .result{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 50%;
-            margin: 0 auto;
-        }
         .camera-container{
             display: flex;
             justify-content: center;
@@ -47,6 +40,26 @@
             border: none;
             border-radius: 10px;
         }
+        /* #result{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* width: 90%; 
+        } */
+
+        #result{
+            margin: auto;
+            width: 640px;
+            height: 480px;
+            border: none;
+            display: flex;
+            /* background-size: 640px 480px; */
+        }
+        #filterImg{
+            /* align-self: flex-end; */
+            width: inherit;
+            height: 480px;
+        }
     </style>
 </head>
     <body>
@@ -63,8 +76,11 @@
                 </form>
             </div>
 
-            <div class="result">
+            <!-- <div class="result">
                 <img id="result" src="" alt="">
+            </div> -->
+            <div id="result">
+                <img id="filterImg" alt="">
             </div>
 
             <div class="filters-container">
@@ -72,24 +88,44 @@
                 onclick="selectF(this.id)">
                     <img src="../media/filters/f1.png" alt="filterimage">
                 </button>
+                
                 <button class="filter" type="button" value="button" id="f2.png"
                 onclick="selectF(this.id)">
                     <img src="../media/filters/f2.png" alt="filterimage">
                 </button>
+                
                 <button class="filter" type="button" value="button" id="f3.png"
                 onclick="selectF(this.id)">
                     <img src="../media/filters/f3.png" alt="filterimage">
+                </button>
+                
                 <button class="filter" type="button" value="button" id="f4.png"
                 onclick="selectF(this.id)">
                     <img src="../media/filters/f4.png" alt="filterimage">
                 </button>
-                <button class="filter" type="button" value="button">
+                
+                <button class="filter" type="button" value="button" id="f5.png"
+                onclick="selectF(this.id)">
+                    <img src="../media/filters/f5.png" alt="filterimage">
                 </button>
+
+                <button class="filter" type="button" value="button" id="f6.png"
+                onclick="selectF(this.id)">
+                    <img src="../media/filters/f6.png" alt="filterimage">
+                </button>
+
+                <button class="filter" type="button" value="button" id="f7.png"
+                onclick="selectF(this.id)">
+                    <img src="../media/filters/f7.png" alt="filterimage">
+                </button>
+                
                 <button class="filter" type="button" value="button" id="f8.png"
                 onclick="selectF(this.id)">
                     <img src="../media/filters/f8.png" alt="filterimage">
                 </button>
+            
             </div>
+        
         </div>
         <!-- <br><br> -->
 
@@ -101,10 +137,12 @@
         let form = document.getElementById('imgForm');
         let canvas = document.querySelector("#canvas");
         let hidden = document.getElementById("hidden");
-        let filter = ""
+        let filter = "";
+        let filterLocation;
 
         function selectF(id){
         filter = id;
+        filterLocation = '../media/filters/'+id;
         }
 
         camera_button.addEventListener('click', async function() {
@@ -124,8 +162,14 @@
             xhr.onload = function(){
                 if (this.status == 200){
                     let imgResult = URL.createObjectURL(this.response);
-                    document.getElementById('result').src = imgResult;
-                    console.log(this.response);
+                    let result = document.getElementById('result');
+                    let filterImg = document.getElementById('filterImg');
+                    
+                    result.style.background = "url('"+image_data_url+"')";
+                    result.style.backgroundRepeat = "no-repeat";
+                    result.style.backgroundSize = "cover";
+                    if (filter == "f1.png" )
+                    filterImg.src = filterLocation;
                 };
             }
             xhr.open('POST', 'image.php', true);
