@@ -29,12 +29,12 @@
             border-radius: 10px;
             overflow: scroll;
         }
-        .filter{
+        .filters-container button{
             background-color: wheat;
             border-radius: 10px;
             margin: 10px;
         }
-        .filter img{
+        .filters-container img{
             width: 100px;
             padding: 10px;
             border: none;
@@ -84,43 +84,43 @@
             </div>
 
             <div class="filters-container">
-                <button class="filter" type="button" value="button" id="f1.png"
-                onclick="selectF(this.id)">
+                <button class="frame" type="button" value="button" id="f1.png"
+                onclick="selectF(this)">
                     <img src="../media/filters/f1.png" alt="filterimage">
                 </button>
                 
-                <button class="filter" type="button" value="button" id="f2.png"
-                onclick="selectF(this.id)">
+                <button class="filterTopRight" type="button" value="button" id="f2.png"
+                onclick="selectF(this)">
                     <img src="../media/filters/f2.png" alt="filterimage">
                 </button>
                 
                 <button class="filter" type="button" value="button" id="f3.png"
-                onclick="selectF(this.id)">
+                onclick="selectF(this)">
                     <img src="../media/filters/f3.png" alt="filterimage">
                 </button>
                 
-                <button class="filter" type="button" value="button" id="f4.png"
-                onclick="selectF(this.id)">
+                <button class="filterTopRight" type="button" value="button" id="f4.png"
+                onclick="selectF(this)">
                     <img src="../media/filters/f4.png" alt="filterimage">
                 </button>
                 
-                <button class="filter" type="button" value="button" id="f5.png"
-                onclick="selectF(this.id)">
+                <button class="frame" type="button" value="button" id="f5.png"
+                onclick="selectF(this)">
                     <img src="../media/filters/f5.png" alt="filterimage">
                 </button>
 
-                <button class="filter" type="button" value="button" id="f6.png"
-                onclick="selectF(this.id)">
+                <button class="filterTopCenter" type="button" value="button" id="f6.png"
+                onclick="selectF(this)">
                     <img src="../media/filters/f6.png" alt="filterimage">
                 </button>
 
-                <button class="filter" type="button" value="button" id="f7.png"
-                onclick="selectF(this.id)">
+                <button class="filterBottom" type="button" value="button" id="f7.png"
+                onclick="selectF(this)">
                     <img src="../media/filters/f7.png" alt="filterimage">
                 </button>
                 
-                <button class="filter" type="button" value="button" id="f8.png"
-                onclick="selectF(this.id)">
+                <button class="filterBottom" type="button" value="button" id="f8.png"
+                onclick="selectF(this)">
                     <img src="../media/filters/f8.png" alt="filterimage">
                 </button>
             
@@ -139,10 +139,14 @@
         let hidden = document.getElementById("hidden");
         let filter = "";
         let filterLocation;
+        let imgClass = "";
 
-        function selectF(id){
-        filter = id;
-        filterLocation = '../media/filters/'+id;
+        function selectF(element){
+            filter = element.id;
+            imgClass = element.className;
+            filterLocation = '../media/filters/'+filter;
+            console.log(filter);
+            console.log(imgClass);
         }
 
         camera_button.addEventListener('click', async function() {
