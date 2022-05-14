@@ -187,7 +187,7 @@
                             filterImg.style.alignSelf = "flex-start";
                             filterImg.style.width = "320px";
                             filterImg.style.height = "240px";
-                            filterImg.style.marginLeft = "auto";
+                            filterImg.style.margin = "0 0 0 auto";
                             break;
                         case "filterTopCenter":
                             filterImg.style.alignSelf = "flex-start";
@@ -205,7 +205,8 @@
                             filterImg.style.alignSelf = "flex-end";
                             filterImg.style.width = "320px";
                             filterImg.style.height = "240px";
-                            filterImg.style.marginLeft = "auto";
+                            filterImg.style.margin = "auto 0 0 auto";
+
                             break;
 
                     }
