@@ -62,6 +62,7 @@
         }
     </style>
 </head>
+
     <body>
         <div class="main-container">
             <div class="camera-container">
@@ -69,7 +70,7 @@
                 <video id="video" width="320" height="240" autoplay>
                     <canvas id="canvas" width="320" height="240" type="hidden"></canvas>
                 </video>
-                <!-- <img id="canvasFilter" src="" alt=""> -->
+                
                 <form id="imgForm" method="post" action="">
                     <button id="click-photo" type="submit" value="submit">Click Photo</button>
                     <input id="hidden" type="hidden" name="base64image">
@@ -120,20 +121,25 @@
                 onclick="selectF(this)">
                     <img src="../media/filters/f8.png" alt="filterimage">
                 </button>
-            
+
             </div>
-        
+
         </div>
-        <!-- <br><br> -->
+
+        <!-- this supposed to be canvas of final results -->
+        <!-- <canvas id="canvas2" width="640" height="480" type="hidden"></canvas> -->
 
     </body>
 
     <script>
+
         let camera_button = document.querySelector("#start-camera");
         let video = document.querySelector("#video");
         let form = document.getElementById('imgForm');
         let canvas = document.querySelector("#canvas");
+        let canvas2 = document.querySelector("#canvas2");
         let hidden = document.getElementById("hidden");
+        let final = document.querySelector('#result')
         let filter = "";
         let filterLocation;
         let filterClass = "";
@@ -150,7 +156,6 @@
         }
 
         function placeFilter(filterClass){
-            
         }
         camera_button.addEventListener('click', async function() {
             let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
@@ -163,60 +168,59 @@
             image_data_url = canvas.toDataURL();
             hidden.value = image_data_url;
             
+            let result = document.getElementById('result');
+            let filterImg = document.getElementById('filterImg');
+            
+            result.style.background = "url('"+image_data_url+"')";
+            result.style.backgroundRepeat = "no-repeat";
+            result.style.backgroundSize = "cover";
+            filterImg.src = filterLocation;
+            
+            switch (filterClass){
+                case "frame":
+                    filterImg.style.width = "640px";
+                    filterImg.style.height = "480px";
+                    break;
+                case "filterTopRight":
+                    filterImg.style.alignSelf = "flex-start";
+                    filterImg.style.width = "320px";
+                    filterImg.style.height = "240px";
+                    filterImg.style.margin = "0 0 0 auto";
+                    break;
+                case "filterTopCenter":
+                    filterImg.style.alignSelf = "flex-start";
+                    filterImg.style.width = "320px";
+                    filterImg.style.height = "240px";
+                    filterImg.style.margin = "-5% auto 100% auto";
+                    break;
+                case "filterBottomCenter":
+                    filterImg.style.alignSelf = "flex-end";
+                    filterImg.style.width = "320px";
+                    filterImg.style.height = "240px";
+                    filterImg.style.margin = "100% auto -5% auto";
+                    break;
+                case "filterBottomRight":
+                    filterImg.style.alignSelf = "flex-end";
+                    filterImg.style.width = "320px";
+                    filterImg.style.height = "240px";
+                    filterImg.style.margin = "0 0 0 auto";
+                    break;
+            }
+
             let xhr = new XMLHttpRequest();
             let response = "image="+image_data_url+"&filterNumber="+filter;
             xhr.responseType = 'blob';
             xhr.onload = function(){
-                
-                if (this.status == 200){
-                    let imgResult = URL.createObjectURL(this.response);
-                    let result = document.getElementById('result');
-                    let filterImg = document.getElementById('filterImg');
-                    
-                    result.style.background = "url('"+image_data_url+"')";
-                    result.style.backgroundRepeat = "no-repeat";
-                    result.style.backgroundSize = "cover";
-                    filterImg.src = filterLocation;
-
-                    switch (filterClass){
-                        case "frame":
-                            filterImg.style.width = "640px";
-                            filterImg.style.height = "480px";
-                            break;
-                        case "filterTopRight":
-                            filterImg.style.alignSelf = "flex-start";
-                            filterImg.style.width = "320px";
-                            filterImg.style.height = "240px";
-                            filterImg.style.margin = "0 0 0 auto";
-                            break;
-                        case "filterTopCenter":
-                            filterImg.style.alignSelf = "flex-start";
-                            filterImg.style.width = "320px";
-                            filterImg.style.height = "240px";
-                            filterImg.style.margin = "-5% auto 100% auto";
-                            break;
-                        case "filterBottomCenter":
-                            filterImg.style.alignSelf = "flex-end";
-                            filterImg.style.width = "320px";
-                            filterImg.style.height = "240px";
-                            filterImg.style.margin = "100% auto -5% auto";
-                            break;
-                        case "filterBottomRight":
-                            filterImg.style.alignSelf = "flex-end";
-                            filterImg.style.width = "320px";
-                            filterImg.style.height = "240px";
-                            filterImg.style.margin = "auto 0 0 auto";
-
-                            break;
-
+                    if (this.status == 200){
+                        let imgResult = URL.createObjectURL(this.response);
                     }
-                }
             }
+            
             xhr.open('POST', 'image.php', true);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.setRequestHeader("Content-type", "image/png");
             xhr.send(response);
         });
-        
+
     </script>
 </html>
