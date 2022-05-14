@@ -58,10 +58,7 @@
             height: 480px;
             border: none;
             display: flex;
-        }
-        #filterImg{
-            width: inherit;
-            height: 480px;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -72,7 +69,7 @@
                 <video id="video" width="320" height="240" autoplay>
                     <canvas id="canvas" width="320" height="240" type="hidden"></canvas>
                 </video>
-                <img id="canvasFilter" src="" alt="">
+                <!-- <img id="canvasFilter" src="" alt=""> -->
                 <form id="imgForm" method="post" action="">
                     <button id="click-photo" type="submit" value="submit">Click Photo</button>
                     <input id="hidden" type="hidden" name="base64image">
@@ -182,6 +179,10 @@
                     filterImg.src = filterLocation;
 
                     switch (filterClass){
+                        case "frame":
+                            filterImg.style.width = "640px";
+                            filterImg.style.height = "480px";
+                            break;
                         case "filterTopRight":
                             filterImg.style.alignSelf = "flex-start";
                             filterImg.style.width = "320px";
