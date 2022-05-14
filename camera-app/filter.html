@@ -41,38 +41,41 @@
 <body>
     <div class="main-container">
         <div class="filters-container">
-            <button class="filter" type="button" value="button" id="f1"
+            <button class="filter" type="button" value="button" id="f1.png"
             onclick="selectF(this.id)">
-                <img src="../media/filters/filter2.png" alt="filterimage">
+                <img src="../media/filters/f1.png" alt="filterimage">
             </button>
-            <button class="filter" type="button" value="button" id="f2"
+            <button class="filter" type="button" value="button" id="f2.png"
             onclick="selectF(this.id)">
-                <img src="../media/filters/filter3.png" alt="filterimage">
+                <img src="../media/filters/f2.png" alt="filterimage">
             </button>
-            <button class="filter" type="button" value="button" id="f3"
+            <button class="filter" type="button" value="button" id="f3.png"
             onclick="selectF(this.id)">
-                <img src="../media/filters/pngegg(5).png" alt="filterimage">
-            <button class="filter" type="button" value="button" id="f4"
+                <img src="../media/filters/f3.png" alt="filterimage">
+            <button class="filter" type="button" value="button" id="f4.png"
             onclick="selectF(this.id)">
-                <img src="../media/filters/pngegg.png" alt="filterimage">
+                <img src="../media/filters/f4.png" alt="filterimage">
             </button>
-            <button class="filter" type="button" value="button" id="f5"
+            <button class="filter" type="button" value="button" id="f5.png"
             onclick="selectF(this.id)">
-                <img src="../media/filters/pngegg(1).png" alt="filterimage">
+                <img src="../media/filters/f5.png" alt="filterimage">
             </button>
-            <button class="filter" type="button" value="button" id="f6"
+            <button class="filter" type="button" value="button" id="f6.png"
             onclick="selectF(this.id)">
-                <img src="../media/filters/pngegg(2).png" alt="filterimage">
+                <img src="../media/filters/f6.png" alt="filterimage">
             </button>
-            <button class="filter" type="button" value="button" id="f7" 
+            <button class="filter" type="button" value="button" id="f7.png" 
             onclick="selectF(this.id)">
-                <img src="../media/filters/pngegg(3).png" alt="filterimage">
+                <img src="../media/filters/f7.png" alt="filterimage">
             </button>
-            <button class="filter" type="button" value="button" id="f8"
+            <button class="filter" type="button" value="button" id="f8.png"
             onclick="selectF(this.id)">
-                <img src="../media/filters/pngegg(4).png" alt="filterimage">
+                <img src="../media/filters/f8.png" alt="filterimage">
             </button>
         </div>
+    </div>
+    <div>
+        <img id="result" src="" alt="">
     </div>
 </body>
 <script>
@@ -83,6 +86,7 @@
         xhr.onload = function(){
             if (this.status == 200){
                 console.log(this.response);
+                document.getElementById('result').src = this.response;
             }
         }
         xhr.open('POST', 'image.php', true);
