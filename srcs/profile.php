@@ -72,7 +72,7 @@
                     $stat->execute();
                     while($row = $stat->fetch()){
                         echo "<br/>
-                        <embed class='image' src='data:".$row['type']. ";base64,".base64_encode($row['data'])."'width='200'/></li>";
+                        <embed class='image' src='data:".$row['type'].";base64,".base64_encode($row['data'])."'width='200'/></li>";
                     }
             ?>
         </div>

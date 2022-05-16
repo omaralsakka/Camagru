@@ -21,5 +21,9 @@
     if (isset($_POST['userImageResult'])){
         echo $_POST['userImageResult'];
     }
-        
+
+    if (isset($_POST['uploadBtn'])){
+        $tmpName = $_FILES['myfile']['name'];
+        $tmpType = $_FILES['myfile']['type'];
+    }
 ?>

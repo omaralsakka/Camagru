@@ -7,6 +7,13 @@
     // connection to the db
     $dbh = new PDO("mysql:host=localhost;dbname=camagru_website", "root", "123456");
 
+    // if (isset($_POST['uploadBtn'])){
+    //     $tmpName = $_FILES['myfile']['name'];
+    //     $tmpType = $_FILES['myfile']['type'];
+        // echo "
+        // <img class='image' src='data:".$tmpType.";base64,".base64_encode($tmpData)."'width='200'/></li>";
+
+    // }
     // on upload button
     if(isset($_POST['btn'])){
         
@@ -108,6 +115,7 @@
         } */
 
     </style>
+    <script src="../scripts/applyFilter.js"></script>
 </head>
 
 <body>
@@ -118,21 +126,30 @@
 
     <div class="middleWrapper">
         <div class="main-container">
+            <div id="picResult">
+                <img id="filterImg" alt="">
+            </div>
             <div id="upload-container">
-                    <form class="upload-form" method="POST" action="" enctype="multipart/form-data">
+                    <!-- <form class="upload-form" method="POST" action="" enctype="multipart/form-data">
                         <input type="file" name="myfile" value="" />
                         <div>
                             <button type="submit" name="btn">Confirm</button>
                         </div>
-                    </form>
+                    </form> -->
+                    
+                    <div>
+                        <p><input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;"></p>
+                        <button><label for="file" style="cursor: pointer;">Upload Image</label></button>
+
+                    </div>
             </div>
             <div id="camera-container">
                     <video id="video" width="640" height="480" autoplay>
                         <canvas id="canvas" width="640" height="480" type="hidden"></canvas>
                     </video>
-                    <div id="picResult">
+                    <!-- <div id="picResult">
                         <img id="filterImg" alt="">
-                    </div>
+                    </div> -->
                     <form id="imgForm" method="post" action="">
                         <button id="click-photo" type="submit" value="submit">
                             <img id="lensIcon" src="../media/icons/icons8-lense-64.png" alt="lense image">
@@ -160,6 +177,7 @@
 </body>
 <script>
 
+
     let cameraContainer = document.getElementById('camera-container');
     let camera_button = document.querySelector("#start-camera");
     let video = document.querySelector("#video");
@@ -167,11 +185,34 @@
     let canvas = document.querySelector("#canvas");
     let hidden = document.getElementById("hidden");
     let resultCanvas = document.getElementById('resultCanvas');
+    let filterImg = document.getElementById('filterImg');
     let filter = "";
     let filterLocation;
     let filterClass = "";
     let userImageResult = '';
-    
+
+    // function to select the filter
+    function selectF(element){
+        filter = element.id;
+        filterClass = element.className;
+        filterLocation = '../media/filters/'+filter;
+    }
+
+    var loadFile = function(event) {
+        let picResult = document.getElementById('picResult');
+        picResult.style.display = 'flex';
+        picResult.style.background = "url('"+URL.createObjectURL(event.target.files[0])+"')";
+        picResult.style.backgroundRepeat = "no-repeat";
+        picResult.style.backgroundSize = "auto";
+        filterImg.src = filterLocation;
+        applyFilter(filterClass);
+        document.getElementById('submitButton').style.display = "block";
+        if (filterImg.src == ""){
+            filterImg.style.display = 'none';
+        } else {
+            filterImg.style.display = 'block';
+        }
+    };
     // function to display upload image box
     function displayUpload(){
         let upload = document.getElementById("upload-container");        
@@ -216,12 +257,7 @@
         xhr.send('userImageResult='+userImageResult);
     }
     
-    // function to select the filter
-    function selectF(element){
-        filter = element.id;
-        filterClass = element.className;
-        filterLocation = '../media/filters/'+filter;
-    }
+
     
     // to activate the video
     camera_button.addEventListener('click', async function() {
@@ -234,7 +270,7 @@
     form.addEventListener('submit', function(e) {
         
         let result = document.getElementById('picResult');
-        let filterImg = document.getElementById('filterImg');
+        // let filterImg = document.getElementById('filterImg');
         e.preventDefault();
         canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
         image_data_url = canvas.toDataURL();
@@ -247,39 +283,10 @@
         result.style.backgroundSize = "cover";
         filterImg.src = filterLocation;
 
-        switch (filterClass){
-            case "frame":
-                filterImg.style.width = "640px";
-                filterImg.style.height = "480px";
-                break;
-            case "filterTopRight":
-                filterImg.style.alignSelf = "flex-start";
-                filterImg.style.width = "320px";
-                filterImg.style.height = "240px";
-                filterImg.style.margin = "0 0 0 auto";
-                break;
-            case "filterTopCenter":
-                filterImg.style.alignSelf = "flex-start";
-                filterImg.style.width = "320px";
-                filterImg.style.height = "240px";
-                filterImg.style.margin = "-5% auto 100% auto";
-                break;
-            case "filterBottomCenter":
-                filterImg.style.alignSelf = "flex-end";
-                filterImg.style.width = "320px";
-                filterImg.style.height = "240px";
-                filterImg.style.margin = "100% auto 0 auto"; 
-                // filterImg.style.margin = "100% auto -5% auto";
-                break;
-            case "filterBottomRight":
-                filterImg.style.alignSelf = "flex-end";
-                filterImg.style.width = "320px";
-                filterImg.style.height = "240px";
-                filterImg.style.margin = "0 0 0 auto";
-                break;
-        }
+        applyFilter(filterClass);
+        // under here was the switch filter
+
         video.style.display = 'none';
-        // cameraContainer.style.display = "none";
         document.getElementById('submitButton').style.display = "block";
         if (filterImg.src == ""){
             filterImg.style.display = 'none';
