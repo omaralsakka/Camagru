@@ -60,15 +60,22 @@
             display: flex;
             overflow: hidden;
         }
+
+        #submitButton{
+            display: none;
+        }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" 
+    integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
     <body>
         <div class="main-container">
             <div class="camera-container">
                 <button id="start-camera">Start Camera</button>
-                <video id="video" width="320" height="240" autoplay>
-                    <canvas id="canvas" width="320" height="240" type="hidden"></canvas>
+                <video id="video" width="620" height="480" autoplay>
+                    <canvas id="canvas" width="620" height="480" type="hidden"></canvas>
                 </video>
                 
                 <form id="imgForm" method="post" action="">
@@ -126,9 +133,9 @@
 
         </div>
 
-        <!-- this supposed to be canvas of final results -->
-        <!-- <canvas id="canvas2" width="640" height="480" type="hidden"></canvas> -->
-
+        <!-- submit button to post image to image.php -->
+        <button id="submitButton" onclick="submitImage()" type="button">Save Image</button>
+    
     </body>
 
     <script>
@@ -137,26 +144,49 @@
         let video = document.querySelector("#video");
         let form = document.getElementById('imgForm');
         let canvas = document.querySelector("#canvas");
-        let canvas2 = document.querySelector("#canvas2");
         let hidden = document.getElementById("hidden");
-        let final = document.querySelector('#result')
         let filter = "";
         let filterLocation;
         let filterClass = "";
-        let canvasFilter = document.getElementById("canvasFilter");
+        let resultCanvas = document.getElementById('resultCanvas');
+        let userImageResult = '';
+
+        function submitImage(){
+            var container = document.getElementById("result"); 
+            html2canvas(container, { allowTaint: true }).then(function (canvas) {
+                
+                // this is if I want to save image locally
+                // var link = document.createElement("a");
+                // document.body.appendChild(link);
+                // link.download = "html_image.jpg";
+                // link.href = canvas.toDataURL();
+                // link.target = '_blank';
+                // link.click();
+                userImageResult = canvas.toDataURL();
+
+                setTimeout(postUserImage(userImageResult), 1000);
+            });
+            // console.log("this is userImageResult content: "+userImageResult);
+        }
+
+        function postUserImage(usrImg){
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function(){
+                if (this.status == 200){
+                    // console.log("This is POST results:"+this.response)
+                }
+            }
+            xhr.open('POST', 'image.php', true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send('userImageResult='+userImageResult);
+        }
 
         function selectF(element){
             filter = element.id;
             filterClass = element.className;
             filterLocation = '../media/filters/'+filter;
-            canvasFilter.src = filterLocation;
-            console.log(filter);
-            console.log(filterClass);
-            placeFilter(filterClass);
         }
 
-        function placeFilter(filterClass){
-        }
         camera_button.addEventListener('click', async function() {
             let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
             video.srcObject = stream;
@@ -164,6 +194,7 @@
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
+            
             canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
             image_data_url = canvas.toDataURL();
             hidden.value = image_data_url;
@@ -207,20 +238,9 @@
                     break;
             }
 
-            let xhr = new XMLHttpRequest();
-            let response = "image="+image_data_url+"&filterNumber="+filter;
-            xhr.responseType = 'blob';
-            xhr.onload = function(){
-                    if (this.status == 200){
-                        let imgResult = URL.createObjectURL(this.response);
-                    }
-            }
-            
-            xhr.open('POST', 'image.php', true);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.setRequestHeader("Content-type", "image/png");
-            xhr.send(response);
+            document.getElementById('submitButton').style.display = "block";
         });
 
     </script>
+
 </html>
