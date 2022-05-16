@@ -127,7 +127,7 @@
                     </form>
             </div>
             <div id="camera-container">
-                    <button id="start-camera">Start Camera</button>
+                    <!-- <button id="start-camera">Start Camera</button> -->
                     <video id="video" width="620" height="480" autoplay>
                         <canvas id="canvas" width="620" height="480" type="hidden"></canvas>
                     </video>
@@ -148,7 +148,7 @@
         <div class="footer-elements">
 
             <div class="buttons">
-                <button name="camera" onclick="displayCamera()">Snap it!</button>
+                <button id="start-camera" name="camera" onclick="displayCamera()">Snap it!</button>
             </div>
             <div class="buttons">
                 <button name="upload" onclick="displayUpload()">Upload it!</button>
