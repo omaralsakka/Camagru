@@ -28,45 +28,20 @@
 ?>
 <!DOCTYPE html>
 <html>
-  
+
 <head>
     <title>Profile</title>
     
     <?php include_once("../frontend/head.html")?>
     <style>
 
-        .main-container{
+        /* .main-container{
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 40vh auto;
             width: 50%;
-        }
-
-        #upload-container{
-            display: none;
-            width: 50%;
-            border: 1px solid #cbcbcb;
-			padding: 5px;
-			border-radius: 5px;
-			box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-			background-color: #F6F6F6;
-        }
-
-        .upload-container button{
-            padding: 5px;
-        }
-        .upload-form{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            margin: 20px auto;
-        }
-        .upload-form div{
-            margin-top: 20px;
-        }
+        } */
 
         .footer-container{
             position: fixed;
@@ -114,7 +89,7 @@
             box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
             font-family: 'Space Grotesk', sans-serif;
         }
-        #img_div{
+        /* #img_div{
             width: 80%;
             padding: 5px;
             margin: 15px auto;
@@ -124,42 +99,61 @@
             content: "";
             display: block;
             clear: both;
-        }
-        img{
+        } */
+        /* img{
             float: left;
             margin: 5px;
             width: 300px;
             height: 140px;
-        }
+        } */
 
     </style>
 </head>
 
 <body>
     <!-- nav bar -->
-    <div class="navbar">
+    <!-- <div class="navbar"> -->
         <?php include_once("../frontend/navbar.html");?>
-    </div>
+    <!-- </div> -->
 
-    <div class="main-container">
-        <div id="upload-container">
-                <form class="upload-form" method="POST" action="" enctype="multipart/form-data">
-                    <input type="file" name="myfile" value="" />
-                    <div>
-                        <button type="submit" name="btn">Confirm</button>
+    <div class="middleWrapper">
+        <div class="main-container">
+            <div id="upload-container">
+                    <form class="upload-form" method="POST" action="" enctype="multipart/form-data">
+                        <input type="file" name="myfile" value="" />
+                        <div>
+                            <button type="submit" name="btn">Confirm</button>
+                        </div>
+                    </form>
+            </div>
+            <div id="camera-container">
+                    <button id="start-camera">Start Camera</button>
+                    <video id="video" width="620" height="480" autoplay>
+                        <canvas id="canvas" width="620" height="480" type="hidden"></canvas>
+                    </video>
+                    <div id="result">
+                        <img id="filterImg" alt="">
                     </div>
-                </form>
+                    <form id="imgForm" method="post" action="">
+                        <button id="click-photo" type="submit" value="submit">Click Photo</button>
+                        <input id="hidden" type="hidden" name="base64image">
+                    </form>
+            </div>
+        </div>
+        <div class="filtersBar">
+            <?php include_once("../frontend/filtersBar.html")?>
         </div>
     </div>
     <div class="footer-container">
         <div class="footer-elements">
 
             <div class="buttons">
-                <button name="camera">Snap it!</button>
+                <button name="camera" onclick="displayCamera()">Snap it!</button>
             </div>
             <div class="buttons">
                 <button name="upload" onclick="displayUpload()">Upload it!</button>
             </div>
+            <button id="submitButton" onclick="submitImage()" type="button">Save Image</button>
         </div>
     </div>
     <!-- <div class="image-preview"> -->
@@ -168,13 +162,118 @@
 
     // function to display upload image box
     function displayUpload(){
-        var upload = document.getElementById("upload-container");
-        
+        let upload = document.getElementById("upload-container");
+        let camContainer = document.getElementById('camera-container');
         if (upload.style.display === "flex"){
             upload.style.display = "none";
         } else {
             upload.style.display = "flex";
+            camContainer.style.display = "none";
         }
     }
+
+    function displayCamera(){
+        let cameraContainer = document.getElementById('camera-container');
+        let upload = document.getElementById("upload-container");
+
+        if (cameraContainer.style.display == "flex"){
+            cameraContainer.style.display = "none";
+        } else {
+            cameraContainer.style.display = "flex";
+            upload.style.display = "none";
+        }
+    }
+
+    let camera_button = document.querySelector("#start-camera");
+        let video = document.querySelector("#video");
+        let form = document.getElementById('imgForm');
+        let canvas = document.querySelector("#canvas");
+        let hidden = document.getElementById("hidden");
+        let filter = "";
+        let filterLocation;
+        let filterClass = "";
+        let resultCanvas = document.getElementById('resultCanvas');
+        let userImageResult = '';
+
+        function submitImage(){
+            var container = document.getElementById("result"); 
+            html2canvas(container, { allowTaint: true }).then(function (canvas) {
+                
+                userImageResult = canvas.toDataURL();
+                setTimeout(postUserImage(userImageResult), 1000);
+            });
+        }
+
+        function postUserImage(usrImg){
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function(){
+                if (this.status == 200){
+                    // console.log("This is POST results:"+this.response)
+                }
+            }
+            xhr.open('POST', 'image.php', true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send('userImageResult='+userImageResult);
+        }
+
+        function selectF(element){
+            filter = element.id;
+            filterClass = element.className;
+            filterLocation = '../media/filters/'+filter;
+        }
+
+        camera_button.addEventListener('click', async function() {
+            let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+            video.srcObject = stream;
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            image_data_url = canvas.toDataURL();
+            hidden.value = image_data_url;
+            
+            let result = document.getElementById('result');
+            let filterImg = document.getElementById('filterImg');
+            filterImg.style.display = 'block';
+            result.style.background = "url('"+image_data_url+"')";
+            result.style.backgroundRepeat = "no-repeat";
+            result.style.backgroundSize = "cover";
+            filterImg.src = filterLocation;
+            
+            switch (filterClass){
+                case "frame":
+                    filterImg.style.width = "640px";
+                    filterImg.style.height = "480px";
+                    break;
+                case "filterTopRight":
+                    filterImg.style.alignSelf = "flex-start";
+                    filterImg.style.width = "320px";
+                    filterImg.style.height = "240px";
+                    filterImg.style.margin = "0 0 0 auto";
+                    break;
+                case "filterTopCenter":
+                    filterImg.style.alignSelf = "flex-start";
+                    filterImg.style.width = "320px";
+                    filterImg.style.height = "240px";
+                    filterImg.style.margin = "-5% auto 100% auto";
+                    break;
+                case "filterBottomCenter":
+                    filterImg.style.alignSelf = "flex-end";
+                    filterImg.style.width = "320px";
+                    filterImg.style.height = "240px";
+                    filterImg.style.margin = "100% auto -5% auto";
+                    break;
+                case "filterBottomRight":
+                    filterImg.style.alignSelf = "flex-end";
+                    filterImg.style.width = "320px";
+                    filterImg.style.height = "240px";
+                    filterImg.style.margin = "0 0 0 auto";
+                    break;
+            }
+
+            document.getElementById('submitButton').style.display = "block";
+        });
+
 </script>
 </html>

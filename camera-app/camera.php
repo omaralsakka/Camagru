@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        .main-container{
+        /* .main-container{
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
-            /* margin: 30px auto; */
             padding: 30px;
             
         }
@@ -18,7 +17,6 @@
             align-items: center;
         }
         .camera-container video{
-            /* position: relative; */
             margin: 20px;
         }
         .camera-container img{
@@ -26,8 +24,8 @@
             width: 320px;
             height: 240px;
             margin-left: 8px;
-        }
-        .filters-container{
+        } */
+        /* .filters-container{
             display: flex;
             flex-direction: column;
             height: 59vh;
@@ -50,9 +48,9 @@
             padding: 10px;
             border: none;
             border-radius: 10px;
-        }
+        } */
 
-        #result{
+        /* #result{
             margin: auto;
             width: 640px;
             height: 480px;
@@ -63,7 +61,7 @@
 
         #submitButton{
             display: none;
-        }
+        } */
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" 
     integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" 
@@ -88,7 +86,7 @@
                 <img id="filterImg" alt="">
             </div>
 
-            <div class="filters-container">
+            <!-- <div class="filters-container">
                 <button class="frame" type="button" value="button" id="f1.png"
                 onclick="selectF(this)">
                     <img src="../media/filters/f1.png" alt="filterimage">
@@ -129,7 +127,7 @@
                     <img src="../media/filters/f8.png" alt="filterimage">
                 </button>
 
-            </div>
+            </div> -->
 
         </div>
 

@@ -1,0 +1,108 @@
+.main-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 30px auto;
+    padding: 30px;
+    
+}
+#camera-container{
+    /* display: flex; */
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+#camera-container video{
+    /* position: relative; */
+    margin: 20px;
+}
+#camera-container img{
+    position: absolute;
+    width: 320px;
+    height: 240px;
+    margin-left: 8px;
+}
+
+#result{
+    /* display: none; */
+    margin: auto;
+    width: 640px;
+    height: 480px;
+    border: none;
+    display: flex;
+    overflow: hidden;
+}
+
+#filterImg{
+    display: none;
+}
+
+#submitButton{
+    display: none;
+}
+
+.filtersBar{
+    width: 8vw;
+    margin: 3vh 0 0 auto;
+    margin-right: 1vw;
+    /* position: absolute; */
+}
+
+.filters-container{
+    display: flex;
+    flex-direction: column;
+    height: 67vh;
+    padding: 10px;
+    background-color: coral;
+    border: none;
+    border-radius: 10px;
+    overflow: scroll;
+}
+
+.filters-container button{
+    background-color: wheat;
+    border-radius: 10px;
+    margin: 10px;
+}
+.filters-container img{
+    width: 5vw;
+    height: 10vh;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+}
+
+#upload-container{
+    display: none;
+    width: 50%;
+    margin: 0 auto;
+    margin-left: 26vw;
+    border: 1px solid #cbcbcb;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
+    background-color: #F6F6F6;
+}
+
+.upload-container button{
+    padding: 5px;
+}
+
+.upload-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 20px auto;
+}
+.upload-form div{
+    margin-top: 20px;
+}
+
+.middleWrapper{
+    display: flex;
+    justify-content: space-between;
+    margin: 5vh 1vw 5vh 1vw;
+}
