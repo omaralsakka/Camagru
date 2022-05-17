@@ -50,52 +50,7 @@
             width: 50%;
         } */
 
-        .footer-container{
-            position: fixed;
-            width: 100%;
-            min-width: 350px;
-            max-width: 50vw;
-            left: 25%;
-            bottom: 10px;
-        }
-        .footer-elements{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-			/* max-width: 900px; */
-			margin: auto;
-			/* border: 1px solid #ccc; */
-			margin-top: 15px;
-			border-radius: 5px;
-			box-shadow: 7.2px 14.4px 14.4px hsl(0deg 0% 0% / 0.28);
-			background-color: #F6F6F6;
-        }
-        .buttons{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50%;
-            
-        }
-        .footer-elements button{
-            width: 90%;
-            min-width: 50px;
-            max-width: 10vw;
-            padding: 15px;
-            /* margin: 8px; */
-            margin: 50px;
-            border: none; 
-            font-size: 18px;
-            color: #111111;
-            background-color: #FFCB74;
-            /* color: white; */
-            /* background-color: #3897f0; */
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
-            font-family: 'Space Grotesk', sans-serif;
-        }
+
         /* #img_div{
             width: 80%;
             padding: 5px;
@@ -119,10 +74,8 @@
 </head>
 
 <body>
-    <!-- nav bar -->
-    <!-- <div class="navbar"> -->
-        <?php include_once("../frontend/navbar.html");?>
-    <!-- </div> -->
+
+    <?php include_once("../frontend/navbar.html");?>
 
     <div class="middleWrapper">
         <div class="main-container">
@@ -139,7 +92,7 @@
                     
                     <div>
                         <p><input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;"></p>
-                        <button><label for="file" style="cursor: pointer;">Upload Image</label></button>
+                        <button><label for="file" style="cursor: pointer;">Browse</label></button>
 
                     </div>
             </div>
@@ -176,7 +129,6 @@
     </div>
 </body>
 <script>
-
 
     let cameraContainer = document.getElementById('camera-container');
     let camera_button = document.querySelector("#start-camera");
