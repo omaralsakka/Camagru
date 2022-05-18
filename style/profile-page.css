@@ -1,0 +1,78 @@
+.main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 8vh;
+    padding: 1vw;
+    background-color: black;
+}
+
+.top-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 20vh;
+    border: none;
+    border-radius: 10px;
+    padding: 0.5vw;
+    box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
+    background-color: red;
+}
+
+.portfolio-container{
+    display: flex;
+    justify-content: space-between;
+    width: 20vw;
+    height: 100%;
+    padding: 0.5vh;
+    background-color: blueviolet;
+}
+
+.profile-avatar{
+    display: flex;
+    justify-content: center;
+    width: 10vw;
+    height: 17vh;
+    border: none;
+    border-radius: 50%;
+    background-color: black;
+}
+
+#profile-image{
+    width: 10vw;
+    border-radius: 50%;
+}
+
+.fullname-section{
+    margin-top: auto;
+    width: 10vw;
+    background-color: yellow;
+}
+
+.fullname-text{
+    font-size: 1.2vw;
+}
+
+.username-container{
+    display: block;
+    text-align: center;
+    width: 30vw;
+    background-color: yellowgreen;
+}
+
+.username-text{
+    font-size: 5vw;
+}
+
+.gallery-container{
+    width: 100%;
+    height: 50vh;
+    margin-top: 2vh;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
+    background-color: yellow;
+}
