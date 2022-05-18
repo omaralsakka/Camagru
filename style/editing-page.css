@@ -5,7 +5,7 @@
     width: 100%;
     margin-top: 8vh;
     padding: 1vw;
-    background-color: black;
+    /* background-color: black; */
 }
 
 .filters-container{
@@ -18,7 +18,7 @@
     border: none;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    background-color: red;
+    /* background-color: red; */
 }
 
 .filter{
@@ -31,7 +31,7 @@
     border: none;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    background-color: yellow;
+    /* background-color: yellow; */
 }
 
 .filter-image{
@@ -48,7 +48,7 @@
     border: none;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    background-color: greenyellow;
+    /* background-color: greenyellow; */
 }
 
 .display{
@@ -59,7 +59,7 @@
     border: none;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
 }
 
 .capture-button{
@@ -68,7 +68,8 @@
     height: 50px;
     border: none;
     border-radius: 50%;
-    background-color: cadetblue;
+    background-color: transparent;
+    /* background-color: cadetblue; */
 }
 
 #capture-icon{
@@ -84,7 +85,7 @@
     border: none;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    background-color: blue;
+    /* background-color: blue; */
 }
 
 .thumbnail-image-container{
@@ -95,7 +96,7 @@
     border: none;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    background-color: yellow;
+    /* background-color: yellow; */
 }
 
 .thumbnail-image{
@@ -112,7 +113,7 @@
     width: 100%;
     padding: 1vw;
     margin-top: 1vh;
-    background-color: black;
+    /* background-color: black; */
 }
 
 .buttons-container{
@@ -125,7 +126,7 @@
     border: none;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    background-color: chocolate;
+    /* background-color: chocolate; */
 }
 
 .button-option{
@@ -138,7 +139,8 @@
     border: none;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    background-color: red;
+    background-color: transparent;
+    /* background-color: red; */
 }
 
 .option-image{
