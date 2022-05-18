@@ -1,6 +1,6 @@
 <!-- This is the 2nd entry file for the application. It lets the user log in
 if they have an account. Incase the user don't have an account, there is a bottom
-option to sign up and leads to index.php "sign up page" -->
+option to sign up and leads to signup.php "sign up page" -->
 
 <?php
 
@@ -263,7 +263,7 @@ if(isset($_POST['submit'])){
 		<div class="instagram-bottom-container">
 			
 			<!-- Sign up option -->
-			<h4>Don't have an account? <a href="index.php" style="text-decoration: none; 
+			<h4>Don't have an account? <a href="signup.php" style="text-decoration: none; 
 			">Sign Up</a></h4>
 
 		</div>
