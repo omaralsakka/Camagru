@@ -9,6 +9,10 @@
 }
 
 .filters-container{
+    display: block;
+    text-align: center;
+    overflow: scroll;
+    padding: 2vh;
     width: 14vw;
     height: 60vh;
     border: none;
@@ -16,6 +20,13 @@
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
     background-color: red;
     
+}
+
+.filter{
+    margin: 1vh;
+    width: 10vw;
+    height: 17vh;
+    background-color: yellow;
 }
 
 .view-image-container{
