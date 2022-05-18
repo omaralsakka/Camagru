@@ -1,8 +1,28 @@
+<?php
+
+error_reporting(0);
+
+// starting session to pass through server the user data.
+session_start();
+
+//if the session does not have a user_id value, return to signin.php file
+if(!isset($_SESSION['user_id'])){
+
+    header('location:signin.php');
+
+} else {
+
+    // save the user_id into a variable
+    $userId = $_SESSION['user_id'];
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Camera</title>
     <?php include_once('../frontend/head.html')?>
-    <!-- <link rel="stylesheet" href="../style/style.css"> -->
     <link rel="stylesheet" href="../style/editing-page.css">
 </head>
 <style>
@@ -25,6 +45,7 @@
         </div>
 
         <div class="thumbnail-container">
+            <!-- this is to be uncommented for adding thumbnails inside of it -->
             <!-- <div class="thumbnail-image-container">
                 <img src="../media/html_image.png" alt="thumbnail image" class="thumbnail-image">
             </div> -->

@@ -1,10 +1,29 @@
 <?php
-    session_start();
+
+session_start();
+
+error_reporting(0);
+
+// starting session to pass through server the user data.
+session_start();
+
+//if the session does not have a user_id value, return to signin.php file
+if(!isset($_SESSION['user_id'])){
+
+    header('location:signin.php');
+
+} else {
+
+    // save the user_id into a variable
+    $userId = $_SESSION['user_id'];
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Profile</title>
     <?php include_once('../frontend/head.html')?>
     <link rel="stylesheet" href="../style/profile-page.css">
 </head>

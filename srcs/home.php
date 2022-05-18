@@ -28,17 +28,38 @@ if(!isset($_SESSION['user_id'])){
 <head>
 
 	<title>Home</title>
-	
 	<?php include_once("../frontend/head.html")?>	
-
+	<link rel="stylesheet" href="../style/home-page.css">
 </head>
 <body>
-	<!-- <div class="navbar"> -->
-		<?php include_once("../frontend/navbar.html");?>
-	<!-- </div> -->
 
-    <div class="home-container">
-		<!-- nav bar -->
+	<?php include_once("../frontend/navbar.html");?>
+
+    <div class="main-container">
+		<div class="item-container">
+			
+			<div class="picture-container">
+				<img src="../media/html_image.png" alt="" class="picture">
+			</div>
+			
+			<div class="action-container">
+				<button class="action-button">
+					<img src="../media/icons/icons8-heart-outline.png" alt="" class="action-image">
+				</button>
+
+				<button class="action-button">
+					<img src="../media/icons/icons8-comment-64-outline.png" alt="" class="action-image">
+				</button>
+			</div>
+
+			<div class="comment-container">
+				<!-- <input class="comment-field" type="text"> -->
+			</div>
+
+			<div class="user-comments-container">
+
+			</div>
+		</div>
     </div>
 
 </body>
