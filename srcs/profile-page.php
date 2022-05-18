@@ -29,7 +29,9 @@
         </div>
 
         <div class="gallery-container">
-
+            <div class="image-container">
+                <img src="../media/html_image.png" alt="" class="picture">
+            </div>
         </div>
     </div>
 

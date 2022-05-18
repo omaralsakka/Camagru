@@ -33,12 +33,12 @@ if(!isset($_SESSION['user_id'])){
 
 </head>
 <body>
+	<!-- <div class="navbar"> -->
+		<?php include_once("../frontend/navbar.html");?>
+	<!-- </div> -->
 
     <div class="home-container">
 		<!-- nav bar -->
-		<div class="navbar">
-			<?php include_once("../frontend/navbar.html");?>
-		</div>
     </div>
 
 </body>

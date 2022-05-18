@@ -25,15 +25,15 @@
         </div>
 
         <div class="thumbnail-container">
-            <div class="thumbnail-image-container">
+            <!-- <div class="thumbnail-image-container">
                 <img src="../media/html_image.png" alt="thumbnail image" class="thumbnail-image">
-            </div>
-            <div class="thumbnail-image-container">
+            </div> -->
+            <!-- <div class="thumbnail-image-container">
                 <img src="../media/html_image.png" alt="thumbnail image" class="thumbnail-image">
-            </div>
-            <div class="thumbnail-image-container">
+            </div> -->
+            <!-- <div class="thumbnail-image-container">
                 <img src="../media/html_image.png" alt="thumbnail image" class="thumbnail-image">
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="footer">
