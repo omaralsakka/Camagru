@@ -4,9 +4,9 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-top: 8vh;
-    padding: 1vw;
-    background-color: black;
+    margin-top: 5vh;
+    padding: 1vh;
+    /* background-color: black; */
 }
 
 .top-container{
@@ -19,7 +19,7 @@
     border-radius: 10px;
     padding: 0.5vw;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    background-color: red;
+    /* background-color: red; */
 }
 
 .portfolio-container{
@@ -28,7 +28,7 @@
     width: 20vw;
     height: 100%;
     padding: 0.5vh;
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
 }
 
 .profile-avatar{
@@ -38,7 +38,7 @@
     height: 17vh;
     border: none;
     border-radius: 50%;
-    background-color: black;
+    /* background-color: black; */
 }
 
 #profile-image{
@@ -49,7 +49,7 @@
 .fullname-section{
     margin-top: auto;
     width: 10vw;
-    background-color: yellow;
+    /* background-color: yellow; */
 }
 
 .fullname-text{
@@ -60,7 +60,7 @@
     display: block;
     text-align: center;
     width: 30vw;
-    background-color: yellowgreen;
+    /* background-color: yellowgreen; */
 }
 
 .username-text{
@@ -68,11 +68,31 @@
 }
 
 .gallery-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.5vw;
     width: 100%;
-    height: 50vh;
+    /* height: 50vh; */
     margin-top: 2vh;
     border: none;
     border-radius: 10px;
+    /* box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33); */
+    /* background-color: yellow; */
+}
+
+.image-container{
+    display: flex;
+    width: 18vw;
+    height: 30vh;
+    margin: 0.1vw;
+    border: none;
+    border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    background-color: yellow;
+    /* background-color: coral; */
+}
+
+.picture{
+    width: 100%;
+    border-radius: 10px;
 }
