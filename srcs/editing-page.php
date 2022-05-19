@@ -52,10 +52,13 @@ if(!isset($_SESSION['user_id'])){
                 </div>
 
             </div>
-
-                <button class="capture-button" onclick="captureCanvas()">
+            <form method="post" id="postImageForm" action="storeImage.php">
+                <input type="hidden" name="image" id="image-tag">
+                <button class="capture-button" type="submit" value="submit">
+                <!-- <button class="capture-button" onclick="captureCanvas()"> -->
                     <img id="capture-icon" src="../media/icons/icons8-lense-64.png" alt="capture icon image">
                 </button>
+            </form>
         </div>
 
         <div id="thumbnails-container" class="thumbnail-container">
@@ -93,6 +96,7 @@ if(!isset($_SESSION['user_id'])){
     let captureImgForm = document.getElementById('capute-image-form');
     let viewMedia = document.getElementById('view-media');
     let displayScreen = document.getElementById('displayScreen');
+    let PostForm = document.getElementById('postImageForm');
     // let resultPicture = document.getElementById('result-picture');
     // let canvas = document.getElementById('mycanvas');
     // let ctx = canvas.getContext('2d');
@@ -111,6 +115,17 @@ if(!isset($_SESSION['user_id'])){
         let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
         video.srcObject = stream;
     })
+
+PostForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    let imageTag = document.getElementById('image-tag');
+    html2canvas(displayScreen).then(canvas=>{
+        imageTag.value = canvas.toDataURL();
+        appendThumbnail(canvas.toDataURL());
+        console.log("inside the promise: "+imageTag.value) //valid results.
+    });
+    console.log("outside the promise: "+imageTag.value); //empty results.
+})
 
     function captureCanvas(){
         // ctx.drawImage(displayScreen, 0, 0, 640, 480);

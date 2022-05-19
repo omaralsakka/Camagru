@@ -107,8 +107,17 @@
     border-radius: 10px;
 }
 
+#postImageForm{
+    margin-top: auto;
+    width: 1vw;
+    /* height: 1vh; */
+    border: none;
+    border-radius: 50%;
+    background-color: yellow;
+}
+
 .capture-button{
-    z-index: 3;
+    /* z-index: 3; */
     /* margin: 1vh; */
     margin-top: auto;
     width: 50px;
