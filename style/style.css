@@ -8,7 +8,12 @@
 }
 
 html{
-    background-image: url("../media/031 Blessing.png");
+    background-image: linear-gradient(to top, #fddb92 0%, #d1fdff 100%);
+    /* background-image: url("../media/031 Blessing.png"); */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
 }
 
 .home-container{
