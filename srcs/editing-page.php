@@ -25,6 +25,10 @@ if(!isset($_SESSION['user_id'])){
     <?php include_once('../frontend/head.html')?>
     <link rel="stylesheet" href="../style/editing-page.css">
     <script src="../scripts/applyFilter.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" 
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
 </head>
 <style>
 
@@ -35,23 +39,29 @@ if(!isset($_SESSION['user_id'])){
     <div class="main-container">
 
         <?php include('../frontend/filtersContainer.html')?>
-        <div class="view-image-container">
-            <div class="display">
-
+        <div id="view-media" class="view-image-container">
+            <div id="displayScreen" class="display">
+                <div class="result-image-container">
+                    <img src="" alt="" id="result-picture">
+                </div>
+                
+                <video id="video" width="640" height="480" autoplay></video>
+                
                 <div class="filter-display-container">
                     <img src="" alt="" id="filter-displayed" class="">
                 </div>
+
             </div>
 
-            <button class="capture-button">
-                <img id="capture-icon" src="../media/icons/icons8-lense-64.png" alt="capture icon image">
-            </button>
+                <button class="capture-button" onclick="captureCanvas()">
+                    <img id="capture-icon" src="../media/icons/icons8-lense-64.png" alt="capture icon image">
+                </button>
         </div>
 
-        <div class="thumbnail-container">
+        <div id="thumbnails-container" class="thumbnail-container">
             <!-- this is to be uncommented for adding thumbnails inside of it -->
             <!-- <div class="thumbnail-image-container">
-                <img src="../media/html_image.png" alt="thumbnail image" class="thumbnail-image">
+                <img id="thumbnail-result" src="" alt="thumbnail image" class="thumbnail-image">
             </div> -->
             <!-- <div class="thumbnail-image-container">
                 <img src="../media/html_image.png" alt="thumbnail image" class="thumbnail-image">
@@ -63,7 +73,7 @@ if(!isset($_SESSION['user_id'])){
     </div>
     <div class="footer">
         <div class="buttons-container">
-            <button class="button-option">
+            <button id="start-video" class="button-option">
                 <img src="../media/icons/icons8-camera-100-outline.png" alt="" class="option-image">
             </button>
             <button class="button-option">
@@ -78,6 +88,14 @@ if(!isset($_SESSION['user_id'])){
 </body>
 <script>
     let filterDisplayed = document.getElementById('filter-displayed');
+    let startVideo = document.getElementById('start-video');
+    let video = document.getElementById('video');
+    let captureImgForm = document.getElementById('capute-image-form');
+    let viewMedia = document.getElementById('view-media');
+    let displayScreen = document.getElementById('displayScreen');
+    // let resultPicture = document.getElementById('result-picture');
+    // let canvas = document.getElementById('mycanvas');
+    // let ctx = canvas.getContext('2d');
 
     function selectFilter(clickedFilter){
         
@@ -88,6 +106,38 @@ if(!isset($_SESSION['user_id'])){
         applyFilter(clickedFilter.classList[1]);
     }
 
-    
+    startVideo.addEventListener('click', async function(){
+        video.style.display = 'block';
+        let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        video.srcObject = stream;
+    })
+
+    function captureCanvas(){
+        // ctx.drawImage(displayScreen, 0, 0, 640, 480);
+        html2canvas(displayScreen).then(canvas =>{
+            // viewMedia.appendChild(canvas);
+            // resultPicture.src = canvas.toDataURL();
+            appendThumbnail(canvas.toDataURL());
+            // console.log(canvas.toDataURL());
+            // console.log(resultPicture.src);
+
+        })
+    }
+
+    function appendThumbnail(resultImage){
+        let thumbnailImgContainer = document.createElement('div');
+        thumbnailImgContainer.className = 'thumbnail-image-container';
+
+        let thumbnailImg = document.createElement('img');
+        thumbnailImg.className = 'thumbnail-image';
+        thumbnailImg.src = resultImage;
+
+        let thumbnailsContainer = document.getElementById('thumbnails-container');
+        thumbnailImgContainer.appendChild(thumbnailImg);
+        thumbnailsContainer.appendChild(thumbnailImgContainer);
+    }
+    // captureImgForm.addEventListener('submit', function(event) {
+        // event.preventDefault();
+    // });
 </script>
 </html>
