@@ -52,6 +52,9 @@
 }
 
 .display{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 33.3vw;
     height: 49.8vh;
     /* width: 640px;
@@ -60,6 +63,15 @@
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
     /* background-color: blueviolet; */
+}
+
+.filter-display-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33.3vw;
+    height: 49.8vh;
+    /* background-color: yellow; */
 }
 
 .capture-button{

@@ -24,6 +24,7 @@ if(!isset($_SESSION['user_id'])){
     <title>Camera</title>
     <?php include_once('../frontend/head.html')?>
     <link rel="stylesheet" href="../style/editing-page.css">
+    <script src="../scripts/applyFilter.js"></script> 
 </head>
 <style>
 
@@ -32,13 +33,16 @@ if(!isset($_SESSION['user_id'])){
     <?php include_once('../frontend/navbar.html')?>
     
     <div class="main-container">
-        
-        <?php include_once('../frontend/filtersContainer.html')?>
 
+        <?php include('../frontend/filtersContainer.html')?>
         <div class="view-image-container">
             <div class="display">
 
+                <div class="filter-display-container">
+                    <img src="" alt="" id="filter-displayed" class="">
+                </div>
             </div>
+
             <button class="capture-button">
                 <img id="capture-icon" src="../media/icons/icons8-lense-64.png" alt="capture icon image">
             </button>
@@ -72,4 +76,18 @@ if(!isset($_SESSION['user_id'])){
     </div>
 
 </body>
+<script>
+    let filterDisplayed = document.getElementById('filter-displayed');
+
+    function selectFilter(clickedFilter){
+        
+        // getting the path of the filter and save it in display screen
+        filterDisplayed.src = "../media/filters/"+clickedFilter.id;
+        
+        // applying filter location
+        applyFilter(clickedFilter.classList[1]);
+    }
+
+    
+</script>
 </html>
