@@ -52,26 +52,19 @@ if(!isset($_SESSION['user_id'])){
                 </div>
 
             </div>
-            <!-- <form method="post" id="postImageForm" action="storeImage.php"> -->
-                <!-- <input type="hidden" name="image" id="image-tag"> -->
-                <!-- <button class="capture-button" type="submit" value="submit"> -->
-                <button class="capture-button" onclick="captureCanvas()">
-                    <img id="capture-icon" src="../media/icons/icons8-lense-64.png" alt="capture icon image">
-                </button>
-            <!-- </form> -->
+            <button class="capture-button" onclick="captureCanvas()">
+                <img id="capture-icon" src="../media/icons/icons8-lense-64.png" alt="capture icon image">
+            </button>
         </div>
 
         <div id="thumbnails-container" class="thumbnail-container">
+            
             <!-- this is to be uncommented for adding thumbnails inside of it -->
+            
             <!-- <div class="thumbnail-image-container">
                 <img id="thumbnail-result" src="" alt="thumbnail image" class="thumbnail-image">
             </div> -->
-            <!-- <div class="thumbnail-image-container">
-                <img src="../media/html_image.png" alt="thumbnail image" class="thumbnail-image">
-            </div> -->
-            <!-- <div class="thumbnail-image-container">
-                <img src="../media/html_image.png" alt="thumbnail image" class="thumbnail-image">
-            </div> -->
+        
         </div>
     </div>
     <div class="footer">
@@ -133,8 +126,8 @@ function captureCanvas(){
     html2canvas(displayScreen).then(canvas =>{
         // this is if i want to display the result,  not needed for now
         // resultPicture.src = canvas.toDataURL();
-        appendThumbnail(canvas.toDataURL());
-        postPicture(canvas.toDataURL());
+        appendThumbnail(canvas.toDataURL('image/jpeg', 1));
+        postPicture(canvas.toDataURL('image/jpeg', 1));
     })
 }
 
@@ -151,16 +144,18 @@ function captureCanvas(){
         thumbnailsContainer.appendChild(thumbnailImgContainer);
     }
 
-function postPicture(data){
+function postPicture(canvasUrl){
     let xhr = new XMLHttpRequest();
+    let resultImg = document.getElementById('imagePhp');
     xhr.onload = function (){
         if (this.status == 200){
             console.log('this is the response:'+this.response);
+            resultImg.src = this.response;
         }
     }
     xhr.open('POST', 'storeImage.php', true);
-    xhr.setRequestHeader("Content-type", "image/png");
-    xhr.send('image='+data);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send('image='+canvasUrl);
 }
 </script>
 </html>

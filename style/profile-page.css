@@ -83,16 +83,19 @@
 
 .image-container{
     display: flex;
-    width: 18vw;
-    height: 30vh;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 80vw;
     margin: 0.1vw;
-    border: none;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
+    background-color: white;
     /* background-color: coral; */
 }
 
 .picture{
-    width: 100%;
+    width: 24.8%;
     border-radius: 10px;
+    margin: 1px;
 }

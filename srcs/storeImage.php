@@ -1,22 +1,35 @@
 <?php
-// $img = $_POST['image'];
 
-// print_r($_POST);
-// header('Content-Type: image/png');
-// echo $img;
-// $img = file_get_contents(($_POST['image']));
+session_start();
+
+$dbh = new PDO("mysql:host=localhost;dbname=camagru_website", "root", "123456");
+
+$username = $_SESSION['username'];
+
 if (isset($_POST['image'])){
 
-$baseFromJavascript = $_POST['image'];
-$data = base64_decode(preg_replace('#^data:image/w+;base64,#i', '', $baseFromJavascript));
-$filepath = "./upload/image.png";
-file_put_contents($filepath,$data);
+$image = $_POST['image'];
+$image = preg_replace("/data:image\/jpeg;base64,/", '', $image);
+$image = str_replace(' ', '+', $image);
 
-echo $baseFromJavascript;
+$image = base64_decode($image);
+
+// file_put_contents("./upload/filename.jpeg", $image);
+
+$type = 'data:image/jpeg;base64,';
+$stmt = $dbh->prepare("INSERT INTO user_images(`username`, `type`, `content`) 
+VALUES (:username, :type, :content)");
+
+$stmt->bindParam('username',$username);
+$stmt->bindParam('type',$type);
+$stmt->bindParam('content',$image);
+$stmt->execute();
+
+echo $type.base64_encode($image);
+
 } else {
     echo 'failed to post';
 }
 
 
-// echo "<img src ='".$img."' />";
 ?>

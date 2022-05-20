@@ -4,8 +4,6 @@ session_start();
 
 error_reporting(0);
 
-// starting session to pass through server the user data.
-session_start();
 
 //if the session does not have a user_id value, return to signin.php file
 if(!isset($_SESSION['user_id'])){
@@ -17,6 +15,13 @@ if(!isset($_SESSION['user_id'])){
     // save the user_id into a variable
     $userId = $_SESSION['user_id'];
 }
+
+$dbh = new PDO("mysql:host=localhost;dbname=camagru_website", "root", "123456");
+
+$username = $_SESSION['username'];
+$stat = $dbh->prepare("SELECT * FROM user_images WHERE `username`='$username'");
+$stat->execute();
+
 
 ?>
 
@@ -49,7 +54,15 @@ if(!isset($_SESSION['user_id'])){
 
         <div class="gallery-container">
             <div class="image-container">
-                <img src="../media/html_image.png" alt="" class="picture">
+                <?php
+
+                    while($row = $stat->fetch()){
+                        $type = $row['type'];
+                        $content = base64_encode($row['content']);
+                        echo "<img class='picture' src='".$type.$content."'/>";
+                    }
+                ?>
+                <!-- <img src="../media/html_image.png" alt="" class="picture"> -->
             </div>
         </div>
     </div>
