@@ -31,8 +31,6 @@
     margin-bottom: 0;
     border: none;
     border-radius: 10px;
-    
-    border-radius: 10px;
     /* box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33); */
     /* background-color: yellow; */
 }
@@ -66,6 +64,12 @@
     margin: 0 0.5vw;
     background-color: transparent;
     border: none;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.action-button:hover{
+    transform: scale(1.2);
 }
 
 .action-image{
@@ -87,7 +91,13 @@
     font-size: 1.5vw;
 }
 
+#date{
+    width: 28vw;
+    margin-right: auto;
+}
+
 .comment-container{
+    display: none;
     /* display: flex; */
     width: 28vw;
     height: 10vh;
