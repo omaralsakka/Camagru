@@ -25,9 +25,7 @@ if(!isset($_SESSION['user_id'])){
     <?php include_once('../frontend/head.html')?>
     <link rel="stylesheet" href="../style/editing-page.css">
     <script src="../scripts/applyFilter.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" 
-        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" 
-        crossorigin="anonymous" referrerpolicy="no-referrer">
+
     </script>
 </head>
 <style>
@@ -41,12 +39,11 @@ if(!isset($_SESSION['user_id'])){
         <?php include('../frontend/filtersContainer.html')?>
         <div id="view-media" class="view-image-container">
             <div id="displayScreen" class="display">
-                <div class="result-image-container">
-                    <img src="" alt="" id="result-picture">
-                </div>
+
+                <video id="video"  autoplay></video>
                 
-                <video id="video" width="640" height="480" autoplay></video>
-                
+                <div id="uploaded-picture"></div>
+
                 <div class="filter-display-container">
                     <img src="" alt="" id="filter-displayed" class="">
                 </div>
@@ -72,29 +69,26 @@ if(!isset($_SESSION['user_id'])){
             <button id="start-video" class="button-option">
                 <img src="../media/icons/icons8-camera-100-outline.png" alt="" class="option-image">
             </button>
-            <button class="button-option">
-                <img src="../media/icons/icons8-folder-100-outline.png" alt="" class="option-image">
+            <button id="upload-file" class="button-option">
+                <label class="custom-file-upload">
+                    <input type="file" id="image_input" accept="image/png, image/jpg"/>
+                    <img src="../media/icons/icons8-folder-100-outline.png" alt="" class="option-image"></img>
+                </label>
             </button>
-            <button class="button-option">
+            <!-- <button class="button-option">
                 <img src="../media/icons/icons8-done-100.png" alt="" class="option-image">
-            </button>
+            </button> -->
         </div>
     </div>
-
-    <img id="imagePhp" src=""  width="640" height="480"/>
 </body>
 <script>
     let filterDisplayed = document.getElementById('filter-displayed');
-    let startVideo = document.getElementById('start-video');
-    let video = document.getElementById('video');
-    let viewMedia = document.getElementById('view-media');
+    let uploadedPicture = document.getElementById('uploaded-picture');
     let displayScreen = document.getElementById('displayScreen');
-    // let PostForm = document.getElementById('postImageForm');
-    
-    // those are if I am going to display the result picture at somepoint, and also if using capture with canvas2d
-    // let resultPicture = document.getElementById('result-picture');
-    // let canvas = document.getElementById('mycanvas');
-    // let ctx = canvas.getContext('2d');
+    let startVideo = document.getElementById('start-video');
+    let imageInput = document.querySelector("#image_input");
+    let viewMedia = document.getElementById('view-media');
+    let video = document.getElementById('video');
 
     function selectFilter(clickedFilter){
         
@@ -111,21 +105,18 @@ if(!isset($_SESSION['user_id'])){
         video.srcObject = stream;
     })
 
-    // this if i will use form tag
-    // PostForm.addEventListener('submit', function(e){
-    //     e.preventDefault();
-    //     let imageTag = document.getElementById('image-tag');
-    //     html2canvas(displayScreen).then(canvas=>{
-    //         imageTag.value = canvas.toDataURL();
-    //         appendThumbnail(canvas.toDataURL());
-    //         postPicture(canvas.toDataURL());
-    //     });
-    // })
+    imageInput.addEventListener('change', function (){
+        let readFile = new FileReader();
+        let uploadedImage = '';
+        readFile.addEventListener("load", function (){
+            uploadedImage = readFile.result;
+            uploadedPicture.style.backgroundImage = `url(${uploadedImage})`
+        });
+        readFile.readAsDataURL(this.files[0]);
+    })
 
-function captureCanvas(){
+    function captureCanvas(){
     html2canvas(displayScreen).then(canvas =>{
-        // this is if i want to display the result,  not needed for now
-        // resultPicture.src = canvas.toDataURL();
         appendThumbnail(canvas.toDataURL('image/jpeg', 1));
         postPicture(canvas.toDataURL('image/jpeg', 1));
     })
@@ -157,5 +148,6 @@ function postPicture(canvasUrl){
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send('image='+canvasUrl);
 }
+
 </script>
 </html>

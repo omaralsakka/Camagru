@@ -67,12 +67,6 @@ if(isset($_POST['submit'])){
 
 	<style>
 
-		html{
-			/* background-image: url("../media/031 Blessing.png"); */
-			/* background-image: url("../media/122 Cheerful Caramel.png"); */
-			/* background-image: url("../media/076 Premium Dark.png"); */
-		}
-
 		/* default settings for all elements */
 		*{
 			margin:0;
