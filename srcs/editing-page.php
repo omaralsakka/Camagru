@@ -52,13 +52,13 @@ if(!isset($_SESSION['user_id'])){
                 </div>
 
             </div>
-            <form method="post" id="postImageForm" action="storeImage.php">
-                <input type="hidden" name="image" id="image-tag">
-                <button class="capture-button" type="submit" value="submit">
-                <!-- <button class="capture-button" onclick="captureCanvas()"> -->
+            <!-- <form method="post" id="postImageForm" action="storeImage.php"> -->
+                <!-- <input type="hidden" name="image" id="image-tag"> -->
+                <!-- <button class="capture-button" type="submit" value="submit"> -->
+                <button class="capture-button" onclick="captureCanvas()">
                     <img id="capture-icon" src="../media/icons/icons8-lense-64.png" alt="capture icon image">
                 </button>
-            </form>
+            <!-- </form> -->
         </div>
 
         <div id="thumbnails-container" class="thumbnail-container">
@@ -88,15 +88,17 @@ if(!isset($_SESSION['user_id'])){
         </div>
     </div>
 
+    <img id="imagePhp" src=""  width="640" height="480"/>
 </body>
 <script>
     let filterDisplayed = document.getElementById('filter-displayed');
     let startVideo = document.getElementById('start-video');
     let video = document.getElementById('video');
-    let captureImgForm = document.getElementById('capute-image-form');
     let viewMedia = document.getElementById('view-media');
     let displayScreen = document.getElementById('displayScreen');
-    let PostForm = document.getElementById('postImageForm');
+    // let PostForm = document.getElementById('postImageForm');
+    
+    // those are if I am going to display the result picture at somepoint, and also if using capture with canvas2d
     // let resultPicture = document.getElementById('result-picture');
     // let canvas = document.getElementById('mycanvas');
     // let ctx = canvas.getContext('2d');
@@ -116,28 +118,25 @@ if(!isset($_SESSION['user_id'])){
         video.srcObject = stream;
     })
 
-PostForm.addEventListener('submit', function(e){
-    e.preventDefault();
-    let imageTag = document.getElementById('image-tag');
-    html2canvas(displayScreen).then(canvas=>{
-        imageTag.value = canvas.toDataURL();
+    // this if i will use form tag
+    // PostForm.addEventListener('submit', function(e){
+    //     e.preventDefault();
+    //     let imageTag = document.getElementById('image-tag');
+    //     html2canvas(displayScreen).then(canvas=>{
+    //         imageTag.value = canvas.toDataURL();
+    //         appendThumbnail(canvas.toDataURL());
+    //         postPicture(canvas.toDataURL());
+    //     });
+    // })
+
+function captureCanvas(){
+    html2canvas(displayScreen).then(canvas =>{
+        // this is if i want to display the result,  not needed for now
+        // resultPicture.src = canvas.toDataURL();
         appendThumbnail(canvas.toDataURL());
-        console.log("inside the promise: "+imageTag.value) //valid results.
-    });
-    console.log("outside the promise: "+imageTag.value); //empty results.
-})
-
-    function captureCanvas(){
-        // ctx.drawImage(displayScreen, 0, 0, 640, 480);
-        html2canvas(displayScreen).then(canvas =>{
-            // viewMedia.appendChild(canvas);
-            // resultPicture.src = canvas.toDataURL();
-            appendThumbnail(canvas.toDataURL());
-            // console.log(canvas.toDataURL());
-            // console.log(resultPicture.src);
-
-        })
-    }
+        postPicture(canvas.toDataURL());
+    })
+}
 
     function appendThumbnail(resultImage){
         let thumbnailImgContainer = document.createElement('div');
@@ -151,8 +150,17 @@ PostForm.addEventListener('submit', function(e){
         thumbnailImgContainer.appendChild(thumbnailImg);
         thumbnailsContainer.appendChild(thumbnailImgContainer);
     }
-    // captureImgForm.addEventListener('submit', function(event) {
-        // event.preventDefault();
-    // });
+
+function postPicture(data){
+    let xhr = new XMLHttpRequest();
+    xhr.onload = function (){
+        if (this.status == 200){
+            console.log('this is the response:'+this.response);
+        }
+    }
+    xhr.open('POST', 'storeImage.php', true);
+    xhr.setRequestHeader("Content-type", "image/png");
+    xhr.send('image='+data);
+}
 </script>
 </html>
