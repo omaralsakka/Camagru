@@ -57,7 +57,6 @@ $conn = null;
 		font-family: 'Space Grotesk', sans-serif;
 	}
     body{
-        /* background-image: url('../media/logos/Camagru-logos_textAndCat2_black.png'); */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -111,15 +110,12 @@ $conn = null;
 		font-size: 12px;
 		color: #111111;
 		background-color: #FFCB74;
-		/* color: white; */
-		/* background-color: #3897f0; */
 		border-radius: 5px;
 		cursor: pointer;
 		box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
 	}
 	.instagram-container-inside h5{
 		color: #111111;
-		/* color: #3897f0; */
 		text-align: center;
 		margin-bottom: 10px;
 		margin-top: 10px;

@@ -24,6 +24,24 @@ $username = $_SESSION['username'];
 $stat = $dbh->prepare("SELECT * FROM user_images");
 $stat->execute();
 
+if(isset($_POST['submit'])){
+
+	$comment = $_POST['comment'];
+	$image_id = $_POST['image_id'];
+	if (strlen($comment) > 0 && !empty(trim($comment))){
+		$query = $dbh->prepare("INSERT INTO user_comments(`image_id`, `username`, `comment`) 
+		VALUES (:image_id, :username, :comment)");
+
+		$query->bindParam('image_id',$image_id);
+		$query->bindParam('username',$username);
+		$query->bindParam('comment',$comment);
+		$query->execute();
+	}
+
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -41,19 +59,22 @@ $stat->execute();
     <div class="main-container">
 		<?php
 	        while($row = $stat->fetch()){
+				$image_id = $row['id'];
 				$username = $row['username'];
 				$date = date('Y.m.d', strtotime($row['date']));
 				$type = $row['type'];
 				$content = base64_encode($row['content']);
+				$comments_query = $dbh->prepare("SELECT * from user_comments WHERE `image_id` = '$image_id'");
+				$comments_query->execute();
 				echo 	'<div class="item-container">
 							<div class="picture-container">
-								<img src="'.$type.$content.'" alt="" class="picture">
+								<img id="'.$image_id.'" src="'.$type.$content.'" alt="" class="picture">
 							</div>
 							<div class="action-container">
 								<button class="action-button">
 									<img src="../media/icons/icons8-heart-outline.png" alt="" class="action-image">
 								</button>
-								<button id="display-comment" class="action-button" onclick="displayCommentInput()">
+								<button id="'.$image_id.'b'.'" class="action-button display-comment" onclick="displayComment(this.id)">
 									<img src="../media/icons/icons8-comment-64-outline.png" alt="" class="action-image">
 								</button>
 
@@ -65,37 +86,44 @@ $stat->execute();
 							<div class="picture-date">
 								<div id="date">'.$date.'</div>
 							</div>
-							<div class="comment-container">
-								<input class="comment-field" type="text">
+							<div id="'.$image_id.'bc'.'" class="comment-container">
+								<form action="" method="post">
+									<input class="comment-field" type="text" name="comment">
+									<input type="hidden" name="image_id" value="'.$image_id.'">
+									<button type="submit" name="submit" id="submit-comment"></button>
+								</form>
 							</div>
 							<div class="user-comments-container">
+							
 								<div class="user-comment-info">
-									<h3 id="comment-username">officialomr</h3>
-									<h5 id="comment-date">14.05.2022</h5>
+									<p id="comment-username">salam</p>
+									<p id="comment-date">12.5.2009</p>
 								</div>
 								<hr id="comments-horizontal-line">
 								<div class="user-comment-text">
-									<h3 id="user-comment-text">Nice stuff!</h3>
+									<h3 id="user-comment-text"> funn stuff man!</h3>
 								</div>
 							</div>
 						</div>';
 			}
+
+
 		?>
     </div>
 
 </body>
 <script>
-	let commentDisplayButton = document.getElementById('display-comment');
-	let commentField = document.querySelector('.comment-container');
+	let commentDisplayButton = document.querySelector('.display-comment');
 	
-	commentDisplayButton.addEventListener('click', function (){
+	function displayComment(id){
+		let commentField = document.getElementById(id+'c');
 		if (commentField.style.display == "flex"){
 			commentField.style.display = "none";
 		} else {
 			commentField.style.display = "flex";
 		}
-	});
-
+		console.log(id);
+	}
 
 </script>
 </html>
