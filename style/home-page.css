@@ -14,7 +14,7 @@
     align-items: center;
     flex-direction: column;
     width: 40vw;
-    height: 80vh;
+    min-height: 80vh;
     padding: 1vw;
     margin: 5vh 0;
     border: none;
@@ -73,7 +73,7 @@
 }
 
 .action-image{
-    width: 90%;
+    width: 100%;
     background-color: transparent;
 }
 
@@ -100,7 +100,7 @@
 
 .comment-container{
     display: none;
-    /* display: flex; */
+    align-items: center;
     width: 28vw;
     height: 10vh;
     padding: 1vh;
@@ -108,33 +108,41 @@
     border: none;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    /* background-color: yellow; */
+}
+
+.comment-form{
+    display: flex;
+    width: 100%;
 }
 
 .comment-field{
     width: 90%;
     height: 100%;
-    padding-left: 1vw;
+    padding: 1vw;
     border: solid 1px #ffcb74;;
     border-radius: 30px;
 }
 
-#submit-comment{
-    background-image: url('../media/icons/submit-comment-outline.png');
-    border: none;
+.submit-comment{
+    display: flex;
+    /* align-self: flex-end; */
+    justify-content: center;
+    align-items: center;
+    width: 2vw;
     background-color: transparent;
-    background-size: 80%;
-    background-repeat: no-repeat;
-    background-position: center;
+    border: none;
     cursor: pointer;
     margin: auto 0 0 auto;
-    width: 10%;
-    height: 5vh;
-    border-radius: 30px;
 }
 
-#submit-comment:hover{
-    background-image: url('../media/icons/submit-comment-inline.png');
+.submit-comment-img{
+    width: 100%;
+    background-color: transparent;
+    transition: .2s ease;
+}
+
+.submit-comment-img:hover{
+    transform: scale(1.2);
 }
 
 .user-comments-container{
@@ -147,7 +155,6 @@
     border: none;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    /* background-color: chartreuse; */
 }
 
 .user-comment-info{

@@ -28,6 +28,7 @@ if(isset($_POST['submit'])){
 
 	$comment = $_POST['comment'];
 	$image_id = $_POST['image_id'];
+	$_POST = array();
 	if (strlen($comment) > 0 && !empty(trim($comment))){
 		$query = $dbh->prepare("INSERT INTO user_comments(`image_id`, `username`, `comment`) 
 		VALUES (:image_id, :username, :comment)");
@@ -72,10 +73,10 @@ if(isset($_POST['submit'])){
 							</div>
 							<div class="action-container">
 								<button class="action-button">
-									<img src="../media/icons/icons8-heart-outline.png" alt="" class="action-image">
+									<img src="../media/icons/icons8-heart-outline.png" alt="button image" class="action-image">
 								</button>
 								<button id="'.$image_id.'b'.'" class="action-button display-comment" onclick="displayComment(this.id)">
-									<img src="../media/icons/icons8-comment-64-outline.png" alt="" class="action-image">
+									<img src="../media/icons/icons8-comment-64-outline.png" alt="button image" class="action-image">
 								</button>
 
 								<div class="username-container">
@@ -87,26 +88,44 @@ if(isset($_POST['submit'])){
 								<div id="date">'.$date.'</div>
 							</div>
 							<div id="'.$image_id.'bc'.'" class="comment-container">
-								<form action="" method="post">
+								<form action="" method="post" class="comment-form">
 									<input class="comment-field" type="text" name="comment">
 									<input type="hidden" name="image_id" value="'.$image_id.'">
-									<button type="submit" name="submit" id="submit-comment"></button>
+										<button type="submit" name="submit" class="submit-comment">
+											<img src="../media/icons/submit-comment-outline.png" alt="button image" class="submit-comment-img">
+										</button>
 								</form>
-							</div>
-							<div class="user-comments-container">
-							
-								<div class="user-comment-info">
-									<p id="comment-username">salam</p>
-									<p id="comment-date">12.5.2009</p>
-								</div>
-								<hr id="comments-horizontal-line">
-								<div class="user-comment-text">
-									<h3 id="user-comment-text"> funn stuff man!</h3>
-								</div>
-							</div>
-						</div>';
-			}
+							</div>';
+				echo 		'<div class="user-comments-container">';
 
+				while ($comments_table = $comments_query->fetch()){
+					$comment_username = $comments_table['username'];
+					$comment_date = date('Y.m.d', strtotime($comments_table['date']));
+					$comment_content = $comments_table['comment'];
+					echo 	'<div class="user-comment-info">
+								<p id="comment-username">'.$comment_username.'</p>
+								<p id="comment-date">'.$comment_date.'</p>
+							</div>
+							<hr id="comments-horizontal-line">
+							<div class="user-comment-text">
+								<h3 id="user-comment-text">'.$comment_content.'</h3>
+							</div>';
+				};
+				// echo '
+							
+								// <div class="user-comment-info">
+								// 	<p id="comment-username">salam</p>
+								// 	<p id="comment-date">12.5.2009</p>
+								// </div>
+								// <hr id="comments-horizontal-line">
+								// <div class="user-comment-text">
+								// 	<h3 id="user-comment-text"> funn stuff man!</h3>
+								// </div>
+				// 			';
+
+				echo '</div>';
+				echo '</div>';
+			}
 
 		?>
     </div>
