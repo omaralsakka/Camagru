@@ -157,21 +157,50 @@
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
 }
 
+.comments-top-part{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
 .user-comment-info{
+    display: flex;
+    flex-direction: column;
     width: 8vw;
     margin: 1vh 0;
     /* background-color: blue; */
 }
 
-#comment-username{
+.comment-username{
     font-size: 1.5vh;
 }
 
-#comment-date{
+.remove-comment-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    width: 1vw;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.remove-comment-img{
+    width: 100%;
+    opacity: 0.6;
+    transition: 0.2s ease opacity;
+}
+
+.remove-comment-img:hover{
+    opacity: 1;
+}
+
+.comment-date{
     font-size: 1.2vh;
 }
 
-#comments-horizontal-line{
+.comments-horizontal-line{
     border: none;
     height: 1px;
     background-color: rgb(136, 136, 136);

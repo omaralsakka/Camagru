@@ -100,13 +100,23 @@ if(isset($_POST['submit'])){
 					$comment_username = $comments_table['username'];
 					$comment_date = date('Y.m.d', strtotime($comments_table['date']));
 					$comment_content = $comments_table['comment'];
-					echo 	'<div class="user-comment-info">
-								<p id="comment-username">'.$comment_username.'</p>
-								<p id="comment-date">'.$comment_date.'</p>
+					echo 	'
+							<div class="comments-top-part">
+								<div class="user-comment-info">
+									<p class="comment-username">'.$comment_username.'</p>
+									<p id="comment-date">'.$comment_date.'</p>
+								</div>';
+					if ($_SESSION['username'] == $comment_username || $_SESSION['username'] == $username){
+						echo 	'
+								<button class="remove-comment-btn">
+									<img src="../media/icons/remove-icon-red.png" class="remove-comment-img" alt="remove comment icon">
+								</button>';
+					}
+					echo	'
 							</div>
-							<hr id="comments-horizontal-line">
+							<hr class="comments-horizontal-line">
 							<div class="user-comment-text">
-								<h3 id="user-comment-text">'.$comment_content.'</h3>
+								<h3 class="user-comment-text">'.$comment_content.'</h3>
 							</div>';
 				};
 
