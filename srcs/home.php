@@ -41,8 +41,6 @@ if(isset($_POST['submit'])){
 
 }
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -111,17 +109,6 @@ if(isset($_POST['submit'])){
 								<h3 id="user-comment-text">'.$comment_content.'</h3>
 							</div>';
 				};
-				// echo '
-							
-								// <div class="user-comment-info">
-								// 	<p id="comment-username">salam</p>
-								// 	<p id="comment-date">12.5.2009</p>
-								// </div>
-								// <hr id="comments-horizontal-line">
-								// <div class="user-comment-text">
-								// 	<h3 id="user-comment-text"> funn stuff man!</h3>
-								// </div>
-				// 			';
 
 				echo '</div>';
 				echo '</div>';
