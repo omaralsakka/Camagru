@@ -38,6 +38,7 @@ button{
     box-shadow: hsl(0deg 0% 0% / 0.33) 4px 4px 0px;
     transition: transform 200ms, box-shadow 200ms;
     background-color: rgba(226, 219, 161, 0.24);
+    /* background-color: yellow; */
 }
 
 .filter:active{
@@ -58,7 +59,7 @@ button{
     height: 60vh;
     border: none;
     border-radius: 10px;
-    box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
+    /* box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33); */
     /* background-color: greenyellow; */
 }
 

@@ -41,6 +41,12 @@ if(isset($_POST['submit'])){
 
 }
 
+if (isset($_POST['remove_comment'])){
+	$comment_id = $_POST['comment_id'];
+	$d_comment_query = $dbh->prepare("DELETE FROM user_comments WHERE id = '$comment_id'");
+	$d_comment_query->execute();
+}	
+
 ?>
 
 <!DOCTYPE html>
@@ -97,6 +103,7 @@ if(isset($_POST['submit'])){
 				echo 		'<div class="user-comments-container">';
 
 				while ($comments_table = $comments_query->fetch()){
+					$this_id = $comments_table['id'];
 					$comment_username = $comments_table['username'];
 					$comment_date = date('Y.m.d', strtotime($comments_table['date']));
 					$comment_content = $comments_table['comment'];
@@ -107,10 +114,12 @@ if(isset($_POST['submit'])){
 									<p id="comment-date">'.$comment_date.'</p>
 								</div>';
 					if ($_SESSION['username'] == $comment_username || $_SESSION['username'] == $username){
-						echo 	'
-								<button class="remove-comment-btn">
-									<img src="../media/icons/remove-icon-red.png" class="remove-comment-img" alt="remove comment icon">
-								</button>';
+						echo 	'<form action="" method="post" class="remove-comment-form">
+									<button class="remove-comment-btn" type="submit" name="remove_comment" onClick="return confirmSubmit()">
+										<img src="../media/icons/remove-icon-red.png" class="remove-comment-img" alt="remove comment icon">
+										<input type="hidden" name="comment_id" value="'.$this_id.'">
+									</button>
+								</form>';
 					}
 					echo	'
 							</div>
@@ -120,7 +129,7 @@ if(isset($_POST['submit'])){
 							</div>';
 				};
 
-				echo '</div>';
+					echo '</div>';
 				echo '</div>';
 			}
 
@@ -139,6 +148,15 @@ if(isset($_POST['submit'])){
 			commentField.style.display = "flex";
 		}
 		console.log(id);
+	}
+
+	function confirmSubmit(){
+		let agree = confirm("Are you sure you wish to continue?");
+		
+		if (agree)
+			return true ;
+		else
+			return false ;
 	}
 
 </script>
