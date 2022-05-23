@@ -22,6 +22,14 @@ $username = $_SESSION['username'];
 $stat = $dbh->prepare("SELECT * FROM user_images WHERE `username`='$username'");
 $stat->execute();
 
+if (isset($_POST['delete_image'])){
+    $image_to_delete = trim($_POST['delete_image_id'], "img");
+    $_POST = array();
+    $delete_img_query = $dbh->prepare("DELETE FROM user_images WHERE id = '$image_to_delete';
+    DELETE FROM user_comments WHERE image_id = '$image_to_delete'");
+    $delete_img_query->execute();
+    header("Location: profile-page.php");
+}
 
 ?>
 
@@ -57,15 +65,58 @@ $stat->execute();
                 <?php
 
                     while($row = $stat->fetch()){
+                        $image_id = $row['id'];
                         $type = $row['type'];
                         $content = base64_encode($row['content']);
-                        echo "<img class='picture' src='".$type.$content."'/>";
+                        echo "<img id='".$image_id."img' class='picture' src='".$type.$content."' onClick='maxImage(this.id)'/>";
                     }
                 ?>
-                <!-- <img src="../media/html_image.png" alt="" class="picture"> -->
+            </div>
+        </div>
+
+        <div class="maximize-image-container">
+            <div class="maximized-picture">
+                <img class="max-picture" src="" alt="user displayed picture">
+            </div>
+            <div class="action-btns">
+                <button class="minimize-btn" onClick="minimizeImage()">
+                    <img src="../media/icons/icons8-minimize-64.png" alt="minimize image" class="minimize-image">
+                </button>
+                <form action="" method="post" class="remove-picture-form">
+                    <button class="remove-img-btn" type="submit" name="delete_image" onClick="return confirmDelete()">
+                        <img class="remove-img-icon" src="../media/icons/icons8-remove-96.png" alt="remove icon">
+                        <input class="delete_image_input" type="hidden" name="delete_image_id" value="">
+                    </button>
+                </form>
             </div>
         </div>
     </div>
 
 </body>
+<script>
+    let maxImgContainer = document.querySelector('.maximize-image-container');
+    
+    function maxImage(imageId){
+        let imageToMax = document.getElementById(imageId);
+        let deleteImageInput = document.querySelector(".delete_image_input");
+        let maximizedImage = document.querySelector(".max-picture");
+        
+        maximizedImage.src = imageToMax.src;
+        deleteImageInput.value = imageId;
+        maxImgContainer.style.display = 'flex';
+    }
+
+    function minimizeImage(){
+        maxImgContainer.style.display = 'none';
+    }
+
+    function confirmDelete(){
+        let agree = confirm("Are you sure you wish to delete this picture?");
+		
+		if (agree)
+			return true ;
+		else
+			return false ;
+    };
+</script>
 </html>

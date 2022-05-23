@@ -151,7 +151,7 @@ if (isset($_POST['remove_comment'])){
 	}
 
 	function confirmSubmit(){
-		let agree = confirm("Are you sure you wish to continue?");
+		let agree = confirm("Are you sure you wish to delete this comment?");
 		
 		if (agree)
 			return true ;
