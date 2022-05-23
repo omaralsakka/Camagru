@@ -97,6 +97,13 @@
     width: 24.8%;
     border-radius: 10px;
     margin: 1px;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: hsl(0deg 0% 0% / 0.33) 0px 0px 0px;
+}
+
+.picture:hover{
+    transform: scale(1.1);
+    box-shadow: hsl(0deg 0% 0% / 0.33) 6px 6px 0px;
 }
 
 .maximize-image-container{

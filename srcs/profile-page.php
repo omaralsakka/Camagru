@@ -17,9 +17,8 @@ if(!isset($_SESSION['user_id'])){
 }
 
 $dbh = new PDO("mysql:host=localhost;dbname=camagru_website", "root", "123456");
-
 $username = $_SESSION['username'];
-$stat = $dbh->prepare("SELECT * FROM user_images WHERE `username`='$username'");
+$stat = $dbh->prepare("SELECT * FROM user_images WHERE `username`='$username' ORDER BY `date` DESC");
 $stat->execute();
 
 if (isset($_POST['delete_image'])){
@@ -51,12 +50,13 @@ if (isset($_POST['delete_image'])){
                     <img src="../media/html_image.png" alt="" id="profile-image">
                 </div>
                 <div class="fullname-section">
-                    <h4 class="fullname-text">Omar Abdelfattah</h4>
+                    
+                    <h4 class="fullname-text"><?php echo $_SESSION['fullname']?></h4>
                 </div>
             </div>
 
             <div class="username-container">
-                    <h3 class="username-text">officialomr</h3>
+                    <h3 class="username-text"><?php echo $_SESSION['username']?></h3>
             </div>
         </div>
 

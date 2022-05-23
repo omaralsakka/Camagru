@@ -34,11 +34,10 @@ html{
 
 .home-top-nav-icon{
     flex: 1;
-
 }
 
 .home-top-nav-logo{
-    width: 200px;
+    width: 250px;
     margin: auto;
     margin-left: 0;
     height: 50px;
@@ -87,16 +86,20 @@ html{
 
 .home-top-nav-icons{
     flex: 1;
-    
 }
 
 .home-top-nav-icons img{
     width: 100%;
     height: auto;
-    max-width: 1vw;
+    max-width: 1.5vw;
     min-width: 20px;
+    transition: .2s ease, box-shadow .2s ease;
     /* width: 20px;
     height: 20px; */
+}
+
+.home-top-nav-icons img:hover{
+    transform: scale(1.2);
 }
 
 .home-top-nav-icons .inline{

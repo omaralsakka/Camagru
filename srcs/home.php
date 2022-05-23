@@ -21,7 +21,7 @@ if(!isset($_SESSION['user_id'])){
 
 $dbh = new PDO("mysql:host=localhost;dbname=camagru_website", "root", "123456");
 $username = $_SESSION['username'];
-$stat = $dbh->prepare("SELECT * FROM user_images");
+$stat = $dbh->prepare("SELECT * FROM user_images ORDER BY id DESC");
 $stat->execute();
 
 if(isset($_POST['submit'])){
@@ -69,7 +69,7 @@ if (isset($_POST['remove_comment'])){
 				$date = date('Y.m.d', strtotime($row['date']));
 				$type = $row['type'];
 				$content = base64_encode($row['content']);
-				$comments_query = $dbh->prepare("SELECT * from user_comments WHERE `image_id` = '$image_id'");
+				$comments_query = $dbh->prepare("SELECT * from user_comments WHERE `image_id` = '$image_id' ORDER BY `date` DESC");
 				$comments_query->execute();
 				echo 	'<div class="item-container">
 							<div class="picture-container">
