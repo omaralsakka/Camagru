@@ -1,6 +1,9 @@
-
-
 <?php
+
+// error_reporting(-1);
+// ini_set('display_errors', 'On');
+// set_error_handler("var_dump");
+
 
 error_reporting(0);
 
@@ -41,46 +44,66 @@ if(isset($_POST['submit'])){
 			$message = "<h6>"."please fill all the fields"."<h6>";
 		
 		} else {
-			
+
+			$code=substr(md5(mt_rand()),0,15);
+			// mysqli_select_db($connection, 'camagru_website');
+			$verify_query = mysqli_query($connection, "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`, `code`)
+			VALUES ('$fullname', '$username', '$email', '$password', '$code')");
+
+
+			$db_id = mysqli_insert_id($connection);
+			$emailmessage = "Your Activation Code is ".$code."";
+			$to=$email;
+			$subject="Activation Code For Camagru.com";
+			$from = 'info@camagru.dev';
+			$body='Your Activation Code is '.$code.' Please Click On This link <a href="verification.php">Verify.php?id='.$db_id.'&code='.$code.'</a>to activate your account.';
+			$headers = "From:".$from;
+			$mail_result = mail($to,$subject,$body,$headers);
+			echo $mail_result."<br>";
+			echo $email."<br>";
+			echo $body."<br>";
+			echo "An Activation Code Is Sent To You Check You Emails";
+
 			// we create a query message that will take the given variables and
 			// insert them into the db into each corresponding column.
-			$query = "INSERT INTO `user` (`fullname`, `username`, `email`, `password`) 
+			$query = "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`) 
 			VALUES ('$fullname','$username','$email','$password')";
 
 			
 			$query_result = mysqli_query($connection, $query);
-			// if the query result valid print success message, else print error
-			if($query_result){
 
-				// created an sql query to fetch from the db the info of one user. 
-				$sql = "SELECT * FROM `user` WHERE `username` = '$username'";
-
-				// we use the query line to fetch the data from $connection that is already
-				// connected to the db, and save the results into $results variable.
-				$result = mysqli_query($connection, $sql);
-
-				//we get the row of the user with the mentioned fullname
-				while($row = mysqli_fetch_assoc($result)){
-
-					//we save the specific user id into the session
-					$_SESSION['user_id'] = $row['user_id'];
-					$_SESSION['username'] = $row['username'];
-
-					//we use this session inside home.php file
-					header('location:home.php');
-
-					$message = "<h6>"."user data insert successfully"."<h6>";
-
-				}
-				
-				$message = "<h6>"."user created successfully"."<h6>";
-			
-			} else {
-			
-				$message = "<h6>"."error.."."<h6>";
-			
-			}
 		}
+	}
+}
+
+if(isset($_GET['id']) && isset($_GET['code']))
+{
+	$id=$_GET['id'];
+	$code=$_GET['code'];
+
+	$query = "SELECT `fullname`, `username`, `email`, `password` FROM `user_verify`
+	WHERE `id` = '$id' AND `code` = '$code'";
+	$select = mysqli_query($connection, $query);
+	if(mysqli_num_rows($select)==1)
+	{
+		while($row=mysqli_fetch_array($select))
+		{
+			$user_id=$row['user_id'];
+			$email=$row['email'];
+			$username=$row['username'];
+			$fullname=$row['fullname'];
+			$password=$row['password'];
+		}
+		$insert_q = "INSERT INTO `user` (`fullname`, `username`, `email`, `password`) 
+		VALUES ('$fullname','$username','$email','$password')";
+
+		$insert_user=mysqli_query($connection, $insert_q);
+		$_SESSION['user_id'] = $user_id;
+		$_SESSION['username'] = $username;
+
+		$delete_q = "DELETE FROM `user_verify` WHERE `id` = '$id' AND `code`='$code'";
+		$delete = mysqli_query($connection, $delete_q);
+		$message = "<h6>"."user created successfully"."<h6>";
 	}
 }
 

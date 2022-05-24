@@ -11,6 +11,17 @@ CREATE TABLE IF NOT EXISTS camagru_website.`user` (
   `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   );
 
+-- Creating the verify user system table ---------------
+CREATE TABLE IF NOT EXISTS camagru_website.`user_verify` (
+  id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(150) NOT NULL,
+  fullname VARCHAR(150) NOT NULL,
+  email VARCHAR(150) NOT NULL,
+  `password` VARCHAR(150) NOT NULL,
+  `code` TEXT NOT NULL,
+  `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  );
+
 -- Creating the images table ---------------
 CREATE TABLE IF NOT EXISTS camagru_website.`user_images` (
   id INT(11) AUTO_INCREMENT PRIMARY KEY,
