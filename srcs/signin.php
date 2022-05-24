@@ -14,16 +14,16 @@ session_start();
 
 if(isset($_POST['submit'])){
 	
-	$email = $_POST['email'];
+	$username = $_POST['username'];
 	$password = $_POST['password'];
 
 	// check if one info is not givin by user, return error message
-	if(empty($email) || empty($password)){
+	if(empty($username) || empty($password)){
 		$message = "<h6>"."please fill all the fields"."<h6>";
 	
 	} else {
 		// created an sql query to fetch from the db the info of one user. 
-		$sql = "SELECT * FROM `user` WHERE `email` = '$email' AND `password` = '$password'";
+		$sql = "SELECT * FROM `user` WHERE `username` = '$username' AND `password` = '$password'";
 
 		// we use the query line to fetch the data from $connection that is already
 		// connected to the db, and save the results into $results variable.
@@ -49,7 +49,7 @@ if(isset($_POST['submit'])){
 		
 		} else {
 			
-			$message = "<h6>"."Incorrect email or password"."<h6>";
+			$message = "<h6>"."Incorrect username or password"."<h6>";
 		}
 	}
 
@@ -226,7 +226,7 @@ if(isset($_POST['submit'])){
 					<?php echo $message;?>
 
 					<!-- Sign in options -->
-					<input type="email" name="email" placeholder="Phone Number, username or Email">
+					<input type="text" name="username" placeholder="username">
 					<input type="password" name="password"  placeholder="Password">
 
 					<!-- Sign in button tag -->
