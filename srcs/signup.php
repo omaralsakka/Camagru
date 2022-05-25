@@ -56,54 +56,24 @@ if(isset($_POST['submit'])){
 			$to=$email;
 			$subject="Activation Code For Camagru.com";
 			$from = 'info@camagru.dev';
-			$body='Your Activation Code is '.$code.' Please Click On This link <a href="verification.php">Verify.php?id='.$db_id.'&code='.$code.'</a>to activate your account.';
+			$body='Your Activation Code is '.$code.' Please Click On This link http://localhost:8080/Camagru/srcs/signin.php?id='.$db_id.'&code='.$code.' to activate your account.';
 			$headers = "From:".$from;
 			$mail_result = mail($to,$subject,$body,$headers);
 			echo $mail_result."<br>";
 			echo $email."<br>";
 			echo $body."<br>";
 			echo "An Activation Code Is Sent To You Check You Emails";
-
+			$message = "An Activation Code Is Sent To You Check You Emails";
+			$_SESSION['verify'] = 1;
+			header('location:verify.php');
 			// we create a query message that will take the given variables and
 			// insert them into the db into each corresponding column.
 			$query = "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`) 
 			VALUES ('$fullname','$username','$email','$password')";
-
 			
 			$query_result = mysqli_query($connection, $query);
 
 		}
-	}
-}
-
-if(isset($_GET['id']) && isset($_GET['code']))
-{
-	$id=$_GET['id'];
-	$code=$_GET['code'];
-
-	$query = "SELECT `fullname`, `username`, `email`, `password` FROM `user_verify`
-	WHERE `id` = '$id' AND `code` = '$code'";
-	$select = mysqli_query($connection, $query);
-	if(mysqli_num_rows($select)==1)
-	{
-		while($row=mysqli_fetch_array($select))
-		{
-			$user_id=$row['user_id'];
-			$email=$row['email'];
-			$username=$row['username'];
-			$fullname=$row['fullname'];
-			$password=$row['password'];
-		}
-		$insert_q = "INSERT INTO `user` (`fullname`, `username`, `email`, `password`) 
-		VALUES ('$fullname','$username','$email','$password')";
-
-		$insert_user=mysqli_query($connection, $insert_q);
-		$_SESSION['user_id'] = $user_id;
-		$_SESSION['username'] = $username;
-
-		$delete_q = "DELETE FROM `user_verify` WHERE `id` = '$id' AND `code`='$code'";
-		$delete = mysqli_query($connection, $delete_q);
-		$message = "<h6>"."user created successfully"."<h6>";
 	}
 }
 

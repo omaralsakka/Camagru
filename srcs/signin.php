@@ -55,6 +55,38 @@ if(isset($_POST['submit'])){
 
 }
 
+if(isset($_GET['id']) && isset($_GET['code']))
+{
+	$id=$_GET['id'];
+	$code=$_GET['code'];
+
+	$query = "SELECT `fullname`, `username`, `email`, `password` FROM `user_verify`
+	WHERE `id` = '$id' AND `code` = '$code'";
+	$select = mysqli_query($connection, $query);
+	if(mysqli_num_rows($select)==1)
+	{
+		while($row=mysqli_fetch_array($select))
+		{
+			$user_id=$row['user_id'];
+			$email=$row['email'];
+			$username=$row['username'];
+			$fullname=$row['fullname'];
+			$password=$row['password'];
+		}
+		$insert_q = "INSERT INTO `user` (`fullname`, `username`, `email`, `password`) 
+		VALUES ('$fullname','$username','$email','$password')";
+
+		$insert_user=mysqli_query($connection, $insert_q);
+		$_SESSION['user_id'] = $user_id;
+		$_SESSION['username'] = $username;
+
+		$delete_q = "DELETE FROM `user_verify` WHERE `id` = '$id' AND `code`='$code'";
+		$delete = mysqli_query($connection, $delete_q);
+		$message = "<h6>"."user created successfully"."<h6>";
+		$_SESSION['verify'] = 0;
+	}
+}
+
 ?>
 
 

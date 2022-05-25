@@ -44,7 +44,7 @@
 }
 
 #profile-image{
-    width: 10vw;
+    width: 100%;
     border-radius: 50%;
 }
 
@@ -85,11 +85,11 @@
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 80vw;
+    max-width: 80vw;
     margin: 0.1vw;
     border-radius: 10px;
-    box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    background-color: white;
+    box-shadow: 5.6px 11.2px 11.2px rgba(92, 92, 92, 0.33);
+    background-color: rgba(255, 255, 255, 0.1);
     /* background-color: coral; */
 }
 

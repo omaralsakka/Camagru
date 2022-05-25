@@ -47,7 +47,7 @@ if (isset($_POST['delete_image'])){
             
             <div class="portfolio-container">
                 <div class="profile-avatar">
-                    <img src="../media/html_image.png" alt="" id="profile-image">
+                    <img src="../media/logos/Camagru-logos_initialAndCat_black.png" alt="" id="profile-image">
                 </div>
                 <div class="fullname-section">
                     
