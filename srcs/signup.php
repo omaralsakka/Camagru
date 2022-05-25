@@ -50,22 +50,18 @@ if(isset($_POST['submit'])){
 			$verify_query = mysqli_query($connection, "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`, `code`)
 			VALUES ('$fullname', '$username', '$email', '$password', '$code')");
 
-
 			$db_id = mysqli_insert_id($connection);
 			$emailmessage = "Your Activation Code is ".$code."";
 			$to=$email;
 			$subject="Activation Code For Camagru.com";
-			$from = 'info@camagru.dev';
+			$from = 'info@camagru.hive';
 			$body='Your Activation Code is '.$code.' Please Click On This link http://localhost:8080/Camagru/srcs/signin.php?id='.$db_id.'&code='.$code.' to activate your account.';
 			$headers = "From:".$from;
 			$mail_result = mail($to,$subject,$body,$headers);
-			echo $mail_result."<br>";
-			echo $email."<br>";
-			echo $body."<br>";
-			echo "An Activation Code Is Sent To You Check You Emails";
-			$message = "An Activation Code Is Sent To You Check You Emails";
+
 			$_SESSION['verify'] = 1;
 			header('location:verify.php');
+			
 			// we create a query message that will take the given variables and
 			// insert them into the db into each corresponding column.
 			$query = "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`) 

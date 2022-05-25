@@ -39,3 +39,5 @@ CREATE TABLE IF NOT EXISTS camagru_website.`user_comments` (
   `comment` VARCHAR(1000) NOT NULL,
   `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   );
+
+-- ALTER TABLE camagru_website.`user` ADD `notifications` INT DEFAULT 1;

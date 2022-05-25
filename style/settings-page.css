@@ -66,7 +66,7 @@ hr{
     opacity: 0.2;
 }
 
-.new-name, .new-email, .new-pass, .delete-account{
+.new-name, .new-email, .new-pass, .delete-account, .email-notifications{
     display: none;
 }
 
@@ -142,4 +142,8 @@ hr{
     text-align: center;
     font-size: 1.5vw;
     color: red;
+}
+
+.notification-text{
+    font-size: 1vw;
 }

@@ -40,7 +40,9 @@ if(isset($_POST['submit'])){
 				$_SESSION['user_id'] = $row['user_id'];
 				$_SESSION['fullname'] = $row['fullname'];
 				$_SESSION['username'] = $row['username'];
-				
+				$_SESSION['email'] = $row['email'];
+				$_SESSION['notifications'] = $row['notifications'];
+
 				//we use this session inside home.php file
 				header('location:home.php');
 				
@@ -79,6 +81,7 @@ if(isset($_GET['id']) && isset($_GET['code']))
 		$insert_user=mysqli_query($connection, $insert_q);
 		$_SESSION['user_id'] = $user_id;
 		$_SESSION['username'] = $username;
+		$_SESSION['email'] = $email;
 
 		$delete_q = "DELETE FROM `user_verify` WHERE `id` = '$id' AND `code`='$code'";
 		$delete = mysqli_query($connection, $delete_q);

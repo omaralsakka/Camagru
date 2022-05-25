@@ -24,7 +24,7 @@ $username = $_SESSION['username'];
 $stat = $dbh->prepare("SELECT * FROM user_images ORDER BY id DESC");
 $stat->execute();
 
-if(isset($_POST['submit'])){
+if(isset($_POST['submit-comment'])){
 
 	$comment = $_POST['comment'];
 	$image_id = $_POST['image_id'];
@@ -37,6 +37,23 @@ if(isset($_POST['submit'])){
 		$query->bindParam('username',$username);
 		$query->bindParam('comment',$comment);
 		$query->execute();
+	}
+
+	$find_img_usr = $dbh->prepare("SELECT `username` FROM `user_images` WHERE `id`='$image_id'");
+	$find_img_usr->execute();
+	$img_usr = $find_img_usr->fetch();
+	
+	if ($img_usr['username'] != $username && $_SESSION['notifications']){
+		$img_owner = $img_usr['username'];
+		$get_usr_email = $dbh->prepare("SELECT `email` FROM `user` WHERE `username` = '$img_owner'");
+		$get_usr_email->execute();
+		$usr_table = $get_usr_email->fetch();
+		$to = $usr_table['email'];
+		$subject="Comment Notification - Camagru";
+		$from = 'info@camagru.hive';
+		$body = "You have received a new comment from ".$_SESSION['username']." on one of your images!";
+		$headers = "From:".$from;
+		mail($to,$subject,$body,$headers);
 	}
 
 }
@@ -91,11 +108,12 @@ if (isset($_POST['remove_comment'])){
 							<div class="picture-date">
 								<div id="date">'.$date.'</div>
 							</div>
+
 							<div id="'.$image_id.'bc'.'" class="comment-container">
 								<form action="" method="post" class="comment-form">
 									<input class="comment-field" type="text" name="comment">
 									<input type="hidden" name="image_id" value="'.$image_id.'">
-										<button type="submit" name="submit" class="submit-comment">
+										<button type="submit" name="submit-comment" class="submit-comment">
 											<img src="../media/icons/submit-comment-outline.png" alt="button image" class="submit-comment-img">
 										</button>
 								</form>

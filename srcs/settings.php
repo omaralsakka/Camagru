@@ -11,6 +11,16 @@
         require_once('./config.php');
     }
 
+    if (isset($_POST['notification_update'])){
+        if ($_SESSION['notifications']){
+            $notification_update = $dbh->prepare("UPDATE `user` SET `notifications` = 0 WHERE `username` = '$username'");
+            $_SESSION['notifications'] = 0;
+        } else {
+            $notification_update = $dbh->prepare("UPDATE `user` SET `notifications` = 1 WHERE `username` = '$username'");
+            $_SESSION['notifications'] = 1;
+        }
+        $notification_update->execute();
+    }
     if (isset($_POST['change_name'])){
         
         $new_name = $_POST['new_name'];
@@ -78,10 +88,9 @@
 
         <!-- buttons and icons -->
         <div class="settings-container">
-            <div class="setting-container checkbox">
+            <div class="setting-container">
                 <img class="setting-img" src="../media/icons/icons8-notification-96.png" alt="">
-                <label for="myCheck">Email notifications:</label> 
-                <input type="checkbox" id="myCheck" onclick="emailNotification()">
+                <button id="email-notifications" onclick="displayInput(this.id)">Email notifications</button>
             </div>
             
             <hr>
@@ -116,6 +125,22 @@
         </div>
 
         <!-- pop-up input forms -->
+        <div class="new-inputs email-notifications">
+            <form class="settings-form" action="" method="post">
+                <?php
+                    if ($_SESSION['notifications']){
+                        echo "<p class='notification-text'>Deactivate email notifications</p>";
+                        echo "<button class='submit-btn' type='submit' name='notification_update'>Deactivate</button>";
+                    }
+                    else {
+                        echo "<p class='notification-text'>Activate email notifications</p>";
+                        echo "<button class='submit-btn' type='submit' name='notification_update'>Activate</button>";
+                    }
+                ?>
+                <!-- <button class="submit-btn" type="submit" name="change_name">Submit</button> -->
+            </form>
+        </div>
+
         <div class="new-inputs new-name">
             <form class="settings-form" action="" method="post">
                 <input class="text-input" type="text" name="new_name" placeholder=" New Full name" required>
@@ -156,15 +181,15 @@
 </body>
 <script>
 
-    function emailNotification() {
-        var checkBox = document.getElementById("myCheck");
-        var text = document.getElementById("text");
-        if (checkBox.checked == true){
-            text.style.display = "block";
-        } else {
-            text.style.display = "none";
-        }
-    }
+    // function emailNotification() {
+    //     var checkBox = document.getElementById("myCheck");
+    //     var text = document.getElementById("text");
+    //     if (checkBox.checked == true){
+    //         text.style.display = "block";
+    //     } else {
+    //         text.style.display = "none";
+    //     }
+    // }
 
     function displayInput(className){
         console.log(className);

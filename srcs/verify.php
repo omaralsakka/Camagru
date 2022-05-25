@@ -52,6 +52,7 @@
         font-size: 1vw;
     }
 </style>
+
 <body>
     <img id="main-logo" src="../media/logos/Camagru-logos_textAndCat2_black.png" alt="">
     <div class="main-container">
