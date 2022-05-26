@@ -25,7 +25,7 @@
 
     if (isset($_POST['change_username'])){
         
-        if (!preg_match("/^[a-zA-Z]*$/", $_POST['change_username']))
+        if (!preg_match("/^[a-zA-Z]*$/", $_POST['new_username']))
 		    $message = "Username can contain only letters";
         else {
             $new_username = validate_data ( $_POST['new_username'] );
@@ -49,7 +49,7 @@
 
     if (isset($_POST['change_name'])){
         
-        if (!preg_match("/^[a-zA-Z\s]+$/", $_POST['change_name']))
+        if (!preg_match("/^[a-zA-Z\s]+$/", $_POST['new_name']))
 		    $message = "Fullname can contain only letters and spaces";
         else {
             $new_name = validate_data ( $_POST['new_name'] );
@@ -63,7 +63,7 @@
     }
 
     if (isset($_POST['change_email'])){
-        if (!filter_var($_POST['change_email'], FILTER_VALIDATE_EMAIL))
+        if (!filter_var($_POST['new_email'], FILTER_VALIDATE_EMAIL))
             $message = "Incorrect email!";
         else {
             $new_email = validate_data ( $_POST['new_email'] );
@@ -243,7 +243,6 @@
 <script>
 
     function displayInput(className){
-        console.log(className);
         let newNameContainer = document.querySelector('.'+className);
         newNameContainer.style.display = 'flex';
         

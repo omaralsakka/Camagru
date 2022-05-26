@@ -165,7 +165,6 @@ if (isset($_POST['remove_comment'])){
 		} else {
 			commentField.style.display = "flex";
 		}
-		console.log(id);
 	}
 
 	function confirmSubmit(){

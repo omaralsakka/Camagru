@@ -140,7 +140,6 @@ function postPicture(canvasUrl){
     let resultImg = document.getElementById('imagePhp');
     xhr.onload = function (){
         if (this.status == 200){
-            console.log('this is the response:'+this.response);
             resultImg.src = this.response;
         }
     }
