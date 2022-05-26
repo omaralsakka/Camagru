@@ -21,6 +21,27 @@
         }
         $notification_update->execute();
     }
+
+    if (isset($_POST['change_username'])){
+        
+        $new_username = $_POST['new_username'];
+        $check_username = $dbh->prepare("SELECT * FROM `user` WHERE `username` = '$new_username'");
+        $check_username->execute();
+        $checked = $check_username->fetch();
+        if (!$checked['username']){
+            $_POST = array();
+            
+            $username_query = $dbh->prepare ("UPDATE `user`, `user_images`, `user_comments` 
+            SET `user`.`username` = '$new_username', `user_images`.`username` = '$new_username', `user_comments`.`username` = '$new_username'
+            WHERE `user`.`username` = '$username' AND `user_images`.`username` = '$username' AND `user_comments`.`username` = '$username'");
+
+            $username_query->execute();
+            $_SESSION['username'] = $new_username;
+        } else {
+            $message = "Error: Username exist!";
+        }
+    }
+
     if (isset($_POST['change_name'])){
         
         $new_name = $_POST['new_name'];
@@ -96,12 +117,18 @@
             <hr>
 
             <div class="setting-container">
+                <img class="setting-img" src="../media/icons/icons8-username-100.png" alt="">
+                <button id="new-username" onclick="displayInput(this.id)">Change username</button>
+            </div>
+            
+            <hr>
+
+            <div class="setting-container">
                 <img class="setting-img" src="../media/icons/icons8-change-name.png" alt="">
                 <button id="new-name" class="change-name-btn" onclick="displayInput(this.id)">Change full name</button>
             </div>
 
             <hr>
-            
             
             <div class="setting-container">
                 <img class="setting-img" src="../media/icons/icons8-change-email.png" alt="">
@@ -138,6 +165,13 @@
                     }
                 ?>
                 <!-- <button class="submit-btn" type="submit" name="change_name">Submit</button> -->
+            </form>
+        </div>
+
+        <div class="new-inputs new-username">
+            <form class="settings-form" action="" method="post">
+                <input class="text-input" type="text" name="new_username" placeholder=" New username" required>
+                <button class="submit-btn" type="submit" name="change_username">Submit</button>
             </form>
         </div>
 
@@ -180,16 +214,6 @@
 
 </body>
 <script>
-
-    // function emailNotification() {
-    //     var checkBox = document.getElementById("myCheck");
-    //     var text = document.getElementById("text");
-    //     if (checkBox.checked == true){
-    //         text.style.display = "block";
-    //     } else {
-    //         text.style.display = "none";
-    //     }
-    // }
 
     function displayInput(className){
         console.log(className);
