@@ -3,9 +3,9 @@
     session_start();
     
     if (!$_SESSION['verify']){
-        header('location:index.php');
+        header('location:../index.php');
     };
-    header("refresh:10;url=index.php");
+    header("refresh:10;url=../index.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">

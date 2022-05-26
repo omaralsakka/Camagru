@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS camagru_website.`user_verify` (
   email VARCHAR(150) NOT NULL,
   `password` VARCHAR(150) NOT NULL,
   `code` TEXT NOT NULL,
+  `notifications` INT DEFAULT 1,
   `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   );
 
@@ -37,6 +38,15 @@ CREATE TABLE IF NOT EXISTS camagru_website.`user_comments` (
   image_id INT(11) NOT NULL,
   username VARCHAR(150) NOT NULL,
   `comment` VARCHAR(1000) NOT NULL,
+  `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  );
+
+-- Creating the likes table ---------------
+CREATE TABLE IF NOT EXISTS camagru_website.`likes_table` (
+  id INT(11) AUTO_INCREMENT PRIMARY KEY,
+  image_id INT(11) NOT NULL,
+  username VARCHAR(150) NOT NULL,
+  `like` INT DEFAULT 0 NOT NULL,
   `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   );
 

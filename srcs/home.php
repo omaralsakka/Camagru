@@ -4,7 +4,6 @@
 
 error_reporting(0);
 
-
 // starting session to pass through server the user data.
 session_start();
 
@@ -14,15 +13,32 @@ if(!isset($_SESSION['user_id'])){
     header('location:signin.php');
 
 } else {
-
     // save the user_id into a variable
     $userId = $_SESSION['user_id'];
+	$logged_user = $_SESSION['username'];
 }
 
 $dbh = new PDO("mysql:host=localhost;dbname=camagru_website", "root", "123456");
 $username = $_SESSION['username'];
 $stat = $dbh->prepare("SELECT * FROM user_images ORDER BY id DESC");
 $stat->execute();
+
+
+if (isset($_POST['like'])){
+	$clicked_img = $_POST['image_heart'];
+    
+	$heart = $_POST['heart_status'];
+    $_POST = array();
+	if ($heart == 'like'){
+		$like_query = $dbh->prepare("INSERT INTO `likes_table` (`image_id`, `username`, `like`) VALUES ('$clicked_img', '$logged_user', '1')");
+		$like_query->execute();
+	} 
+    if ($heart == 'dislike'){
+		$dislike_query = $dbh->prepare("DELETE FROM `likes_table` WHERE `image_id` = '$clicked_img' AND `username` = '$logged_user'");
+		$dislike_query->execute();
+	}
+}
+
 
 if(isset($_POST['submit-comment'])){
 
@@ -86,16 +102,42 @@ if (isset($_POST['remove_comment'])){
 				$date = date('Y.m.d', strtotime($row['date']));
 				$type = $row['type'];
 				$content = base64_encode($row['content']);
-				$comments_query = $dbh->prepare("SELECT * from user_comments WHERE `image_id` = '$image_id' ORDER BY `date` DESC");
+				$comments_query = $dbh->prepare("SELECT * FROM user_comments WHERE `image_id` = '$image_id' ORDER BY `date` DESC");
 				$comments_query->execute();
 				echo 	'<div class="item-container">
 							<div class="picture-container">
 								<img id="'.$image_id.'" src="'.$type.$content.'" alt="" class="picture">
 							</div>
-							<div class="action-container">
-								<button class="action-button">
-									<img src="../media/icons/icons8-heart-outline.png" alt="button image" class="action-image">
-								</button>
+							<div class="action-container">';
+				
+				$likes_query = $dbh->prepare("SELECT * FROM `likes_table` WHERE `image_id` = '$image_id' AND `username` = '$logged_user'");
+				$likes_query->execute();
+				$likes_result = $likes_query->fetch();
+				
+				if ($likes_result['like'] == 1){
+					echo '
+					<form class="like-form" action="" method="post">
+						<button type="submit" name="like" class="action-button" >
+							<img src="../media/icons/icons8-heart-inline-red.png" alt="button image" class="action-image">
+							<input type="hidden" name="image_heart" value="'.$image_id.'">
+							<input type="hidden" name="heart_status" value="dislike">
+						</button>
+					</form>
+					';
+				
+				} else {
+					echo '
+					<form class="like-form" action="" method="post">
+						<button type="submit" name="like" class="action-button" >
+							<img src="../media/icons/icons8-heart-outline.png" alt="button image" class="action-image">
+							<input type="hidden" name="image_heart" value="'.$image_id.'">
+							<input type="hidden" name="heart_status" value="like">
+						</button>
+					</form>
+					';
+				}
+				echo '
+							
 								<button id="'.$image_id.'b'.'" class="action-button display-comment" onclick="displayComment(this.id)">
 									<img src="../media/icons/icons8-comment-64-outline.png" alt="button image" class="action-image">
 								</button>
@@ -176,5 +218,22 @@ if (isset($_POST['remove_comment'])){
 			return false ;
 	}
 
+	// function likeImg(imageId, click){
+	// 	let xml = new XMLHttpRequest();
+	// 	if (click == 1){
+	// 		xml.open('get', 'likes.php?heart=like&image_id='+imageId, true);
+	// 		// console.log(click);
+	// 	}
+	// 	else{
+	// 		xml.open('get', 'likes.php?heart=dislike&image_id='+imageId, true);
+	// 		// console.log(click);
+	// 	}
+	// 	// xml.setRequestHeader("Content-type", "text/plain");
+	// 	xml.onload = function(){
+	// 		console.log(this.response);
+	// 	}
+	// 	xml.send();
+	// 	// location.reload();
+	// }
 </script>
 </html>

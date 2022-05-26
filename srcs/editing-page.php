@@ -75,9 +75,6 @@ if(!isset($_SESSION['user_id'])){
                     <img src="../media/icons/icons8-folder-100-outline.png" alt="" class="option-image"></img>
                 </label>
             </button>
-            <!-- <button class="button-option">
-                <img src="../media/icons/icons8-done-100.png" alt="" class="option-image">
-            </button> -->
         </div>
     </div>
 </body>

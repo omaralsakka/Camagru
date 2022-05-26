@@ -97,7 +97,7 @@
             else {
             $user_pass = validate_data ( $_POST['password'] );
             $_POST = array();
-
+            $user_pass = hash('whirlpool', $user_pass);
             $check_pass = $dbh->prepare ("SELECT * FROM `user` WHERE `username` = '$username' AND `password` = '$user_pass'");
             $check_pass->execute();
             $user_info = $check_pass->fetch();
@@ -110,7 +110,7 @@
 
                 $delete_user->execute();
                 $_SESSION = array();
-                header('location:index.php');
+                header('location:../index.php');
             }
             else {
                 $message = "Incorrect Password!";
