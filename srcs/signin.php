@@ -8,14 +8,14 @@ error_reporting(0);
 
 // including the connection to mysql database file.
 require_once('config.php');
-
+require_once('security_functions.php');
 // starting session to pass through server the user data.
 session_start();
 
 if(isset($_POST['submit'])){
 	
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+	$username = validate_data ( $_POST['username'] );
+	$password = validate_data ( $_POST['password'] );
 
 	// check if one info is not givin by user, return error message
 	if(empty($username) || empty($password)){

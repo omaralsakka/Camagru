@@ -86,6 +86,7 @@ html{
 
 .home-top-nav-icons{
     flex: 1;
+    margin: 5px;
 }
 
 .home-top-nav-icons img{

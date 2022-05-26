@@ -10,65 +10,83 @@ error_reporting(0);
 // NOTE, check about adding require_once(deploy.php) soo it creates the schema on load.
 // including the connection to mysql database file.
 include('config.php');
-
+require_once('security_functions.php');
 // starting session to pass through server the user data.
 session_start();
+
 
 // if $_POST global variable in session have received submit button clicked,
 // save the values of those keys into variables.
 if(isset($_POST['submit'])){
 	
-	$email = $_POST['email'];
-	$password = $_POST['password'];
-	$fullname = $_POST['fullname'];
-	$username = $_POST['username'];
+	if (!filter_var($_POST['change_email'], FILTER_VALIDATE_EMAIL))
+		$message = "<h6>"."Incorrect email!"."<h6>";
 
-	// created an sql query to fetch from the db the info of one user. 
-	$sql = "SELECT * FROM `user` WHERE `username` = '$username'";
+	else if (!preg_match("/^[a-zA-Z\s]+$/", $_POST['fullname']))
+		$message = "<h6>"."Fullname can contain only letters and spaces"."<h6>";
+	
+	else if (!preg_match("/^[a-zA-Z]*$/", $_POST['username']))
+		$message = "<h6>"."Username can contain only letters"."<h6>";
+	
+	else if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $_POST['password']))
+		$message = "<h6>"."Password should contain only letters and numbers"."<h6>";
+	
+	else if (!validate_password($_POST['password']))
+		$message = "<h6>"."Password should contain at least 1 lowercase letter, 1 uppercase letter 1 number and length of 8"."<h6>";
+	
+	else {
+		$email = validate_data ($_POST['email']);
+		$password = validate_data ( $_POST['password'] );
+		$fullname = validate_data ( $_POST['fullname'] );
+		$username = validate_data ( $_POST['username'] );
 
-	// we use the query line to fetch the data from $connection that is already
-	// connected to the db, and save the results into $results variable.
-	$result = mysqli_query($connection, $sql);
+		// created an sql query to fetch from the db the info of one user. 
+		$sql = "SELECT * FROM `user` WHERE `username` = '$username'";
 
-	// if on sign up we found that there are data saved for this user.
-	// it means we cant re-create it and we inform that user exists.
-	if(mysqli_num_rows($result) > 0){
+		// we use the query line to fetch the data from $connection that is already
+		// connected to the db, and save the results into $results variable.
+		$result = mysqli_query($connection, $sql);
 
-		$message = "<h6>"."username already exist"."<h6>";
+		// if on sign up we found that there are data saved for this user.
+		// it means we cant re-create it and we inform that user exists.
+		if(mysqli_num_rows($result) > 0){
 
-	} else {
+			$message = "<h6>"."username already exist"."<h6>";
 
-		// check if one info is not givin by user, return error message
-		if(empty($email) || empty($password) || empty($fullname) || empty($username)){
-
-			$message = "<h6>"."please fill all the fields"."<h6>";
-		
 		} else {
 
-			$code=substr(md5(mt_rand()),0,15);
-			// mysqli_select_db($connection, 'camagru_website');
-			$verify_query = mysqli_query($connection, "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`, `code`)
-			VALUES ('$fullname', '$username', '$email', '$password', '$code')");
+			// check if one info is not givin by user, return error message
+			if(empty($email) || empty($password) || empty($fullname) || empty($username)){
 
-			$db_id = mysqli_insert_id($connection);
-			$emailmessage = "Your Activation Code is ".$code."";
-			$to=$email;
-			$subject="Activation Code For Camagru.com";
-			$from = 'info@camagru.hive';
-			$body='Your Activation Code is '.$code.' Please Click On This link http://localhost:8080/Camagru/srcs/signin.php?id='.$db_id.'&code='.$code.' to activate your account.';
-			$headers = "From:".$from;
-			$mail_result = mail($to,$subject,$body,$headers);
-
-			$_SESSION['verify'] = 1;
-			header('location:verify.php');
+				$message = "<h6>"."please fill all the fields"."<h6>";
 			
-			// we create a query message that will take the given variables and
-			// insert them into the db into each corresponding column.
-			$query = "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`) 
-			VALUES ('$fullname','$username','$email','$password')";
-			
-			$query_result = mysqli_query($connection, $query);
+			} else {
 
+				$code=substr(md5(mt_rand()),0,15);
+				// mysqli_select_db($connection, 'camagru_website');
+				$verify_query = mysqli_query($connection, "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`, `code`)
+				VALUES ('$fullname', '$username', '$email', '$password', '$code')");
+
+				$db_id = mysqli_insert_id($connection);
+				$emailmessage = "Your Activation Code is ".$code."";
+				$to=$email;
+				$subject="Activation Code For Camagru.com";
+				$from = 'info@camagru.hive';
+				$body='Your Activation Code is '.$code.' Please Click On This link http://localhost:8080/Camagru/srcs/signin.php?id='.$db_id.'&code='.$code.' to activate your account.';
+				$headers = "From:".$from;
+				$mail_result = mail($to,$subject,$body,$headers);
+
+				$_SESSION['verify'] = 1;
+				header('location:verify.php');
+				
+				// we create a query message that will take the given variables and
+				// insert them into the db into each corresponding column.
+				$query = "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`) 
+				VALUES ('$fullname','$username','$email','$password')";
+				
+				$query_result = mysqli_query($connection, $query);
+
+			}
 		}
 	}
 }
@@ -248,10 +266,10 @@ if(isset($_POST['submit'])){
 					<?php echo $message;?>
 
 					<!-- Sign up options -->
-					<input type="email" name="email" placeholder="Mobile Number or Email">
-					<input type="text" name="fullname" placeholder="Full Name">
-					<input type="text" name="username" placeholder="Username">
-					<input type="password" name="password" placeholder="Password">
+					<input type="email" name="email" placeholder="Email" required>
+					<input type="text" name="fullname" placeholder="Full Name" required>
+					<input type="text" name="username" placeholder="Username" required>
+					<input type="password" name="password" placeholder="Password" required>
 
 					<!-- Sign up button tag -->
 					<button type="submit" name="submit">Sign up</button>
