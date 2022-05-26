@@ -14,47 +14,54 @@ session_start();
 
 if(isset($_POST['submit'])){
 	
-	$username = validate_data ( $_POST['username'] );
-	$password = validate_data ( $_POST['password'] );
-
-	// check if one info is not givin by user, return error message
-	if(empty($username) || empty($password)){
-		$message = "<h6>"."please fill all the fields"."<h6>";
+	if (!preg_match("/^[a-zA-Z]*$/", $_POST['username']))
+		$message = "<h6>"."Incorrect username"."<h6>";
 	
-	} else {
-		// created an sql query to fetch from the db the info of one user. 
-		$sql = "SELECT * FROM `user` WHERE `username` = '$username' AND `password` = '$password'";
+	else if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $_POST['password']) || 
+		!validate_password($_POST['password']))
+		$message = "<h6>"."Incorrect password"."<h6>";
+	else {
+		$username = validate_data ( $_POST['username'] );
+		$password = validate_data ( $_POST['password'] );
 
-		// we use the query line to fetch the data from $connection that is already
-		// connected to the db, and save the results into $results variable.
-		$result = mysqli_query($connection, $sql);
-
-		// if on sign up we found that there are data saved for this user.
-		// it means we cant re-create it and we inform that user exists.
-		if(mysqli_num_rows($result) > 0){
-
-			
-			//we get the row of the user with the mentioned fullname
-			while($row = mysqli_fetch_assoc($result)){
-				//we save the specific user id into the session
-				$_SESSION['user_id'] = $row['user_id'];
-				$_SESSION['fullname'] = $row['fullname'];
-				$_SESSION['username'] = $row['username'];
-				$_SESSION['email'] = $row['email'];
-				$_SESSION['notifications'] = $row['notifications'];
-
-				//we use this session inside home.php file
-				header('location:home.php');
-				
-				$message = "<h6>"."Log in success"."<h6>";
-			}
+		// check if one info is not givin by user, return error message
+		if(empty($username) || empty($password)){
+			$message = "<h6>"."please fill all the fields"."<h6>";
 		
 		} else {
+			$password  = hash('whirlpool', $password);
+			// created an sql query to fetch from the db the info of one user. 
+			$sql = "SELECT * FROM `user` WHERE `username` = '$username' AND `password` = '$password'";
 			
-			$message = "<h6>"."Incorrect username or password"."<h6>";
+			// we use the query line to fetch the data from $connection that is already
+			// connected to the db, and save the results into $results variable.
+			$result = mysqli_query($connection, $sql);
+			
+			// if on sign up we found that there are data saved for this user.
+			// it means we cant re-create it and we inform that user exists.
+			
+			if(mysqli_num_rows($result) > 0){
+				
+				//we get the row of the user with the mentioned fullname
+				while($row = mysqli_fetch_assoc($result)){
+					//we save the specific user id into the session
+					$_SESSION['user_id'] = $row['user_id'];
+					$_SESSION['fullname'] = $row['fullname'];
+					$_SESSION['username'] = $row['username'];
+					$_SESSION['email'] = $row['email'];
+					$_SESSION['notifications'] = $row['notifications'];
+					//we use this session inside home.php file
+					header('location:home.php');
+					
+					$message = "<h6>"."Log in success"."<h6>";
+				}
+			
+			} else {
+				
+				$message = "<h6>"."Incorrect username or password"."<h6>";
+			}
 		}
 	}
-
 }
 
 if(isset($_GET['id']) && isset($_GET['code']))
@@ -261,8 +268,8 @@ if(isset($_GET['id']) && isset($_GET['code']))
 					<?php echo $message;?>
 
 					<!-- Sign in options -->
-					<input type="text" name="username" placeholder="username">
-					<input type="password" name="password"  placeholder="Password">
+					<input type="text" name="username" placeholder="username" required>
+					<input type="password" name="password"  placeholder="Password" required>
 
 					<!-- Sign in button tag -->
 					<button type="submit" name="submit">Log In</button>

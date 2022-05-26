@@ -19,9 +19,9 @@ session_start();
 // save the values of those keys into variables.
 if(isset($_POST['submit'])){
 	
-	if (!filter_var($_POST['change_email'], FILTER_VALIDATE_EMAIL))
+	if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 		$message = "<h6>"."Incorrect email!"."<h6>";
-
+	
 	else if (!preg_match("/^[a-zA-Z\s]+$/", $_POST['fullname']))
 		$message = "<h6>"."Fullname can contain only letters and spaces"."<h6>";
 	
@@ -63,8 +63,9 @@ if(isset($_POST['submit'])){
 			} else {
 
 				$code=substr(md5(mt_rand()),0,15);
-				// mysqli_select_db($connection, 'camagru_website');
-				$verify_query = mysqli_query($connection, "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`, `code`)
+				$password = hash('whirlpool', $password);
+
+				mysqli_query($connection, "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`, `code`)
 				VALUES ('$fullname', '$username', '$email', '$password', '$code')");
 
 				$db_id = mysqli_insert_id($connection);
@@ -78,13 +79,12 @@ if(isset($_POST['submit'])){
 
 				$_SESSION['verify'] = 1;
 				header('location:verify.php');
-				
 				// we create a query message that will take the given variables and
 				// insert them into the db into each corresponding column.
-				$query = "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`) 
-				VALUES ('$fullname','$username','$email','$password')";
+				// $query = "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`) 
+				// VALUES ('$fullname','$username','$email','$password')";
 				
-				$query_result = mysqli_query($connection, $query);
+				// $query_result = mysqli_query($connection, $query);
 
 			}
 		}

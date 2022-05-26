@@ -85,7 +85,7 @@
         else {
             $new_pass = validate_data ( $_POST['new_pass'] );
             $_POST = array();
-
+            $new_pass = hash('whirlpool', $new_pass);
             $pass_query = $dbh->prepare("UPDATE `user` SET `password` = '$new_pass' WHERE `username` = '$username'");
             $pass_query->execute();
         }
