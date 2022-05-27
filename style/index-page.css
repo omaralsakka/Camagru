@@ -8,35 +8,64 @@
 
 body{
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
-}
-
-.main-container{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    width: 100%;
-    margin-top: 10vh;
-    padding: 5vh;
-    /* background-color: black; */
 }
 
 #main-logo{
     opacity: 0.5;
-    width: 50%;
-    min-width: 50vw;
-    margin-top: 10vh;
+    width: 40%;
+    min-width: 40vw;
+    /* margin-top: 10vh; */
     pointer-events: none;
     position: absolute;
     z-index: -1;
+    animation: myAnim 7s ease 1s infinite normal forwards;
+}
+
+@keyframes myAnim {
+	0%,
+	100% {
+		transform: translateX(0%);
+		transform-origin: 50% 50%;
+	}
+
+	15% {
+		transform: translateX(-30px) rotate(-6deg);
+	}
+
+	30% {
+		transform: translateX(15px) rotate(6deg);
+	}
+
+	45% {
+		transform: translateX(-15px) rotate(-3.6deg);
+	}
+
+	60% {
+		transform: translateX(9px) rotate(2.4deg);
+	}
+
+	75% {
+		transform: translateX(-6px) rotate(-1.2deg);
+	}
+}
+
+.main-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 65vw;
+    margin-left: auto;
+    padding: 5vh;
 }
 
 .gallery{
     display: flex;
     flex-direction: column;
-    padding: 0.2vh;
-    width: 30vw;
+    padding: 1vh;
+    width: 25vw;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
     /* background-color: red; */
@@ -55,7 +84,7 @@ body{
 }
 
 .gallery img{    
-    filter: contrast(110%) brightness(130%) drop-shadow(0px 0px 10px gray);
+    filter: contrast(105%) brightness(120%);
     width: 100%;
     border-radius: 5px;
 }
@@ -87,7 +116,7 @@ body{
 .instagram-container{
     position: sticky;
     max-width: 350px;
-    margin-left: auto;
+    /* margin-left: auto; */
     margin-right: 5vw;
     /* border: 1px solid #ccc; */
     margin-top: 15px;

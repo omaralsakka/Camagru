@@ -7,10 +7,6 @@
 	/* color: #000; */
 	font-family: 'Space Grotesk', sans-serif;
 }
-body{
-	display: flex;
-	/* justify-content: center; */
-}
 
 #main-logo{
 	opacity: 0.5;
@@ -49,6 +45,13 @@ body{
 	75% {
 		transform: translateX(-6px) rotate(-1.2deg);
 	}
+}
+
+.middle-container{
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
 }
 
 .credentials-container{

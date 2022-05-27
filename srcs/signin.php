@@ -143,61 +143,63 @@ if (isset($_GET['msg'])){
 
 	<img id="main-logo" src="../media/logos/Camagru-logos_textAndCat2_black.png" alt="">
 	
-	<!-- container for user entry box -->
-	<div class="credentials-container">
+	<div class="middle-container">
+		<!-- container for user entry box -->
+		<div class="credentials-container">
 
-		<!-- sign up container box -->
-		<div class="instagram-container">
-			
-			<!--website logo  -->
-			<div class="instagram-logo">
-				<img src="../media/logos/Camagru-logos_sideBySide_black.png" alt="brand logo">
-			</div>
-
-			<form action="" method="post">
+			<!-- sign up container box -->
+			<div class="instagram-container">
 				
-				<!-- container for the user entry elements -->
-				<div class="instagram-container-inside">
-
-					<!-- the message which will appear when submit is clicked -->
-					<?php echo $message;?>
-
-					<!-- Sign in options -->
-					<input type="text" name="username" placeholder="username" required>
-					<input type="password" name="password"  placeholder="Password" required>
-
-					<!-- Sign in button tag -->
-					<button type="submit" name="submit">Log In</button>
-					
-					<!-- Forgot password tag text -->
-					<div class="forgot-pass">
-						<button class='forgot-button' onclick="forgotPass()">
-							Forgot password?
-						</button>
-					</div>
-
+				<!--website logo  -->
+				<div class="instagram-logo">
+					<img src="../media/logos/Camagru-logos_sideBySide_black.png" alt="brand logo">
 				</div>
 
-			</form>
+				<form action="" method="post">
+					
+					<!-- container for the user entry elements -->
+					<div class="instagram-container-inside">
 
-		</div>
-		
-		<!-- Bottom container has the sign up option -->
-		<div class="instagram-bottom-container">
+						<!-- the message which will appear when submit is clicked -->
+						<?php echo $message;?>
+
+						<!-- Sign in options -->
+						<input type="text" name="username" placeholder="username" required>
+						<input type="password" name="password"  placeholder="Password" required>
+
+						<!-- Sign in button tag -->
+						<button type="submit" name="submit">Log In</button>
+						
+						<!-- Forgot password tag text -->
+						<div class="forgot-pass">
+							<button class='forgot-button' onclick="forgotPass()">
+								Forgot password?
+							</button>
+						</div>
+
+					</div>
+
+				</form>
+
+			</div>
 			
-			<!-- Sign up option -->
-			<h4>Don't have an account? <a href="signup.php" style="text-decoration: none; 
-			">Sign Up</a></h4>
+			<!-- Bottom container has the sign up option -->
+			<div class="instagram-bottom-container">
+				
+				<!-- Sign up option -->
+				<h4>Don't have an account? <a href="signup.php" style="text-decoration: none; 
+				">Sign Up</a></h4>
 
+			</div>
 		</div>
-	</div>
 
-	<div class="forgot-popup">
-		<p class="popup-text">Please enter your email</p>
-		<form class="forgot-form" action="" method="post">
-			<input type="email" name="forgot-email">
-			<button type="submit" name="submit-forgot">Submit</button>
-		</form>
+		<div class="forgot-popup">
+			<p class="popup-text">Please enter your email</p>
+			<form class="forgot-form" action="" method="post">
+				<input type="email" name="forgot-email">
+				<button type="submit" name="submit-forgot">Submit</button>
+			</form>
+		</div>
 	</div>
 </body>
 <script>
