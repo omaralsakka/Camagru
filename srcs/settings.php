@@ -191,7 +191,6 @@
                         echo "<button class='submit-btn' type='submit' name='notification_update'>Activate</button>";
                     }
                 ?>
-                <!-- <button class="submit-btn" type="submit" name="change_name">Submit</button> -->
             </form>
         </div>
 

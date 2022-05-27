@@ -102,7 +102,7 @@ if (isset($_POST['submit-forgot'])){
 		$message = "<h6>"."Incorrect email!"."<h6>";
 	else{
 		$forgot_email= validate_data ($_POST['forgot-email']);
-
+		$_POST = array();
 		$forgot_query = $dbh->prepare ("SELECT * FROM `user` WHERE `email` = '$forgot_email'");
 		$forgot_query->execute();
 		$forgot_result = $forgot_query->fetch();
@@ -116,13 +116,17 @@ if (isset($_POST['submit-forgot'])){
 			$body='To reset password please Click On This link http://localhost:8080/Camagru/srcs/forgot-password.php?email='.$forgot_email.'&code='.$forgot_code.' to activate your account.';
 			$headers = "From:".$from;
 			$mail_result = mail($forgot_email, $subject, $body, $headers);
-
-			header('location:verify.php');
+			header('location:verify.php?msg=nwpass');
+			$_SESSION['nwpass'] = 1;
 		}
 		else {
 			$message = "<h6>"."No user found with this email!"."<h6>";
 		}
 	}
+}
+
+if (isset($_GET['msg'])){
+	$message = "<h6>"."Your password has been updated!"."<h6>";
 }
 
 ?>
@@ -137,6 +141,8 @@ if (isset($_POST['submit-forgot'])){
 </head>
 <body>
 
+	<img id="main-logo" src="../media/logos/Camagru-logos_textAndCat2_black.png" alt="">
+	
 	<!-- container for user entry box -->
 	<div class="credentials-container">
 
@@ -164,8 +170,8 @@ if (isset($_POST['submit-forgot'])){
 					<button type="submit" name="submit">Log In</button>
 					
 					<!-- Forgot password tag text -->
-					<div class="forgot-pass" onclick="forgotPass()">
-						<button class='forgot-button'>
+					<div class="forgot-pass">
+						<button class='forgot-button' onclick="forgotPass()">
 							Forgot password?
 						</button>
 					</div>
@@ -196,7 +202,15 @@ if (isset($_POST['submit-forgot'])){
 </body>
 <script>
 	function forgotPass(){
-
+		let forgotPopUp = document.querySelector('.forgot-popup');
+		forgotPopUp.style.display = 'flex';
+        
+        // to hide element when clicked outside the box
+        document.addEventListener('mouseup', function(e){
+            if (!forgotPopUp.contains(e.target)){
+                forgotPopUp.style.display = 'none';
+            }
+        })
 	}
 </script>
 </html>

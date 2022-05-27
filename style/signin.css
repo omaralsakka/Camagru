@@ -9,11 +9,52 @@
 }
 body{
 	display: flex;
-	justify-content: center;
+	/* justify-content: center; */
 }
+
+#main-logo{
+	opacity: 0.5;
+	width: 40%;
+	min-width: 40vw;
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	z-index: -1;
+	animation: myAnim 7s ease 1s infinite normal forwards;
+}
+
+@keyframes myAnim {
+	0%,
+	100% {
+		transform: translateX(0%);
+		transform-origin: 50% 50%;
+	}
+
+	15% {
+		transform: translateX(-30px) rotate(-6deg);
+	}
+
+	30% {
+		transform: translateX(15px) rotate(6deg);
+	}
+
+	45% {
+		transform: translateX(-15px) rotate(-3.6deg);
+	}
+
+	60% {
+		transform: translateX(9px) rotate(2.4deg);
+	}
+
+	75% {
+		transform: translateX(-6px) rotate(-1.2deg);
+	}
+}
+
 .credentials-container{
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 	margin-top: 10%;
 }
 
@@ -133,7 +174,7 @@ input[type=password]{
 	box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
 }
 .forgot-popup{
-	display: flex;
+	display: none;
 	justify-content: center;
 	flex-direction: column;
 	position: fixed;
@@ -161,6 +202,7 @@ input[type=password]{
 	padding: 1vh;
 }
 .forgot-form button{
+    cursor: pointer;
 	margin: 2vh auto;
 	padding: 1vh;
 	font-size: 0.7vw;

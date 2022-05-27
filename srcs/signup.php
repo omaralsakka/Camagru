@@ -79,12 +79,6 @@ if(isset($_POST['submit'])){
 
 				$_SESSION['verify'] = 1;
 				header('location:verify.php');
-				// we create a query message that will take the given variables and
-				// insert them into the db into each corresponding column.
-				// $query = "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`) 
-				// VALUES ('$fullname','$username','$email','$password')";
-				
-				// $query_result = mysqli_query($connection, $query);
 
 			}
 		}
@@ -100,7 +94,45 @@ if(isset($_POST['submit'])){
 	<title>Camagru Signup</title>
 
 	<style>
-		
+
+		#main-logo{
+			opacity: 0.5;
+			width: 40%;
+			min-width: 40vw;
+			pointer-events: none;
+			position: absolute;
+			top: 0;
+			z-index: -1;
+			animation: myAnim 7s ease 1s infinite normal forwards;
+		}
+
+		@keyframes myAnim {
+			0%,
+			100% {
+				transform: translateX(0%);
+				transform-origin: 50% 50%;
+			}
+
+			15% {
+				transform: translateX(-30px) rotate(-6deg);
+			}
+
+			30% {
+				transform: translateX(15px) rotate(6deg);
+			}
+
+			45% {
+				transform: translateX(-15px) rotate(-3.6deg);
+			}
+
+			60% {
+				transform: translateX(9px) rotate(2.4deg);
+			}
+
+			75% {
+				transform: translateX(-6px) rotate(-1.2deg);
+			}
+		}
 		.credentials-container{
 			display: flex;
 			flex-direction: column;
@@ -224,10 +256,12 @@ if(isset($_POST['submit'])){
 			cursor: pointer;
 			box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
 		}
+
+
 	</style>
 </head>
 <body>
-
+	<img id="main-logo" src="../media/logos/Camagru-logos_textAndCat2_black.png" alt="">
 	<!-- container for user entry box -->
 	<div class="credentials-container">
 		
@@ -250,17 +284,6 @@ if(isset($_POST['submit'])){
 
 				<!-- container for the user entry elements -->
 				<div class="instagram-container-inside">
-					
-					<!-- provided by fontawesome.com / to log in with facebook account -->
-					<button><i class="fa-brands fa-facebook-square"></i> Log in with 
-					facebook</button>
-					
-					<!-- the word or surrounded by 2 horizontal lines -->
-					<div class="or">
-						<hr style="width:30%; margin: 10px; opacity: 0.3;">
-						<h5 style="opacity: 0.5;">OR</h5>
-						<hr style="width:30%; margin: 10px; opacity: 0.3;">
-					</div>
 
 					<!-- the message which will appear when submit is clicked -->
 					<?php echo $message;?>

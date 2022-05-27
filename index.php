@@ -40,9 +40,6 @@ $idx = 1;
     <link rel="stylesheet" href="./style/style.css">
 	<link rel="stylesheet" href="./style/index-page.css">
 </head>
-<style>
-
-</style>
 <body>
 	<img id="main-logo" src="./media/logos/Camagru-logos_textAndCat2_black.png" alt="">
 	<div class="main-container">

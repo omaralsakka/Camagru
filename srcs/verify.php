@@ -2,7 +2,7 @@
 
     session_start();
     
-    if (!$_SESSION['verify']){
+    if (!$_SESSION['verify'] && !$_GET['msg']){
         header('location:../index.php');
     };
     header("refresh:10;url=../index.php");
