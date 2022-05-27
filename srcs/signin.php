@@ -97,154 +97,43 @@ if(isset($_GET['id']) && isset($_GET['code']))
 	}
 }
 
-?>
+if (isset($_POST['submit-forgot'])){
+	if (!filter_var($_POST['forgot-email'], FILTER_VALIDATE_EMAIL))
+		$message = "<h6>"."Incorrect email!"."<h6>";
+	else{
+		$forgot_email= validate_data ($_POST['forgot-email']);
 
+		$forgot_query = $dbh->prepare ("SELECT * FROM `user` WHERE `email` = '$forgot_email'");
+		$forgot_query->execute();
+		$forgot_result = $forgot_query->fetch();
+		if ($forgot_result['username']){
+			$forgot_code = substr(md5(mt_rand()),0,15);
+			$forgot_request = $dbh->prepare("INSERT INTO `forgot_pass` (`email`, `code`) VALUES ('$forgot_email', '$forgot_code')");
+			$forgot_request->execute();
+
+			$subject="Password reset For Camagru.com";
+			$from = 'info@camagru.hive';
+			$body='To reset password please Click On This link http://localhost:8080/Camagru/srcs/forgot-password.php?email='.$forgot_email.'&code='.$forgot_code.' to activate your account.';
+			$headers = "From:".$from;
+			$mail_result = mail($forgot_email, $subject, $body, $headers);
+
+			header('location:verify.php');
+		}
+		else {
+			$message = "<h6>"."No user found with this email!"."<h6>";
+		}
+	}
+}
+
+?>
 
 <!DOCTYPE html>
 <html>
 <head>
 	
 	<?php include_once("../frontend/head.html")?>
+	<link rel="stylesheet" href="../style/signin.css">
 	<title>Camagru Signin</title>
-
-	<style>
-
-		/* default settings for all elements */
-		*{
-			margin:0;
-			padding:0;
-			box-sizing: border-box;
-			font-size: 1em;
-			/* color: #000; */
-			font-family: 'Space Grotesk', sans-serif;
-		}
-
-		.credentials-container{
-			display: flex;
-			flex-direction: column;
-			margin-top: 10%;
-		}
-		
-		.instagram-container{
-			width: 100%;
-			max-width: 350px;
-			margin: auto;
-			/* border: 1px solid #ccc; */
-			margin-top: 15px;
-			padding: 5px;
-			border-radius: 5px;
-			box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-			background-color: #F6F6F6;
-		}
-
-		.instagram-logo{
-			width: 100%;
-			max-width: 400px;
-			margin: auto;
-			margin-top: 10px;
-			/* align-content: center; */
-		}
-
-		.instagram-logo img{
-			width: 100%;
-			object-fit: cover;
-		}
-
-		.instagram-status{
-			font-size: 18px;
-			text-align: center;
-			color: #aaa;
-		}
-
-		.instagram-container-inside{
-			padding: 25px;
-		}
-
-		.instagram-container-inside button{
-			width: 100%;
-			padding: 8px;
-			margin: 8px;
-			border: none;
-			font-size: 12px;
-			color: #111111;
-			background-color: #FFCB74;
-			/* color: white; */
-			/* background-color: #3897f0; */
-			border-radius: 5px;
-			cursor: pointer;
-			box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
-		}
-
-		.instagram-container-inside h5{
-			color: #111111;
-			/* color: #3897f0; */
-			text-align: center;
-			margin-bottom: 10px;
-			margin-top: 10px;
-		}
-		
-		.instagram-container-inside input[type=email], input[type=text], 
-		input[type=password]{
-			width: 100%;
-			padding: 8px;
-			margin: 6px;
-			display: inline-block;
-			box-sizing: border-box;
-			box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
-			border: 1px solid #e9e9e9;
-			background-color: #F0F0F0;
-			font-size: 12px;
-			border-radius: 4px;
-		}
-
-		.instagram-container-inside p{
-			font-size: 16px;
-			text-align: center;
-			color: #aaa;
-		}
-		
-		.or{
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-
-		/* The error message */
-		.instagram-container-inside h6{
-			text-align: center;
-			color: red;
-			font-size: 18px;
-		}
-
-		.instagram-bottom-container{
-			width: 100%;
-			max-width: 350px;
-			margin: auto;
-			/* border: 1px solid #ccc; */
-			margin-top: 15px;
-			border-radius: 5px;
-			box-shadow: 7.2px 14.4px 14.4px hsl(0deg 0% 0% / 0.28);
-			background-color: #F6F6F6;
-		}
-
-		.instagram-bottom-container h4{
-			margin-top: 20px;
-			margin-bottom: 20px;
-			text-align: center;
-		}
-		
-		.instagram-bottom-container a{
-			color: #111111;
-			background-color: #FFCB74;
-			border-radius: 5px;
-			padding: 5px;
-			margin: 8px;
-			border: none;
-			cursor: pointer;
-			box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
-		}
-
-	</style>
 </head>
 <body>
 
@@ -274,20 +163,12 @@ if(isset($_GET['id']) && isset($_GET['code']))
 					<!-- Sign in button tag -->
 					<button type="submit" name="submit">Log In</button>
 					
-					<!-- the word or surrounded by 2 horizontal lines -->
-					<div class="or">
-						<hr style="width:30%; margin: 10px; opacity: 0.3;">
-						<h5 style="opacity: 0.5;">OR</h5>
-						<hr style="width:30%; margin: 10px; opacity: 0.3;">
-					</div>
-
-					
-					<!-- provided by fontawesome.com / to log in with facebook account -->
-					<h5><i class="fa-brands fa-facebook-square"></i> Log in with 
-					facebook</h5>
-
 					<!-- Forgot password tag text -->
-					<p>Forgot password?</p>
+					<div class="forgot-pass" onclick="forgotPass()">
+						<button class='forgot-button'>
+							Forgot password?
+						</button>
+					</div>
 
 				</div>
 
@@ -304,5 +185,18 @@ if(isset($_GET['id']) && isset($_GET['code']))
 
 		</div>
 	</div>
+
+	<div class="forgot-popup">
+		<p class="popup-text">Please enter your email</p>
+		<form class="forgot-form" action="" method="post">
+			<input type="email" name="forgot-email">
+			<button type="submit" name="submit-forgot">Submit</button>
+		</form>
+	</div>
 </body>
+<script>
+	function forgotPass(){
+
+	}
+</script>
 </html>

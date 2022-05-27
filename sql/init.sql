@@ -50,4 +50,10 @@ CREATE TABLE IF NOT EXISTS camagru_website.`likes_table` (
   `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   );
 
--- ALTER TABLE camagru_website.`user` ADD `notifications` INT DEFAULT 1;
+-- Creating the forgot-pass table ---------------
+CREATE TABLE IF NOT EXISTS camagru_website.`forgot_pass` (
+  id INT(11) AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(150) NOT NULL,
+  `code` TEXT NOT NULL,
+  `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  );

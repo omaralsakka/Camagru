@@ -58,7 +58,7 @@
     <div class="main-container">
         <div class="text-part">
             <h1 class="message">An activation code has been sent to your email</h1><br>
-            <h1 class="message">Please verify your account</h1>
+            <h1 class="message">Please check your email</h1>
         </div>
     </div>
 </body>
