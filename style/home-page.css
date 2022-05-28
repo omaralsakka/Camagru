@@ -45,9 +45,9 @@
 
 .action-container{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    width: 28vw;
+    width: 30vw;
     min-width: 500px;
     height: 8vh;
     padding: 1vh;
@@ -83,16 +83,15 @@
 
 .username-container{
     display: flex;
-    justify-content: center;
     align-items: center;
     margin-left: auto;
-    width: 8vw;
+    width: 100%;
     min-width: 150px;
     height: 5vh;
-    /* background-color: white; */
 }
 
 .username{
+    margin-left: auto;
     font-size:calc(15px + 1vw);
 }
 

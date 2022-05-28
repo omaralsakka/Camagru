@@ -19,7 +19,9 @@ if(!isset($_SESSION['user_id'])){
 $dbh = new PDO("mysql:host=localhost;dbname=camagru_website", "root", "123456");
 $username = $_SESSION['username'];
 $stat = $dbh->prepare("SELECT * FROM user_images WHERE `username`='$username' ORDER BY `date` DESC");
+$avatar_q = $dbh->prepare("SELECT * FROM user_images WHERE `username`='$username' ORDER BY `date` DESC");
 $stat->execute();
+$avatar_q->execute();
 
 if (isset($_POST['delete_image'])){
     $image_to_delete = trim($_POST['delete_image_id'], "img");
@@ -47,10 +49,26 @@ if (isset($_POST['delete_image'])){
             
             <div class="portfolio-container">
                 <div class="profile-avatar">
-                    <img src="../media/logos/Camagru-logos_initialAndCat_black.png" alt="" id="profile-image">
+                    
+                    <!-- if user taken any pics, it will be set as their profile page,
+                    else the logo will be the profile pic -->
+                    <?php
+                        $avatar_f = $avatar_q->fetch();
+                        if ($avatar_f['id']){
+                            $avatar_img = base64_encode($avatar_f['content']);
+                            $avatar_type = $avatar_f['type'];
+
+                            echo '
+                                <img src="'.$avatar_type.$avatar_img.'" alt="user avatar image" id="profile-image">
+                            ';
+                        } else {
+                            echo '
+                                <img src="../media/logos/Camagru-logos_initialAndCat_black.png" alt="user avatar image" id="profile-image">
+                            ';
+                        }
+                    ?>
                 </div>
                 <div class="fullname-section">
-                    
                     <h4 class="fullname-text"><?php echo $_SESSION['fullname']?></h4>
                 </div>
             </div>
