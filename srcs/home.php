@@ -173,6 +173,7 @@ if (isset($_POST['remove_comment'])){
 					</div>
 					';
 				}
+				echo '<div class="comments-description" id="cd-'.$image_id.'">';
 				while ($comments_table = $comments_query->fetch()){
 					$this_id = $comments_table['id'];
 					$comment_username = $comments_table['username'];
@@ -181,7 +182,6 @@ if (isset($_POST['remove_comment'])){
 
 					
 					echo 	'
-							<div class="comments-description comments-img-'.$image_id.'" >
 								<div class="comments-top-part">
 									<div class="user-comment-info">
 										<p class="comment-username">'.$comment_username.'</p>
@@ -201,9 +201,9 @@ if (isset($_POST['remove_comment'])){
 								<div class="user-comment-text">
 									<h3 class="user-comment-text">'.$comment_content.'</h3>
 								</div>
-							</div>';
+							';
 				};
-
+					echo '</div>';
 					echo '</div>';
 				echo '</div>';
 			}
@@ -234,7 +234,7 @@ if (isset($_POST['remove_comment'])){
 	}
 
 	function showComments(id){
-		let commentsPart = document.getElementsByClassName('comments-description comments-img-'+id);
+		let commentsPart = document.getElementById('cd-'+id);
 
 		if (commentsPart.style.display == 'block')
 			commentsPart.style.display = 'none';
