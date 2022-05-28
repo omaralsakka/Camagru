@@ -14,6 +14,7 @@
     align-items: center;
     flex-direction: column;
     width: 40vw;
+    min-width: 600px;
     min-height: 80vh;
     padding: 1vw;
     margin: 5vh 0;
@@ -27,6 +28,7 @@
 .picture-container{
     display: flex;
     width: 30vw;
+    min-width: 500px;
     height: 45vh;
     margin-bottom: 0;
     border: none;
@@ -46,6 +48,7 @@
     justify-content: center;
     align-items: center;
     width: 28vw;
+    min-width: 500px;
     height: 8vh;
     padding: 1vh;
     margin-top: 1vh;
@@ -60,6 +63,7 @@
     justify-content: center;
     align-items: center;
     width: 2vw;
+    min-width: 40px;
     height: 3vh;
     margin: 0 0.5vw;
     background-color: transparent;
@@ -83,25 +87,28 @@
     align-items: center;
     margin-left: auto;
     width: 8vw;
+    min-width: 150px;
     height: 5vh;
     /* background-color: white; */
 }
 
 .username{
-    font-size: 1.5vw;
+    font-size:calc(15px + 1vw);
 }
 
 .picture-date{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    width: 26vw;
+    width: 27vw;
+    min-width: 450px;
 }
 
 .comment-container{
     display: none;
     align-items: center;
     width: 28vw;
+    min-width: 500px;
     height: 10vh;
     padding: 1vh;
     margin-top: 0.5vh;
@@ -129,6 +136,7 @@
     justify-content: center;
     align-items: center;
     width: 2vw;
+    min-width: 30px;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -149,6 +157,7 @@
     display: flex;
     margin-top: 0.5vh;
     width: 28vw;
+    min-width: 450px;
     padding: 1vh;
     flex-direction: column;
     justify-content: flex-start;

@@ -1,19 +1,29 @@
+<?php
+  session_start();
+?>
+
 
   <!-- top navagation bar -->
   <div class="home-top-nav">
+    <?php
+    
+    echo '
+      <div class="home-top-nav-icon">
+          <div class="home-top-nav-username">
+            <h1 class="username-in-nav">'.$_SESSION['username'].'</h1>
+          </div>
+      </div>
+    ';
+    
+    ?>
     <div class="home-top-nav-icon">
       <div class="home-top-nav-logo">
-        <a href="home.php"
-          ><img
+        <a href="home.php">
+          <img
             src="../media/logos/Camagru-logos_sideBySide_black.png"
             alt="Camagru logo"
-        /></a>
-      </div>
-    </div>
-
-    <div class="home-top-nav-icon">
-      <div class="home-top-nav-search">
-        <input type="text" placeholder="Search" />
+          />
+        </a>
       </div>
     </div>
 
@@ -25,35 +35,8 @@
 				onmouseover="this.src='../media/icons/icons8-home-filled.svg'" 
 				onmouseout="this.src='../media/icons/icons8-home-empty.svg'" alt="home icon"></a>
 
-          <!-- <a class="inline active" href="../srcs/home.php"
-            ><img src="../media/icons/icons8-home-filled.svg" alt="home icon"
-          /></a> -->
         </div>
-        <!-- <div class="home-top-nav-icons">
-          <a class="outline" href=""
-            ><img
-              src="../media/icons/icons8-cursor-outline.png"
-              onmouseover="this.src='../media/icons/icons8-cursor-filled.png'"
-              onmouseout="this.src='../media/icons/icons8-cursor-outline.png'"
-              alt="cursor icon"
-          /></a> -->
 
-          <!-- <a class="inline" href=""><img src="../media/icons/icons8-cursor-filled.png" alt="cursor icon"></a> -->
-        <!-- </div> -->
-        <!-- <div class="home-top-nav-icons">
-		
-						<a class="outline" href=""><img src="../media/icons/icons8-explore-outline.png" alt="explore icon"></a>
-						
-						<a class="inline" href=""><img src="../media/icons/icons8-explore-inline.png" alt="explore icon"></a>
-		
-					</div> -->
-        <!-- <div class="home-top-nav-icons">
-		
-						<a class="outline" href=""><img src="../media/icons/icons8-heart-outline.png" alt="heart icon"></a>
-
-						<a class="inline" href=""><img src="../media/icons/icons8-heart-inline-red.png" alt="heart icon"></a>
-
-					</div> -->
         <div class="home-top-nav-icons">
           <a class="outline" href="../srcs/profile-page.php"
             ><img

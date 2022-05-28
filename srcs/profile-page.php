@@ -40,7 +40,7 @@ if (isset($_POST['delete_image'])){
     <link rel="stylesheet" href="../style/profile-page.css">
 </head>
 <body>
-    <?php include_once('../frontend/navbar.html')?>
+    <?php include_once('../frontend/navbar.php')?>
     
     <div class="main-container">
         <div class="top-container">

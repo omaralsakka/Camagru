@@ -126,7 +126,7 @@
     <link rel="stylesheet" href="../style/settings-page.css">
 </head>
 <body>
-    <?php include_once('../frontend/navbar.html')?>
+    <?php include_once('../frontend/navbar.php')?>
     
     <div class="main-container">
         

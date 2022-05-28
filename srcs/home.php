@@ -92,7 +92,7 @@ if (isset($_POST['remove_comment'])){
 </head>
 <body>
 
-	<?php include_once("../frontend/navbar.html");?>
+	<?php include_once("../frontend/navbar.php");?>
 
     <div class="main-container">
 		<?php
