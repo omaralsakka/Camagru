@@ -10,15 +10,19 @@ body{
     display: flex;
     /* justify-content: center; */
     align-items: center;
+    overflow: auto;
 }
 
 #main-logo{
     opacity: 0.5;
-    width: 40%;
-    min-width: 40vw;
-    /* margin-top: 10vh; */
+    /* width: 40%; */
+    width: 40vw;
+    min-width: 10px;
+    top: 10%;
+    bottom: 25%;
+    margin-right: 0;
     pointer-events: none;
-    position: absolute;
+    position: fixed;
     z-index: -1;
     animation: myAnim 7s ease 1s infinite normal forwards;
 }
@@ -54,11 +58,11 @@ body{
 .main-container{
     display: flex;
     justify-content: space-between;
-    align-items: center;
     flex-direction: row;
     width: 65vw;
     margin-left: auto;
     padding: 5vh;
+    overflow-y: auto;
 }
 
 .gallery{
@@ -66,6 +70,7 @@ body{
     flex-direction: column;
     padding: 1vh;
     width: 25vw;
+    min-width: 200px;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
     /* background-color: red; */
@@ -114,23 +119,25 @@ body{
 }
 
 .instagram-container{
-    position: sticky;
-    max-width: 350px;
-    /* margin-left: auto; */
-    margin-right: 5vw;
-    /* border: 1px solid #ccc; */
-    margin-top: 15px;
+    position: fixed;
+    right: 10vw;
+    top: 35%;
+    width: 13.67vw;
+    height: 25vh;
+    max-height: 280px;
+    min-height: 240px;
+    min-width: 200px;
     padding: 5px;
     border-radius: 5px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
     background-color: #F6F6F6;
 }
+
 .instagram-logo{
     width: 100%;
     max-width: 400px;
     margin: auto;
     margin-top: 10px;
-    /* align-content: center; */
 }
 .instagram-logo img{
     width: 100%;
@@ -141,6 +148,7 @@ body{
 }
 .instagram-container-inside button{
     width: 100%;
+    min-width: 50px;
     padding: 8px;
     margin: 8px;
     border: none;
@@ -159,6 +167,7 @@ body{
 }
 .or{
     display: flex;
+    width: 100%;
     justify-content: center;
     align-items: center;
 }

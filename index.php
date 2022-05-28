@@ -64,6 +64,17 @@ $idx = 1;
 						$idx = 1;
 					}
 				}
+				if ($idx != 1 && $idx < 7){
+					while ($idx < 7){
+						if ($idx % 2 == 0)
+							echo "<img class='img".$idx."' src='./media/logos/Camagru-logos_initialAndCat_black.png'>";
+						else
+							echo "<img class='img".$idx."' src='./media/logos/Camagru-intialAndCat_white.png'>";
+						$idx++;
+					}
+					echo "</div>";
+				}
+					
 			?>
 		</div>
 

@@ -103,6 +103,9 @@ if (isset($_POST['remove_comment'])){
 				$type = $row['type'];
 				$content = base64_encode($row['content']);
 				$comments_query = $dbh->prepare("SELECT * FROM user_comments WHERE `image_id` = '$image_id' ORDER BY `date` DESC");
+				$comments_check = $dbh->prepare("SELECT * FROM user_comments WHERE `image_id` = '$image_id' ORDER BY `date` DESC");
+				$comments_check->execute();
+				$comments_available = $comments_check->fetch();
 				$comments_query->execute();
 				echo 	'<div class="item-container">
 							<div class="picture-container">
@@ -161,18 +164,29 @@ if (isset($_POST['remove_comment'])){
 								</form>
 							</div>';
 				echo 		'<div class="user-comments-container">';
-
+				
+				// if there comments exist for the user, there will be a button to view them.
+				if ($comments_available['id']){
+					echo '
+					<div class="show-comments-container">
+						<button class="show-comments-btn" onClick="showComments('.$image_id.')">View all comments</button>
+					</div>
+					';
+				}
 				while ($comments_table = $comments_query->fetch()){
 					$this_id = $comments_table['id'];
 					$comment_username = $comments_table['username'];
 					$comment_date = date('Y.m.d', strtotime($comments_table['date']));
 					$comment_content = $comments_table['comment'];
+
+					
 					echo 	'
-							<div class="comments-top-part">
-								<div class="user-comment-info">
-									<p class="comment-username">'.$comment_username.'</p>
-									<p id="comment-date">'.$comment_date.'</p>
-								</div>';
+							<div class="comments-description comments-img-'.$image_id.'" >
+								<div class="comments-top-part">
+									<div class="user-comment-info">
+										<p class="comment-username">'.$comment_username.'</p>
+										<p id="comment-date">'.$comment_date.'</p>
+									</div>';
 					if ($_SESSION['username'] == $comment_username || $_SESSION['username'] == $username){
 						echo 	'<form action="" method="post" class="remove-comment-form">
 									<button class="remove-comment-btn" type="submit" name="remove_comment" onClick="return confirmSubmit()">
@@ -182,10 +196,11 @@ if (isset($_POST['remove_comment'])){
 								</form>';
 					}
 					echo	'
-							</div>
-							<hr class="comments-horizontal-line">
-							<div class="user-comment-text">
-								<h3 class="user-comment-text">'.$comment_content.'</h3>
+								</div>
+								<hr class="comments-horizontal-line">
+								<div class="user-comment-text">
+									<h3 class="user-comment-text">'.$comment_content.'</h3>
+								</div>
 							</div>';
 				};
 
@@ -218,6 +233,14 @@ if (isset($_POST['remove_comment'])){
 			return false ;
 	}
 
+	function showComments(id){
+		let commentsPart = document.getElementsByClassName('comments-description comments-img-'+id);
+
+		if (commentsPart.style.display == 'block')
+			commentsPart.style.display = 'none';
+		else
+			commentsPart.style.display = 'block';
+	}
 	// function likeImg(imageId, click){
 	// 	let xml = new XMLHttpRequest();
 	// 	if (click == 1){

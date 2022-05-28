@@ -131,7 +131,6 @@
 
 .submit-comment{
     display: flex;
-    /* align-self: flex-end; */
     justify-content: center;
     align-items: center;
     width: 2vw;
@@ -162,7 +161,23 @@
     justify-content: flex-start;
     border: none;
     border-radius: 10px;
-    /* box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33); */
+}
+
+
+.show-comments-btn{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: .2s ease opacity;
+}
+
+.show-comments-btn:hover{
+    opacity: 1;
+}
+
+.comments-description{
+    display: none;
 }
 
 .comments-top-part{
@@ -176,7 +191,6 @@
     flex-direction: column;
     width: 8vw;
     margin: 1vh 0;
-    /* background-color: blue; */
 }
 
 .comment-username{
