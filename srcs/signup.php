@@ -25,8 +25,14 @@ if(isset($_POST['submit'])){
 	else if (!preg_match("/^[a-zA-Z\s]+$/", $_POST['fullname']))
 		$message = "<h6>"."Fullname can contain only letters and spaces"."<h6>";
 	
+	else if (strlen($_POST['username']) > 30)
+		$message = "<h6>"."Fullname is too long"."<h6>";
+	
 	else if (!preg_match("/^[a-zA-Z]*$/", $_POST['username']))
 		$message = "<h6>"."Username can contain only letters"."<h6>";
+	
+	else if (strlen($_POST['username']) > 30)
+		$message = "<h6>"."Username is too long"."<h6>";
 	
 	else if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $_POST['password']))
 		$message = "<h6>"."Password should contain only letters and numbers"."<h6>";
