@@ -68,7 +68,7 @@ if(isset($_POST['submit'])){
 			
 			} else {
 
-				$code=substr(md5(mt_rand()),0,15);
+				$code= rand(10000, 99999);
 				$password = hash('whirlpool', $password);
 
 				mysqli_query($connection, "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`, `code`)
@@ -79,12 +79,12 @@ if(isset($_POST['submit'])){
 				$to=$email;
 				$subject="Activation Code For Camagru.com";
 				$from = 'info@camagru.hive';
-				$body='Your Activation Code is '.$code.' Please Click On This link http://localhost:8080/Camagru/srcs/signin.php?id='.$db_id.'&code='.$code.' to activate your account.';
+				$body= "Your activation code is: ".$code.". Please enter your code in the verification page";
 				$headers = "From:".$from;
 				$mail_result = mail($to,$subject,$body,$headers);
 
 				$_SESSION['verify'] = 1;
-				header('location:verify.php');
+				header('location:verify-code.php');
 
 			}
 		}

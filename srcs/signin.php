@@ -64,34 +64,30 @@ if(isset($_POST['submit'])){
 	}
 }
 
-if(isset($_GET['id']) && isset($_GET['code']))
+if(isset($_GET['code']))
 {
-	$id=$_GET['id'];
 	$code=$_GET['code'];
 
-	$query = "SELECT `fullname`, `username`, `email`, `password` FROM `user_verify`
-	WHERE `id` = '$id' AND `code` = '$code'";
-	$select = mysqli_query($connection, $query);
-	if(mysqli_num_rows($select)==1)
+	$query = $dbh->prepare("SELECT * FROM `user_verify` WHERE `code` = '$code'");
+	$query->execute();
+	$row = $query->fetch();
+	if($row['username'])
 	{
-		while($row=mysqli_fetch_array($select))
-		{
-			$user_id=$row['user_id'];
-			$email=$row['email'];
-			$username=$row['username'];
-			$fullname=$row['fullname'];
-			$password=$row['password'];
-		}
-		$insert_q = "INSERT INTO `user` (`fullname`, `username`, `email`, `password`) 
-		VALUES ('$fullname','$username','$email','$password')";
+		$user_id=$row['user_id'];
+		$email=$row['email'];
+		$username=$row['username'];
+		$fullname=$row['fullname'];
+		$password=$row['password'];
+		$insert_q = $dbh->prepare("INSERT INTO `user` (`fullname`, `username`, `email`, `password`) 
+		VALUES ('$fullname','$username','$email','$password')");
 
-		$insert_user=mysqli_query($connection, $insert_q);
+		$insert_q->execute();
 		$_SESSION['user_id'] = $user_id;
 		$_SESSION['username'] = $username;
 		$_SESSION['email'] = $email;
 
-		$delete_q = "DELETE FROM `user_verify` WHERE `id` = '$id' AND `code`='$code'";
-		$delete = mysqli_query($connection, $delete_q);
+		$delete_q = $dbh->prepare("DELETE FROM `user_verify` WHERE `code`='$code'");
+		$delete_q->execute();
 		$message = "<h6>"."user created successfully"."<h6>";
 		$_SESSION['verify'] = 0;
 	}
@@ -107,17 +103,18 @@ if (isset($_POST['submit-forgot'])){
 		$forgot_query->execute();
 		$forgot_result = $forgot_query->fetch();
 		if ($forgot_result['username']){
-			$forgot_code = substr(md5(mt_rand()),0,15);
-			$forgot_request = $dbh->prepare("INSERT INTO `forgot_pass` (`email`, `code`) VALUES ('$forgot_email', '$forgot_code')");
+			$forgot_code = rand(10000, 99999);
+			$forgot_username = $forgot_result['username'];
+			$forgot_request = $dbh->prepare("INSERT INTO `forgot_pass` (`username`, `code`) VALUES ('$forgot_username', '$forgot_code')");
 			$forgot_request->execute();
 
 			$subject="Password reset For Camagru.com";
 			$from = 'info@camagru.hive';
-			$body='To reset password please Click On This link http://localhost:8080/Camagru/srcs/forgot-password.php?email='.$forgot_email.'&code='.$forgot_code.' to activate your account.';
+			$body='Your password reset code is '.$forgot_code.'. Please enter your reset code in the verification page.';
 			$headers = "From:".$from;
 			$mail_result = mail($forgot_email, $subject, $body, $headers);
-			header('location:verify.php?msg=nwpass');
 			$_SESSION['nwpass'] = 1;
+			header('location:verify-code.php');
 		}
 		else {
 			$message = "<h6>"."No user found with this email!"."<h6>";
@@ -127,6 +124,7 @@ if (isset($_POST['submit-forgot'])){
 
 if (isset($_GET['msg'])){
 	$message = "<h6>"."Your password has been updated!"."<h6>";
+	$_GET = array();
 }
 
 ?>

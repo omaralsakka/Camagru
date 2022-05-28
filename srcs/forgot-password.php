@@ -1,13 +1,12 @@
 <?php
 
-// error_reporting(0);
+error_reporting(0);
 
 session_start();
 
 require_once('config.php');
 require_once('security_functions.php');
-if ($_SESSION['nwpass']){
-    
+if ($_SESSION['nwpass'] == 2){
     if (isset($_POST['submit-forgot'])){
         if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $_POST['new-password'])){
             $message = "<h6 class='error-msg'>"."Password should contain only letters and numbers"."<h6>";
@@ -19,30 +18,13 @@ if ($_SESSION['nwpass']){
 
         else {
             $new_pass = hash('whirlpool', $_POST['new-password']);
-            $email = $_GET['email'];
+            $username = $_GET['username'];
             $password_query = $dbh->prepare
-            ("UPDATE `user` SET `password` = '$new_pass' WHERE `email` = '$email';
-            DELETE FROM `forgot_pass` WHERE `email` = '$email'");
+            ("UPDATE `user` SET `password` = '$new_pass' WHERE `username` = '$username';
+            DELETE FROM `forgot_pass` WHERE `username` = '$username'");
             $password_query->execute();
             $_SESSION['nwpass'] = 0;
             header('location: signin.php?msg=nwpass');
-        }
-    }
-
-    if(isset($_GET['email']) && isset($_GET['code'])){
-        $email = $_GET['email'];
-        $code = $_GET['code'];
-
-        $check_q = $dbh->prepare ("SELECT * FROM `forgot_pass` WHERE `email` = '$email' AND `code` = '$code'");
-        $check_q->execute();
-        $table = $check_q->fetch();
-        if ($table['email']){
-            $_GET = array();
-            // $empty_table = $dbh->prepare("DELETE FROM `forgot_pass` WHERE `email` = '$email'");
-            // $empty_table->execute();
-        } else {
-            header("location: ../index.php");
-            $_SESSION['nwpass'] = 0;
         }
     }
 
@@ -142,7 +124,7 @@ if ($_SESSION['nwpass']){
         	<p class="popup-text">Please enter your new password</p>
         	<form class="forgot-form" action="" method="post">
                 <input type="password" name="new-password">
-                <input type="hidden" name="email" value="<?php echo $email?>">
+                <input type="hidden" name="email" value="<?php echo $_GET['username']?>">
         		<button type="submit" name="submit-forgot">Submit</button>
         	</form>
         </div>
