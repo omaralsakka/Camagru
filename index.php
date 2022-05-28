@@ -36,10 +36,49 @@ $idx = 1;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include_once('./frontend/head.html')?>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="#">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="./style/style.css">
 	<link rel="stylesheet" href="./style/index-page.css">
+	<style>
+		body{
+			display: block;
+		}
+		#loader {
+			/* display: none; */
+			width: 20vw;
+			height: 40vh;
+			animation: loading 2s ease 0s infinite normal forwards;
+		}
+		@keyframes loading {
+			0% {
+				transform: rotate(0);
+			}
+
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+		.center {
+			position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+		}
+		#loading-img{
+			width: 100%;
+		}
+	</style>
 </head>
+<div id="loader" class="center">
+	<img id="loading-img" src="./media/logos/Camagru-logos_initialAndCat_black.png" alt="loading image">
+</div>
 <body>
 	<img id="main-logo" src="./media/logos/Camagru-logos_textAndCat2_black.png" alt="">
 	<div class="main-container">
@@ -103,5 +142,19 @@ $idx = 1;
 
 		</div>
 	</div>
+	<script>
+		document.onreadystatechange = function () {
+			if (document.readyState != "complete"){
+				document.querySelector("#main-logo").style.display = "none";
+				document.querySelector(".main-container").style.display = "none";
+				document.querySelector("#loader").style.visibility = "visible";
+			} else {
+				document.querySelector("#loader").remove();
+				document.querySelector("#main-logo").style.display = "block";
+				document.querySelector(".main-container").style.display = "flex";
+			}
+		};
+	</script>
 </body>
+
 </html>

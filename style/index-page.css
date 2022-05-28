@@ -14,6 +14,7 @@ body{
 }
 
 #main-logo{
+    display: none;
     opacity: 0.5;
     /* width: 40%; */
     width: 40vw;
@@ -56,7 +57,7 @@ body{
 }
 
 .main-container{
-    display: flex;
+    display: none;
     justify-content: space-between;
     flex-direction: row;
     width: 65vw;
