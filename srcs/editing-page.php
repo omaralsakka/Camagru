@@ -99,6 +99,7 @@ if(!isset($_SESSION['user_id'])){
 
     startVideo.addEventListener('click', async function(){
         video.style.display = 'block';
+        uploadedPicture.style.backgroundImage = 'none';
         let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
         video.srcObject = stream;
     })
@@ -108,7 +109,9 @@ if(!isset($_SESSION['user_id'])){
         let uploadedImage = '';
         readFile.addEventListener("load", function (){
             uploadedImage = readFile.result;
+            video.style.display = 'none';
             uploadedPicture.style.backgroundImage = `url(${uploadedImage})`
+            
         });
         readFile.readAsDataURL(this.files[0]);
     })
