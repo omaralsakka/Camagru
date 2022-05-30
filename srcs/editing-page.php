@@ -81,6 +81,7 @@ if(!isset($_SESSION['user_id'])){
 <script>
     let filterDisplayed = document.getElementById('filter-displayed');
     let uploadedPicture = document.getElementById('uploaded-picture');
+    let captureButton = document.querySelector('.capture-button');
     let displayScreen = document.getElementById('displayScreen');
     let startVideo = document.getElementById('start-video');
     let imageInput = document.querySelector("#image_input");
@@ -113,10 +114,12 @@ if(!isset($_SESSION['user_id'])){
     })
 
     function captureCanvas(){
-    html2canvas(displayScreen).then(canvas =>{
+    if (filterDisplayed.getAttribute('src') && (video.style.display == 'block' || uploadedPicture.style.backgroundImage !== '')){
+        html2canvas(displayScreen).then(canvas =>{
         appendThumbnail(canvas.toDataURL('image/jpeg', 1));
         postPicture(canvas.toDataURL('image/jpeg', 1));
-    })
+        })
+    }   
 }
 
     function appendThumbnail(resultImage){
