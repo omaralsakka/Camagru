@@ -89,6 +89,8 @@ button{
 
 #uploaded-picture{
     position: absolute;
+    background-repeat: no-repeat;
+    background-size: 33.3vw 49.8vh;
     width: 33.3vw;
     height: 49.8vh;
     border: none;

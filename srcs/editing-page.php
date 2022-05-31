@@ -117,12 +117,15 @@ if(!isset($_SESSION['user_id'])){
     })
 
     function captureCanvas(){
-    if (filterDisplayed.getAttribute('src') && (video.style.display == 'block' || uploadedPicture.style.backgroundImage !== '')){
-        html2canvas(displayScreen).then(canvas =>{
-        appendThumbnail(canvas.toDataURL('image/jpeg', 1));
-        postPicture(canvas.toDataURL('image/jpeg', 1));
-        })
-    }   
+        if ((filterDisplayed.getAttribute('src') && video.style.display == 'block') || 
+            uploadedPicture.style.backgroundImage !== ''){
+            
+            html2canvas(displayScreen).then(canvas =>{
+                appendThumbnail(canvas.toDataURL('image/jpeg', 1));
+                postPicture(canvas.toDataURL('image/jpeg', 1));
+            
+            })
+        }   
 }
 
     function appendThumbnail(resultImage){
