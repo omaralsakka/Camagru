@@ -2,7 +2,9 @@
 
 require_once('config.php');
 session_start();
+
 $logged_user = $_SESSION['username'];
+
 if (isset($_POST['like'])){
 	$clicked_img = $_POST['image_heart'];
     
