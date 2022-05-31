@@ -1,10 +1,5 @@
 <?php
 
-// error_reporting(-1);
-// ini_set('display_errors', 'On');
-// set_error_handler("var_dump");
-
-
 error_reporting(0);
 
 // NOTE, check about adding require_once(deploy.php) soo it creates the schema on load.
@@ -97,174 +92,8 @@ if(isset($_POST['submit'])){
 <html>
 <head>
 	<?php include_once("../frontend/head.html")?>	
+	<link rel="stylesheet" href="../style/signup.css">
 	<title>Camagru Signup</title>
-
-	<style>
-
-		#main-logo{
-			opacity: 0.5;
-			width: 40%;
-			min-width: 40vw;
-			pointer-events: none;
-			position: absolute;
-			top: 0;
-			z-index: -1;
-			animation: myAnim 7s ease 1s infinite normal forwards;
-		}
-
-		@keyframes myAnim {
-			0%,
-			100% {
-				transform: translateX(0%);
-				transform-origin: 50% 50%;
-			}
-
-			15% {
-				transform: translateX(-30px) rotate(-6deg);
-			}
-
-			30% {
-				transform: translateX(15px) rotate(6deg);
-			}
-
-			45% {
-				transform: translateX(-15px) rotate(-3.6deg);
-			}
-
-			60% {
-				transform: translateX(9px) rotate(2.4deg);
-			}
-
-			75% {
-				transform: translateX(-6px) rotate(-1.2deg);
-			}
-		}
-		.credentials-container{
-			display: flex;
-			flex-direction: column;
-			margin-top: 10%;
-		}
-
-		.instagram-container{
-			width: 100%;
-			max-width: 350px;
-			margin: auto;
-			/* border: 1px solid #ccc; */
-			margin-top: 15px;
-			padding: 5px;
-			border-radius: 5px;
-			box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-			background-color: #F6F6F6;
-		}
-
-		.instagram-logo{
-			width: 100%;
-			max-width: 400px;
-			margin: auto;
-			margin-top: 10px;
-			/* align-content: center; */
-		}
-
-		.instagram-logo img{
-			width: 100%;
-		}
-
-		.instagram-status{
-			font-size: 18px;
-			text-align: center;
-			color: #aaa;
-		}
-
-		.instagram-container-inside{
-			padding: 25px;
-		}
-
-		.instagram-container-inside button{
-			width: 100%;
-			padding: 8px;
-			margin: 8px;
-			border: none;
-			font-size: 12px;
-			color: #111111;
-			background-color: #FFCB74;
-			/* color: white; */
-			/* background-color: #3897f0; */
-			border-radius: 5px;
-			cursor: pointer;
-			box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
-		}
-
-		.instagram-container-inside h5{
-			color: #111111;
-			/* color: #C0C0C0; */
-			text-align: center;
-		}
-
-		
-		.instagram-container-inside input[type=email], input[type=text], 
-		input[type=password]{
-			width: 100%;
-			padding: 8px;
-			margin: 6px;
-			display: inline-block;
-			box-sizing: border-box;
-			box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
-			border: 1px solid #e9e9e9;
-			/* border: 1px solid yellow; */
-			background-color: #F0F0F0;
-			font-size: 12px;
-			border-radius: 4px;
-		}
-
-		.instagram-container-inside p{
-			font-size: 16px;
-			text-align: center;
-			color: #aaa;
-		}
-
-		.or{
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-
-		/* The error message */
-		.instagram-container-inside h6{
-			text-align: center;
-			color: red;
-			font-size: 18px;
-		}
-
-		.instagram-bottom-container{
-			width: 100%;
-			max-width: 350px;
-			margin: auto;
-			/* border: 1px solid #ccc; */
-			margin-top: 15px;
-			border-radius: 5px;
-			box-shadow: 7.2px 14.4px 14.4px hsl(0deg 0% 0% / 0.28);
-			background-color: #F6F6F6;
-		}
-
-		.instagram-bottom-container h4{
-			margin-top: 20px;
-			margin-bottom: 20px;
-			text-align: center;
-		}
-
-		.instagram-bottom-container a{
-			color: #111111;
-			background-color: #FFCB74;
-			border-radius: 5px;
-			padding: 5px;
-			margin: 8px;
-			border: none;
-			cursor: pointer;
-			box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
-		}
-
-
-	</style>
 </head>
 <body>
 	<img id="main-logo" src="../media/logos/Camagru-logos_textAndCat2_black.png" alt="">
@@ -295,11 +124,26 @@ if(isset($_POST['submit'])){
 					<?php echo $message;?>
 
 					<!-- Sign up options -->
-					<input type="email" name="email" placeholder="Email" required>
-					<input type="text" name="fullname" placeholder="Full Name" required>
-					<input type="text" name="username" placeholder="Username" required>
-					<input type="password" name="password" placeholder="Password" required>
-
+					<div class="input-block">
+						<span id="espan">Email</span>
+						<input type="email" name="email" 
+						onfocus="focusSpan('espan')" onfocusout="focusOut('espan')" required>
+					</div>
+					<div class="input-block">
+						<span id="fspan">Full name</span>
+						<input type="text" name="fullname" 
+						onfocus="focusSpan('fspan')" onfocusout="focusOut('fspan')" required>
+					</div>
+					<div class="input-block">
+						<span id="uspan">Username</span>
+						<input type="text" name="username" 
+						onfocus="focusSpan('uspan')" onfocusout="focusOut('uspan')" required>
+					</div>
+					<div class="input-block">
+						<span id="pspan">Password</span>
+						<input type="password" name="password" 
+						onfocus="focusSpan('pspan')" onfocusout="focusOut('pspan')" required>
+					</div>
 					<!-- Sign up button tag -->
 					<button type="submit" name="submit">Sign up</button>
 
@@ -324,4 +168,14 @@ if(isset($_POST['submit'])){
 		</div>
 	</div>
 </body>
+<script>
+	function focusSpan(thisId){
+		let spanFocused = document.getElementById(thisId);
+		spanFocused.className = "span-focus";
+	}
+	function focusOut(thisId){
+		let spanFocused = document.getElementById(thisId);
+		spanFocused.className = "";
+	}
+</script>
 </html>
