@@ -2,16 +2,11 @@
 
 error_reporting(0);
 
-// NOTE, check about adding require_once(deploy.php) soo it creates the schema on load.
-// including the connection to mysql database file.
 include('config.php');
 require_once('security_functions.php');
-// starting session to pass through server the user data.
 session_start();
 
 
-// if $_POST global variable in session have received submit button clicked,
-// save the values of those keys into variables.
 if(isset($_POST['submit'])){
 	
 	if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
@@ -41,22 +36,18 @@ if(isset($_POST['submit'])){
 		$fullname = validate_data ( $_POST['fullname'] );
 		$username = validate_data ( $_POST['username'] );
 
-		// created an sql query to fetch from the db the info of one user. 
-		$sql = "SELECT * FROM `user` WHERE `username` = '$username'";
 
-		// we use the query line to fetch the data from $connection that is already
-		// connected to the db, and save the results into $results variable.
-		$result = mysqli_query($connection, $sql);
+		$sql = $dbh->prepare("SELECT * FROM `user` WHERE `username` = '$username' OR `email` = '$email'");
 
-		// if on sign up we found that there are data saved for this user.
-		// it means we cant re-create it and we inform that user exists.
-		if(mysqli_num_rows($result) > 0){
+		$sql->execute();
+		$result = $sql->fetch();
+
+		if($result['username']){
 
 			$message = "<h6>"."username already exist"."<h6>";
 
 		} else {
 
-			// check if one info is not givin by user, return error message
 			if(empty($email) || empty($password) || empty($fullname) || empty($username)){
 
 				$message = "<h6>"."please fill all the fields"."<h6>";
@@ -66,16 +57,17 @@ if(isset($_POST['submit'])){
 				$code= rand(10000, 99999);
 				$password = hash('whirlpool', $password);
 
-				mysqli_query($connection, "INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`, `code`)
+				$insert_q = $dbh->prepare("INSERT INTO `user_verify` (`fullname`, `username`, `email`, `password`, `code`)
 				VALUES ('$fullname', '$username', '$email', '$password', '$code')");
+				$insert_q->execute();
 
-				$db_id = mysqli_insert_id($connection);
 				$emailmessage = "Your Activation Code is ".$code."";
 				$to=$email;
 				$subject="Activation Code For Camagru.com";
-				$from = 'info@camagru.hive';
 				$body= "Your activation code is: ".$code.". Please enter your code in the verification page";
-				$headers = "From:".$from;
+				$headers = 'From: info@camagru.hive' . "\r\n" .
+				'Reply-To: info@camagru.hive' . "\r\n" .
+				'X-Mailer: PHP/' . phpversion();
 				$mail_result = mail($to,$subject,$body,$headers);
 
 				$_SESSION['verify'] = 1;
@@ -97,33 +89,27 @@ if(isset($_POST['submit'])){
 </head>
 <body>
 	<img id="main-logo" src="../media/logos/Camagru-logos_textAndCat2_black.png" alt="">
+	
 	<!-- container for user entry box -->
 	<div class="credentials-container">
 		
-		<!-- sign up container box -->
 		<div class="instagram-container">
 			
-			<!--website logo  -->
 			<div class="instagram-logo">
 				<img src="../media/logos/Camagru-logos_sideBySide_black.png" alt="brand logo">
 			</div>
 			
-			<!-- text status -->
 			<div class="instagram-status">
 				<p>Sign up to see photos and videos</p>
 				<p>from your friends. </p>
 			</div>
 
-			<!-- form that will send the created user to config.php -->
 			<form action="" method="post">
 
-				<!-- container for the user entry elements -->
 				<div class="instagram-container-inside">
 
-					<!-- the message which will appear when submit is clicked -->
 					<?php echo $message;?>
 
-					<!-- Sign up options -->
 					<div class="input-block">
 						<span id="espan">Email</span>
 						<input type="email" name="email" 
@@ -144,10 +130,8 @@ if(isset($_POST['submit'])){
 						<input type="password" name="password" 
 						onfocus="focusSpan('pspan')" onfocusout="focusOut('pspan')" required>
 					</div>
-					<!-- Sign up button tag -->
 					<button type="submit" name="submit">Sign up</button>
 
-					<!-- Terms and policy text -->
 					<p>By signing up, you agree to our</p>
 					<p>Terms, Data policy and Cookies</p>
 					<p>Policy.</p>
@@ -161,7 +145,6 @@ if(isset($_POST['submit'])){
 		<!-- Bottom container has the log in option -->
 		<div class="instagram-bottom-container">
 			
-			<!-- Log in option -->
 			<h4>Have an account? <a href="signin.php" style="text-decoration: none; 
 			">Log In</a></h4>
 

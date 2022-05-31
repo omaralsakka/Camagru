@@ -6,10 +6,8 @@ option to sign up and leads to signup.php "sign up page" -->
 
 error_reporting(0);
 
-// including the connection to mysql database file.
 require_once('config.php');
 require_once('security_functions.php');
-// starting session to pass through server the user data.
 session_start();
 
 if(isset($_POST['submit'])){
@@ -30,31 +28,21 @@ if(isset($_POST['submit'])){
 		
 		} else {
 			$password  = hash('whirlpool', $password);
-			// created an sql query to fetch from the db the info of one user. 
-			$sql = "SELECT * FROM `user` WHERE `username` = '$username' AND `password` = '$password'";
 			
-			// we use the query line to fetch the data from $connection that is already
-			// connected to the db, and save the results into $results variable.
-			$result = mysqli_query($connection, $sql);
+			$sql = $dbh->prepare("SELECT * FROM `user` WHERE `username` = '$username' AND `password` = '$password'");;
+			$sql->execute();
+			$row = $sql->fetch();
 			
-			// if on sign up we found that there are data saved for this user.
-			// it means we cant re-create it and we inform that user exists.
-			
-			if(mysqli_num_rows($result) > 0){
+			if($row['username']){
 				
-				//we get the row of the user with the mentioned fullname
-				while($row = mysqli_fetch_assoc($result)){
-					//we save the specific user id into the session
-					$_SESSION['user_id'] = $row['user_id'];
-					$_SESSION['fullname'] = $row['fullname'];
-					$_SESSION['username'] = $row['username'];
-					$_SESSION['email'] = $row['email'];
-					$_SESSION['notifications'] = $row['notifications'];
-					//we use this session inside home.php file
-					header('location:home.php');
-					
-					$message = "<h6>"."Log in success"."<h6>";
-				}
+				$_SESSION['user_id'] = $row['user_id'];
+				$_SESSION['fullname'] = $row['fullname'];
+				$_SESSION['username'] = $row['username'];
+				$_SESSION['email'] = $row['email'];
+				$_SESSION['notifications'] = $row['notifications'];
+				
+				header('location:home.php');
+				$message = "<h6>"."Log in success"."<h6>";
 			
 			} else {
 				
