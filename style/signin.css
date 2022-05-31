@@ -91,6 +91,27 @@
 	justify-content: center;
 	padding: 25px;
 }
+
+.input-block{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 1vh 0;
+}
+
+.span-focus{
+	background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+	background-size: 400%;
+	background-repeat: repeat;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: myfirst 7s linear infinite;
+}
+
+@keyframes myfirst{
+	to {background-position: 400%;}
+}
+
 .instagram-container-inside button{
 	width: 100%;
 	padding: 8px;
@@ -110,7 +131,7 @@
 	margin-top: 10px;
 }
 
-.instagram-container-inside input[type=email], input[type=text], 
+.instagram-container-inside input[type=text], 
 input[type=password]{
 	width: 100%;
 	padding: 8px;

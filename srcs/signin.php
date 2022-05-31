@@ -162,8 +162,17 @@ if (isset($_GET['msg'])){
 						<?php echo $message;?>
 
 						<!-- Sign in options -->
-						<input type="text" name="username" placeholder="username" required>
-						<input type="password" name="password"  placeholder="Password" required>
+						<div class="input-block">
+							<span id="uspan">Username</span>
+							<input id="input-text" type="text" name="username" 
+							onfocus="focusSpan('uspan')" onfocusout="focusOut('uspan')"required>
+						</div>
+
+						<div class="input-block">
+							<span id="pspan">Password</span>
+							<input type="password" name="password" 
+							onfocus="focusSpan('pspan')" onfocusout="focusOut('pspan')" required>
+						</div>
 
 						<!-- Sign in button tag -->
 						<button type="submit" name="submit">Log In</button>
@@ -211,6 +220,14 @@ if (isset($_GET['msg'])){
                 forgotPopUp.style.display = 'none';
             }
         })
+	}
+	function focusSpan(thisId){
+		let spanFocused = document.getElementById(thisId);
+		spanFocused.className = "span-focus";
+	}
+	function focusOut(thisId){
+		let spanFocused = document.getElementById(thisId);
+		spanFocused.className = "";
 	}
 </script>
 </html>
