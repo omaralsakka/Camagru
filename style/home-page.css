@@ -90,8 +90,28 @@
     height: 5vh;
 }
 
-.username{
+.username-link{
     margin-left: auto;
+    text-decoration: none;
+    background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+	background-size: 400%;
+	background-repeat: repeat;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+    transition: .2s ease;
+}
+
+.username-link:hover{
+    animation: myfirst 3s linear infinite;
+    transform: scale(1.1);
+}
+
+@keyframes myfirst{
+	to {background-position: 400%;}
+}
+
+.username{
+    /* margin-left: auto; */
     font-size:calc(15px + 1vw);
 }
 

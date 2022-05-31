@@ -9,25 +9,19 @@ if(!isset($_SESSION['user_id'])){
 
     header('location:signin.php');
 
+} else if ($_GET['user'] == $_SESSION['username']){
+    
+    header('location:profile-page.php');
+
 } else {
 
     // save the user_id into a variable
     $userId = $_SESSION['user_id'];
-}
-
-$username = $_SESSION['username'];
-$stat = $dbh->prepare("SELECT * FROM user_images WHERE `username`='$username' ORDER BY `date` DESC");
-$avatar_q = $dbh->prepare("SELECT * FROM user_images WHERE `username`='$username' ORDER BY `date` DESC");
-$stat->execute();
-$avatar_q->execute();
-
-if (isset($_POST['delete_image'])){
-    $image_to_delete = trim($_POST['delete_image_id'], "img");
-    $_POST = array();
-    $delete_img_query = $dbh->prepare("DELETE FROM user_images WHERE id = '$image_to_delete';
-    DELETE FROM user_comments WHERE image_id = '$image_to_delete'");
-    $delete_img_query->execute();
-    header("Location: profile-page.php");
+    $username = $_SESSION['username'];
+    $stat = $dbh->prepare("SELECT * FROM user_images WHERE `username`='$username' ORDER BY `date` DESC");
+    $avatar_q = $dbh->prepare("SELECT * FROM user_images WHERE `username`='$username' ORDER BY `date` DESC");
+    $stat->execute();
+    $avatar_q->execute();
 }
 
 ?>
@@ -98,12 +92,6 @@ if (isset($_POST['delete_image'])){
                 <button class="minimize-btn" onClick="minimizeImage()">
                     <img src="../media/icons/icons8-minimize-64.png" alt="minimize image" class="minimize-image">
                 </button>
-                <form action="" method="post" class="remove-picture-form">
-                    <button class="remove-img-btn" type="submit" name="delete_image" onClick="return confirmDelete()">
-                        <img class="remove-img-icon" src="../media/icons/icons8-remove-96.png" alt="remove icon">
-                        <input class="delete_image_input" type="hidden" name="delete_image_id" value="">
-                    </button>
-                </form>
             </div>
         </div>
     </div>
@@ -114,25 +102,14 @@ if (isset($_POST['delete_image'])){
     
     function maxImage(imageId){
         let imageToMax = document.getElementById(imageId);
-        let deleteImageInput = document.querySelector(".delete_image_input");
         let maximizedImage = document.querySelector(".max-picture");
-        
+
         maximizedImage.src = imageToMax.src;
-        deleteImageInput.value = imageId;
         maxImgContainer.style.display = 'flex';
     }
 
     function minimizeImage(){
         maxImgContainer.style.display = 'none';
     }
-
-    function confirmDelete(){
-        let agree = confirm("Are you sure you wish to delete this picture?");
-		
-		if (agree)
-			return true ;
-		else
-			return false ;
-    };
 </script>
 </html>

@@ -123,7 +123,9 @@ if (isset($_POST['remove_comment'])){
 								</button>
 
 								<div class="username-container">
-									<h3 class="username">'.$username.'</h3>
+									<a class="username-link" href="clicked-user-page.php?user='.$username.'">
+										<h3 class="username">'.$username.'</h3>
+									</a>
 								</div>
 
 							</div>
