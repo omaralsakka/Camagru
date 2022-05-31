@@ -8,7 +8,6 @@
 
 body{
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     overflow: auto;
 }
@@ -16,7 +15,6 @@ body{
 #main-logo{
     display: none;
     opacity: 0.5;
-    /* width: 40%; */
     width: 40vw;
     min-width: 10px;
     top: 10%;
@@ -74,7 +72,6 @@ body{
     min-width: 200px;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    /* background-color: red; */
 }
 
 .gallery-block{
