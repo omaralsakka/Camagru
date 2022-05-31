@@ -24,22 +24,6 @@ $stat = $dbh->prepare("SELECT * FROM user_images ORDER BY id DESC");
 $stat->execute();
 
 
-if (isset($_POST['like'])){
-	$clicked_img = $_POST['image_heart'];
-    
-	$heart = $_POST['heart_status'];
-    $_POST = array();
-	if ($heart == 'like'){
-		$like_query = $dbh->prepare("INSERT INTO `likes_table` (`image_id`, `username`, `like`) VALUES ('$clicked_img', '$logged_user', '1')");
-		$like_query->execute();
-	} 
-    if ($heart == 'dislike'){
-		$dislike_query = $dbh->prepare("DELETE FROM `likes_table` WHERE `image_id` = '$clicked_img' AND `username` = '$logged_user'");
-		$dislike_query->execute();
-	}
-}
-
-
 if(isset($_POST['submit-comment'])){
 
 	$comment = $_POST['comment'];
@@ -119,24 +103,17 @@ if (isset($_POST['remove_comment'])){
 				
 				if ($likes_result['like'] == 1){
 					echo '
-					<form class="like-form" action="" method="post">
-						<button type="submit" name="like" class="action-button" >
-							<img src="../media/icons/icons8-heart-inline-red.png" alt="button image" class="action-image">
-							<input type="hidden" name="image_heart" value="'.$image_id.'">
-							<input type="hidden" name="heart_status" value="dislike">
+						<button class="action-button" onclick="ajaxLike('.$image_id.')">
+							<img name="dislike" id="'.$image_id.'-heart" src="../media/icons/icons8-heart-inline-red.png" alt="button image" class="action-image">
 						</button>
-					</form>
 					';
 				
 				} else {
 					echo '
-					<form class="like-form" action="" method="post">
-						<button type="submit" name="like" class="action-button" >
-							<img src="../media/icons/icons8-heart-outline.png" alt="button image" class="action-image">
-							<input type="hidden" name="image_heart" value="'.$image_id.'">
-							<input type="hidden" name="heart_status" value="like">
+						<button name="like" class="action-button" onclick="ajaxLike('.$image_id.')">
+							<img name="like" id="'.$image_id.'-heart" src="../media/icons/icons8-heart-outline.png" alt="button image" class="action-image">
 						</button>
-					</form>
+
 					';
 				}
 				echo '
@@ -180,7 +157,6 @@ if (isset($_POST['remove_comment'])){
 					$comment_date = date('Y.m.d', strtotime($comments_table['date']));
 					$comment_content = $comments_table['comment'];
 
-					
 					echo 	'
 								<div class="comments-top-part">
 									<div class="user-comment-info">
@@ -204,8 +180,8 @@ if (isset($_POST['remove_comment'])){
 							';
 				};
 					echo '</div>';
-					echo '</div>';
 				echo '</div>';
+			echo '</div>';
 			}
 
 		?>
@@ -241,22 +217,26 @@ if (isset($_POST['remove_comment'])){
 		else
 			commentsPart.style.display = 'block';
 	}
-	// function likeImg(imageId, click){
-	// 	let xml = new XMLHttpRequest();
-	// 	if (click == 1){
-	// 		xml.open('get', 'likes.php?heart=like&image_id='+imageId, true);
-	// 		// console.log(click);
-	// 	}
-	// 	else{
-	// 		xml.open('get', 'likes.php?heart=dislike&image_id='+imageId, true);
-	// 		// console.log(click);
-	// 	}
-	// 	// xml.setRequestHeader("Content-type", "text/plain");
-	// 	xml.onload = function(){
-	// 		console.log(this.response);
-	// 	}
-	// 	xml.send();
-	// 	// location.reload();
-	// }
+	function ajaxLike(imageId){
+		let status = imageHeart.name;
+		let xml = new XMLHttpRequest();
+		let imageHeart = document.getElementById(imageId+'-heart');
+
+		xml.open('post', 'likes.php', true);
+		xml.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+
+		if (status == 'like'){
+			xml.send('like=1&image_heart='+imageId+'&heart_status=like');
+			imageHeart.src = '../media/icons/icons8-heart-inline-red.png';
+			imageHeart.name = 'dislike';
+		}
+
+		if (status == 'dislike'){
+			xml.send('like=1&image_heart='+imageId+'&heart_status=dislike');
+			imageHeart.src = '../media/icons/icons8-heart-outline.png';
+			imageHeart.name = 'like';
+		}
+	}
+
 </script>
 </html>
