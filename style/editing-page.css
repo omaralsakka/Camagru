@@ -10,44 +10,45 @@ button{
     width: 100%;
     margin-top: 8vh;
     padding: 1vw;
-    /* background-color: black; */
 }
 
 .filters-container{
     display: block;
     text-align: center;
-    overflow: scroll;
+    overflow-y: scroll;
     padding: 2vh;
     width: 14vw;
     height: 60vh;
     border: none;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    /* background-color: red; */
 }
 
 .filter{
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 1vh;
     margin: 1vh auto 1vh auto;
     width: 10vw;
     height: 17vh;
     border: none;
     border-radius: 10px;
-    box-shadow: hsl(0deg 0% 0% / 0.33) 4px 4px 0px;
+    box-shadow: hsl(0deg 0% 0% / 0.33) 1px 1px 0px;
     transition: transform 200ms, box-shadow 200ms;
     background-color: rgba(226, 219, 161, 0.24);
-    /* background-color: yellow; */
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: center;
+}
+
+.filter:hover{
+    box-shadow: hsl(0deg 0% 0% / 0.33) 5px 5px 0px;
 }
 
 .filter:active{
     transform: translateY(4px) translateX(4px);
     box-shadow: hsl(0deg 0% 0% / 0.33) 0px 0px 0px;
-}
-
-.filter-image{
-    width: 7.5vw;
 }
 
 .view-image-container{
@@ -59,8 +60,6 @@ button{
     height: 60vh;
     border: none;
     border-radius: 10px;
-    /* box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33); */
-    /* background-color: greenyellow; */
 }
 
 .display{
@@ -71,8 +70,6 @@ button{
     z-index: 1;
     width: 33.3vw;
     height: 49.8vh;
-    /* width: 640px;
-    height: 480px; */
     border: none;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
@@ -139,7 +136,7 @@ button{
 
 .thumbnail-container{
     display: block;
-    overflow: scroll;
+    overflow-y: scroll;
     padding: 2vh;
     width: 14vw;
     height: 60vh;
@@ -152,12 +149,10 @@ button{
     display: flex;
     margin: 1vh auto 2vh auto;
     width: 10vw;
-    /* height: 17vh; */
     border: none;
     border-radius: 10px;
     box-shadow: 1.4px 2.8px 2.8px hsl(0deg 0% 0% / 0.33);
     transition: box-shadow .2s ease;
-    /* background-color: yellow; */
 }
 
 .thumbnail-image-container:hover{
@@ -177,7 +172,6 @@ button{
     width: 100%;
     padding: 1vw;
     margin-top: 1vh;
-    /* background-color: black; */
 }
 
 .buttons-container{
@@ -190,7 +184,6 @@ button{
     border: none;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
-    /* background-color: chocolate; */
 }
 
 .button-option{
@@ -203,7 +196,6 @@ button{
     padding: 1vh;
     border: none;
     border-radius: 10px;
-    /* box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33); */
     background-color: transparent;
     transition: transform .2s ease;
 }
