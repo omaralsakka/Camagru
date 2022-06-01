@@ -66,24 +66,30 @@ body{
 
 .gallery{
     display: flex;
+    margin-top: 20vh;
     flex-direction: column;
     padding: 1vh;
     width: 25vw;
+    height: 45vh;
     min-width: 200px;
+    min-height: 200px;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
 }
 
 .gallery-block{
     width: 100%;
-    display: grid;
+    display: none;
     grid-template-areas:
     "img1 img1 img2"
     "img1 img1 img3"
     "img4 img5 img6";
-
     border-radius: 10px;
 
+}
+
+#page1{
+    display: grid;
 }
 
 .gallery img{    
@@ -114,6 +120,37 @@ body{
 
 .img6{
     grid-area: img6;
+}
+
+.pages-selector-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    width: 100%;
+}
+
+.pagination-buttons {
+    display: inline-block;
+}
+  
+.pagination-buttons a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+
+.pagination-buttons a.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+  
+.pagination-buttons a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
 }
 
 .instagram-container{
@@ -168,5 +205,17 @@ body{
     width: 100%;
     justify-content: center;
     align-items: center;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    margin: auto auto 0 auto;
+    width: 100%;
+    padding: 0 1vh;
+    text-align: right;
+    font-family: monospace;
+}
+footer hr{
+    opacity: 0.6;
 }
 

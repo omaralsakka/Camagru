@@ -69,21 +69,11 @@ $idx = 1;
         right: 0;
         margin: auto;
 	}
+
 	#loading-img{
 		width: 100%;
 	}
-	footer {
-		position: fixed;
-		bottom: 0;
-		margin: auto auto 0 auto;
-		width: 100%;
-		padding: 0 1vh;
-		text-align: right;
-		font-family: monospace;
-	}
-	footer hr{
-    	opacity: 0.6;
-	}
+
 </style>
 </head>
 <div id="loader" class="center">
@@ -94,12 +84,15 @@ $idx = 1;
 	<div class="main-container">
 		<div class="gallery">
 			<?php
+				// block to be a page 
+				$block = 1;
 				while($row = $image_query->fetch()){
 					$type = $row['type'];
 					$content = base64_encode($row['content']);
+					
 					if ($idx == 1){
 						echo "
-							<div class='gallery-block'>
+							<div class='gallery-block' id='page".$block."'>
 						";
 					}
 					echo "	
@@ -111,6 +104,8 @@ $idx = 1;
 							</div>
 						";
 						$idx = 1;
+						// full block done
+						$block++;
 					}
 				}
 				if ($idx != 1 && $idx < 7){
@@ -123,9 +118,25 @@ $idx = 1;
 					}
 					echo "</div>";
 				}
-					
 			?>
-		</div>
+			    <div class="pages-selector-container">
+					<div class="pagination-buttons">
+						<?php
+							for ($k = 1; $k < ($block); $k++){
+								if ($k == 1){
+									echo '
+										<a class="active" id="button'.$k.'" href="#" onclick="showPages('.$k.', '.$block.')">'.$k.'</a>
+									';
+								} else{
+									echo '
+										<a id="button'.$k.'" href="#" onclick="showPages('.$k.', '.$block.')">'.$k.'</a>
+									';
+								}
+							}
+						?>
+					</div>
+				</div>
+			</div>
 
 			<!-- sign up container box -->
 			<div class="instagram-container">
@@ -164,6 +175,23 @@ $idx = 1;
 				document.querySelector(".main-container").style.display = "flex";
 			}
 		};
+
+		function showPages(id, numberOfPages){
+
+			for(let i=1; i<=numberOfPages; i++){
+
+				if (document.getElementById('page'+i)) {
+					document.getElementById('page'+i).style.display='none';
+					document.getElementById('button'+i).classList.remove("active");
+				}
+			}
+			if (document.getElementById('page'+id)) {
+				let block = document.getElementById('page'+id);
+				let activeLink = document.getElementById('button'+id);
+				block.style.display='grid';
+				activeLink.classList.add("active");
+			}
+        };
 	</script>
 </body>
 <footer>
