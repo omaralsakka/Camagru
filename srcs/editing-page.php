@@ -78,15 +78,19 @@ if(!isset($_SESSION['user_id'])){
         </div>
     </div>
 </body>
+<footer>
+	<hr>
+	<i>© oabdelfa camagru 2022  </i>
+</footer>
 <script>
-    let filterDisplayed = document.getElementById('filter-displayed');
-    let uploadedPicture = document.getElementById('uploaded-picture');
-    let captureButton = document.querySelector('.capture-button');
-    let displayScreen = document.getElementById('displayScreen');
-    let startVideo = document.getElementById('start-video');
-    let imageInput = document.querySelector("#image_input");
-    let viewMedia = document.getElementById('view-media');
-    let video = document.getElementById('video');
+    let filterDisplayed = document.getElementById('filter-displayed')
+    , uploadedPicture = document.getElementById('uploaded-picture')
+    , captureButton = document.querySelector('.capture-button')
+    , displayScreen = document.getElementById('displayScreen')
+    , startVideo = document.getElementById('start-video')
+    , imageInput = document.querySelector("#image_input")
+    , viewMedia = document.getElementById('view-media')
+    , video = document.getElementById('video');
 
     function selectFilter(clickedFilter){
         
@@ -98,6 +102,7 @@ if(!isset($_SESSION['user_id'])){
     }
 
     startVideo.addEventListener('click', async function(){
+
         video.style.display = 'block';
         uploadedPicture.style.backgroundImage = 'none';
         let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });

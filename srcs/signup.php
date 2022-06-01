@@ -10,25 +10,25 @@ session_start();
 if(isset($_POST['submit'])){
 	
 	if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-		$message = "<h6>"."Incorrect email!"."<h6>";
+		$message = "<h6 id='message'>"."Incorrect email!"."<h6>";
 	
 	else if (!preg_match("/^[a-zA-Z\s]+$/", $_POST['fullname']))
-		$message = "<h6>"."Fullname can contain only letters and spaces"."<h6>";
+		$message = "<h6 id='message'>"."Fullname can contain only letters and spaces"."<h6>";
 	
 	else if (strlen($_POST['username']) > 30)
-		$message = "<h6>"."Fullname is too long"."<h6>";
+		$message = "<h6 id='message'>"."Fullname is too long"."<h6>";
 	
 	else if (!preg_match("/^[a-zA-Z]*$/", $_POST['username']))
-		$message = "<h6>"."Username can contain only letters"."<h6>";
+		$message = "<h6 id='message'>"."Username can contain only letters"."<h6>";
 	
 	else if (strlen($_POST['username']) > 30)
-		$message = "<h6>"."Username is too long"."<h6>";
+		$message = "<h6 id='message'>"."Username is too long"."<h6>";
 	
 	else if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $_POST['password']))
-		$message = "<h6>"."Password should contain only letters and numbers"."<h6>";
+		$message = "<h6 id='message'>"."Password should contain only letters and numbers"."<h6>";
 	
 	else if (!validate_password($_POST['password']))
-		$message = "<h6>"."Password should contain at least 1 lowercase letter, 1 uppercase letter 1 number and length of 8"."<h6>";
+		$message = "<h6 id='message'>"."Password should contain at least 1 lowercase letter, 1 uppercase letter 1 number and length of 8"."<h6>";
 	
 	else {
 		$email = validate_data ($_POST['email']);
@@ -44,13 +44,13 @@ if(isset($_POST['submit'])){
 
 		if($result['username']){
 
-			$message = "<h6>"."username already exist"."<h6>";
+			$message = "<h6 id='message'>"."username already exist"."<h6>";
 
 		} else {
 
 			if(empty($email) || empty($password) || empty($fullname) || empty($username)){
 
-				$message = "<h6>"."please fill all the fields"."<h6>";
+				$message = "<h6 id='message'>"."please fill all the fields"."<h6>";
 			
 			} else {
 
@@ -151,6 +151,10 @@ if(isset($_POST['submit'])){
 		</div>
 	</div>
 </body>
+<footer>
+	<hr>
+	<i>© oabdelfa camagru 2022  </i>
+</footer>
 <script>
 	function focusSpan(thisId){
 		let spanFocused = document.getElementById(thisId);

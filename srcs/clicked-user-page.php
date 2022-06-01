@@ -16,12 +16,14 @@ if(!isset($_SESSION['user_id'])){
 } else {
 
     // save the user_id into a variable
-    $userId = $_SESSION['user_id'];
-    $username = $_SESSION['username'];
+    $username = $_GET['user'];
     $stat = $dbh->prepare("SELECT * FROM user_images WHERE `username`='$username' ORDER BY `date` DESC");
     $avatar_q = $dbh->prepare("SELECT * FROM user_images WHERE `username`='$username' ORDER BY `date` DESC");
+    $userinfo_q = $dbh->prepare("SELECT * FROM user WHERE `username`='$username'");
     $stat->execute();
     $avatar_q->execute();
+    $userinfo_q->execute();
+    $userinfo_f = $userinfo_q->fetch();
 }
 
 ?>
@@ -61,12 +63,12 @@ if(!isset($_SESSION['user_id'])){
                     ?>
                 </div>
                 <div class="fullname-section">
-                    <h4 class="fullname-text"><?php echo $_SESSION['fullname']?></h4>
+                    <h4 class="fullname-text"><?php echo $userinfo_f['fullname']?></h4>
                 </div>
             </div>
 
             <div class="username-container">
-                    <h3 class="username-text"><?php echo $_SESSION['username']?></h3>
+                    <h3 class="username-text"><?php echo $userinfo_f['username']?></h3>
             </div>
         </div>
 
@@ -97,6 +99,10 @@ if(!isset($_SESSION['user_id'])){
     </div>
 
 </body>
+<footer>
+	<hr>
+	<i>© oabdelfa camagru 2022  </i>
+</footer>
 <script>
     let maxImgContainer = document.querySelector('.maximize-image-container');
     

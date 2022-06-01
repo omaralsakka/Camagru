@@ -87,7 +87,7 @@
 	background-repeat: repeat;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	animation: myfirst 7s linear infinite;
+	animation: myfirst 3s linear infinite;
 }
 
 
@@ -142,7 +142,7 @@ input[type=password]{
 }
 
 /* The error message */
-.instagram-container-inside h6{
+#message{
     text-align: center;
     color: red;
     font-size: 18px;

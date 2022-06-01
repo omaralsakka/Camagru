@@ -36,45 +36,55 @@ $idx = 1;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="shortcut icon" href="#">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="./style/style.css">
-	<link rel="stylesheet" href="./style/index-page.css">
-	<style>
-		body{
-			display: block;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="#">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap" rel="stylesheet"> 
+<link rel="stylesheet" href="./style/style.css">
+<link rel="stylesheet" href="./style/index-page.css">
+<style>
+	body{
+		display: block;
+	}
+	#loader {
+		width: 20vw;
+		height: 40vh;
+		animation: loading 2s ease 0s infinite normal forwards;
+	}
+	@keyframes loading {
+		0% {
+			transform: rotate(0);
 		}
-		#loader {
-			/* display: none; */
-			width: 20vw;
-			height: 40vh;
-			animation: loading 2s ease 0s infinite normal forwards;
+		100% {
+			transform: rotate(360deg);
 		}
-		@keyframes loading {
-			0% {
-				transform: rotate(0);
-			}
-
-			100% {
-				transform: rotate(360deg);
-			}
-		}
-		.center {
-			position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-		}
-		#loading-img{
-			width: 100%;
-		}
-	</style>
+	}
+	.center {
+		position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+	}
+	#loading-img{
+		width: 100%;
+	}
+	footer {
+		position: fixed;
+		bottom: 0;
+		margin: auto auto 0 auto;
+		width: 100%;
+		padding: 0 1vh;
+		text-align: right;
+		font-family: monospace;
+	}
+	footer hr{
+    	opacity: 0.6;
+	}
+</style>
 </head>
 <div id="loader" class="center">
 	<img id="loading-img" src="./media/logos/Camagru-logos_initialAndCat_black.png" alt="loading image">
@@ -156,5 +166,8 @@ $idx = 1;
 		};
 	</script>
 </body>
-
+<footer>
+	<hr>
+	<i>© oabdelfa camagru 2022  </i>
+</footer>
 </html>

@@ -3,8 +3,9 @@ function applyFilter(filterClass){
 
     switch (filterClass){
         case "frame":
-            filterDisplayed.style.width = "33.3vw";
-            filterDisplayed.style.height = "49.8vh";
+            filterDisplayed.style.width = "100%";
+            filterDisplayed.style.height = "100%";
+            filterDisplayed.style.margin = "0";
             break;
         case "filterTopRight":
             filterDisplayed.style.alignSelf = "flex-start";
@@ -23,7 +24,6 @@ function applyFilter(filterClass){
             filterDisplayed.style.width = "16.66vw";
             filterDisplayed.style.height = "24.92vh";
             filterDisplayed.style.margin = "100% auto 0 auto"; 
-            // filterDisplayed.style.margin = "100% auto -5% auto";
             break;
         case "filterBottomRight":
             filterDisplayed.style.alignSelf = "flex-end";

@@ -190,6 +190,10 @@ if (isset($_POST['remove_comment'])){
     </div>
 
 </body>
+<footer>
+	<hr>
+	<i>© oabdelfa camagru 2022  </i>
+</footer>
 <script>
 	let commentDisplayButton = document.querySelector('.display-comment');
 	
@@ -220,9 +224,10 @@ if (isset($_POST['remove_comment'])){
 			commentsPart.style.display = 'block';
 	}
 	function ajaxLike(imageId){
-		let status = imageHeart.name;
+		
 		let xml = new XMLHttpRequest();
 		let imageHeart = document.getElementById(imageId+'-heart');
+		let status = imageHeart.name;
 
 		xml.open('post', 'likes.php', true);
 		xml.setRequestHeader("content-type", "application/x-www-form-urlencoded");

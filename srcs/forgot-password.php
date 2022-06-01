@@ -130,4 +130,8 @@ if ($_SESSION['nwpass'] == 2){
         </div>
     </div>
 </body>
+<footer>
+	<hr>
+	<i>© oabdelfa camagru 2022  </i>
+</footer>
 </html>

@@ -109,6 +109,10 @@ if (isset($_POST['delete_image'])){
     </div>
 
 </body>
+<footer>
+	<hr>
+	<i>© oabdelfa camagru 2022  </i>
+</footer>
 <script>
     let maxImgContainer = document.querySelector('.maximize-image-container');
     

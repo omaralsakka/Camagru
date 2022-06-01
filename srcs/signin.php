@@ -13,18 +13,18 @@ session_start();
 if(isset($_POST['submit'])){
 	
 	if (!preg_match("/^[a-zA-Z]*$/", $_POST['username']))
-		$message = "<h6>"."Incorrect username"."<h6>";
+		$message = "<h6 id='message'>"."Incorrect username"."<h6>";
 	
 	else if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $_POST['password']) || 
 		!validate_password($_POST['password']))
-		$message = "<h6>"."Incorrect password"."<h6>";
+		$message = "<h6 id='message'>"."Incorrect password"."<h6>";
 	else {
 		$username = validate_data ( $_POST['username'] );
 		$password = validate_data ( $_POST['password'] );
 
 		// check if one info is not givin by user, return error message
 		if(empty($username) || empty($password)){
-			$message = "<h6>"."please fill all the fields"."<h6>";
+			$message = "<h6 id='message'>"."please fill all the fields"."<h6>";
 		
 		} else {
 			$password  = hash('whirlpool', $password);
@@ -42,11 +42,11 @@ if(isset($_POST['submit'])){
 				$_SESSION['notifications'] = $row['notifications'];
 				
 				header('location:home.php');
-				$message = "<h6>"."Log in success"."<h6>";
+				$message = "<h6 id='message'>"."Log in success"."<h6>";
 			
 			} else {
 				
-				$message = "<h6>"."Incorrect username or password"."<h6>";
+				$message = "<h6 id='message'>"."Incorrect username or password"."<h6>";
 			}
 		}
 	}
@@ -76,14 +76,14 @@ if(isset($_GET['code']))
 
 		$delete_q = $dbh->prepare("DELETE FROM `user_verify` WHERE `code`='$code'");
 		$delete_q->execute();
-		$message = "<h6>"."user created successfully"."<h6>";
+		$message = "<h6 id='message'>"."user created successfully"."<h6>";
 		$_SESSION['verify'] = 0;
 	}
 }
 
 if (isset($_POST['submit-forgot'])){
 	if (!filter_var($_POST['forgot-email'], FILTER_VALIDATE_EMAIL))
-		$message = "<h6>"."Incorrect email!"."<h6>";
+		$message = "<h6 id='message'>"."Incorrect email!"."<h6>";
 	else{
 		$forgot_email= validate_data ($_POST['forgot-email']);
 		$_POST = array();
@@ -105,13 +105,13 @@ if (isset($_POST['submit-forgot'])){
 			header('location:verify-code.php');
 		}
 		else {
-			$message = "<h6>"."No user found with this email!"."<h6>";
+			$message = "<h6 id='message'>"."No user found with this email!"."<h6>";
 		}
 	}
 }
 
 if (isset($_GET['msg'])){
-	$message = "<h6>"."Your password has been updated!"."<h6>";
+	$message = "<h6 id='message'>"."Your password has been updated!"."<h6>";
 	$_GET = array();
 }
 
@@ -197,6 +197,10 @@ if (isset($_GET['msg'])){
 		</div>
 	</div>
 </body>
+<footer>
+	<hr>
+	<i>© oabdelfa camagru 2022  </i>
+</footer>
 <script>
 	function forgotPass(){
 		let forgotPopUp = document.querySelector('.forgot-popup');

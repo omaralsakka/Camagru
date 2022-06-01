@@ -6,6 +6,10 @@
     font-family: 'Space Grotesk', sans-serif;
 }
 
+body{
+    min-height: 100%;
+}
+
 html{
     background-image: linear-gradient(to top, #fddb92 0%, #d1fdff 100%);
     background-repeat: no-repeat;
@@ -97,3 +101,16 @@ html{
     cursor: pointer;
 }
 
+footer {
+    position: fixed;
+    bottom: 0;
+    margin: auto auto 0 auto;
+    width: 100%;
+    padding: 0 1vh;
+    text-align: right;
+    font-family: monospace;
+}
+
+footer hr{
+    opacity: 0.6;
+}

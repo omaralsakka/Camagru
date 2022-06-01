@@ -105,7 +105,7 @@
 	background-repeat: repeat;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	animation: myfirst 7s linear infinite;
+	animation: myfirst 3s linear infinite;
 }
 
 @keyframes myfirst{
@@ -150,11 +150,12 @@ input[type=password]{
 	color: #aaa;
 }
 /* The error message */
-.instagram-container-inside h6{
-	text-align: center;
-	color: red;
-	font-size: 18px;
+#message{
+    text-align: center;
+    color: red;
+    font-size: 18px;
 }
+
 .forgot-pass{
 	display: flex;
 	justify-content: center;

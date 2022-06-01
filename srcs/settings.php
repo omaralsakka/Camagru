@@ -253,4 +253,8 @@
         })
     }
 </script>
+<footer>
+	<hr>
+	<i>© oabdelfa camagru 2022  </i>
+</footer>
 </html>
