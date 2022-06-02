@@ -14,8 +14,6 @@ $image = str_replace(' ', '+', $image);
 
 $image = base64_decode($image);
 
-// file_put_contents("./upload/filename.jpeg", $image);
-
 $type = 'data:image/jpeg;base64,';
 $stmt = $dbh->prepare("INSERT INTO user_images(`username`, `type`, `content`) 
 VALUES (:username, :type, :content)");

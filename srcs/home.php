@@ -130,7 +130,7 @@ if (isset($_POST['remove_comment'])){
 
 							</div>
 							<div class="picture-date">
-								<div id="date">'.$date.'</div>
+								<div class="date">'.$date.'</div>
 							</div>
 
 							<div id="'.$image_id.'bc'.'" class="comment-container">
@@ -163,7 +163,7 @@ if (isset($_POST['remove_comment'])){
 								<div class="comments-top-part">
 									<div class="user-comment-info">
 										<p class="comment-username">'.$comment_username.'</p>
-										<p id="comment-date">'.$comment_date.'</p>
+										<p class="comment-date">'.$comment_date.'</p>
 									</div>';
 					if ($_SESSION['username'] == $comment_username || $_SESSION['username'] == $username){
 						echo 	'<form action="" method="post" class="remove-comment-form">

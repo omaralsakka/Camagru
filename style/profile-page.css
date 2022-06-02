@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-top: 5vh;
+    margin-top: 1vh;
     padding: 1vh;
 }
 
@@ -34,7 +34,6 @@
     justify-content: center;
     width: 10vw;
     min-width: 120px;
-    /* height: 17vh; */
     border: none;
     border-radius: 50%;
 }
@@ -106,9 +105,8 @@
     position: fixed;
     top: 15%;
     width: 40vw;
-    min-width: 400px;
+    min-width: 200px;
     height: 70h;
-    /* min-height: 70vh; */
     border: none;
     border-radius: 10px;
     padding-bottom: 1vh;
@@ -120,7 +118,7 @@
 .maximized-picture{
     width: 40vw;
     max-width: 60vw;
-    min-width: 400px;
+    min-width: 200px;
     max-height: 80vh;
 }
 
@@ -142,7 +140,7 @@
     justify-content: center;
     align-items: center;
     width: 2vw;
-    min-width: 50px;
+    min-width: 25px;
     border: none;
     background-color: transparent;
     cursor: pointer;

@@ -55,13 +55,7 @@ if(!isset($_SESSION['user_id'])){
         </div>
 
         <div id="thumbnails-container" class="thumbnail-container">
-            
-            <!-- this is to be uncommented for adding thumbnails inside of it -->
-            
-            <!-- <div class="thumbnail-image-container">
-                <img id="thumbnail-result" src="" alt="thumbnail image" class="thumbnail-image">
-            </div> -->
-        
+                
         </div>
     </div>
     <div class="footer">
@@ -112,6 +106,7 @@ if(!isset($_SESSION['user_id'])){
     imageInput.addEventListener('change', function (){
         let readFile = new FileReader();
         let uploadedImage = '';
+        vidOff();
         readFile.addEventListener("load", function (){
             uploadedImage = readFile.result;
             video.style.display = 'none';
@@ -122,15 +117,19 @@ if(!isset($_SESSION['user_id'])){
     })
 
     function captureCanvas(){
-        if ((filterDisplayed.getAttribute('src') && video.style.display == 'block') || 
-            uploadedPicture.style.backgroundImage !== ''){
-            
+        if ((filterDisplayed.getAttribute('src') !== '' && video.style.display === 'block')){
             html2canvas(displayScreen).then(canvas =>{
                 appendThumbnail(canvas.toDataURL('image/jpeg', 1));
                 postPicture(canvas.toDataURL('image/jpeg', 1));
             
             })
-        }   
+        } else if ((uploadedPicture.style.backgroundImage !== '' && video.style.display === 'none')) {
+            html2canvas(displayScreen).then(canvas =>{
+                appendThumbnail(canvas.toDataURL('image/jpeg', 1));
+                postPicture(canvas.toDataURL('image/jpeg', 1));
+            
+            })
+        }
 }
 
     function appendThumbnail(resultImage){
@@ -149,11 +148,6 @@ if(!isset($_SESSION['user_id'])){
 function postPicture(canvasUrl){
     let xhr = new XMLHttpRequest();
     let resultImg = document.getElementById('imagePhp');
-    xhr.onload = function (){
-        if (this.status == 200){
-            resultImg.src = this.response;
-        }
-    }
     xhr.open('POST', 'storeImage.php', true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send('image='+canvasUrl);

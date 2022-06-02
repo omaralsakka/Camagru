@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     width: 30vw;
-    margin: 20vh auto 0 auto;
+    margin: 10vh auto 0 auto;
 }
 
 .settings-container{
@@ -12,6 +12,7 @@
     align-items: center;
     flex-direction: column;
     width: 35vw;
+    min-width: 200px;
     border: none;
     border-radius: 10px;
     padding: 5px;
@@ -44,7 +45,8 @@
     border: none;
     border-radius: 20px;
     padding: 1.5vh;
-    font-size: 0.9vw;
+    font-size:calc(4px + 0.8vw);
+    min-width: 60px;
 }
 
 .setting-container > button:hover{
@@ -58,6 +60,7 @@
 
 .setting-img{
     width: 2vw;
+    min-width: 20px;
     margin-right: 1vw;
 }
 

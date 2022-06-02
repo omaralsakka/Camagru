@@ -4,7 +4,7 @@ option to log in and leads to signin.php file -->
 
 <?php
 
-include("./srcs/database.php");
+include("./srcs/setup.php");
 $DB_DSN_INIT = "mysql:host=localhost";
 $sql = file_get_contents("./sql/init.sql");
 
@@ -50,6 +50,7 @@ $idx = 1;
 	}
 	#loader {
 		width: 20vw;
+		min-width: 200px;
 		height: 40vh;
 		animation: loading 2s ease 0s infinite normal forwards;
 	}
@@ -111,9 +112,9 @@ $idx = 1;
 				if ($idx != 1 && $idx < 7){
 					while ($idx < 7){
 						if ($idx % 2 == 0)
-							echo "<img class='img".$idx."' src='./media/logos/Camagru-logos_initialAndCat_black.png'>";
+							echo "<img class='img".$idx."' src='./media/logos/Camagru-logos_initialAndCat_black.png' style='width:80%;'>";
 						else
-							echo "<img class='img".$idx."' src='./media/logos/Camagru-intialAndCat_white.png'>";
+							echo "<img class='img".$idx."' src='./media/logos/Camagru-intialAndCat_white.png' style='width:80%;'>";
 						$idx++;
 					}
 					echo "</div>";
@@ -122,7 +123,7 @@ $idx = 1;
 			    <div class="pages-selector-container">
 					<div class="pagination-buttons">
 						<?php
-							for ($k = 1; $k < ($block); $k++){
+							for ($k = 1; $k < ($block + 1); $k++){
 								if ($k == 1){
 									echo '
 										<a class="active" id="button'.$k.'" href="#" onclick="showPages('.$k.', '.$block.')">'.$k.'</a>

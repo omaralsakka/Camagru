@@ -26,6 +26,13 @@ body{
     animation: myAnim 7s ease 1s infinite normal forwards;
 }
 
+@media only screen and (max-width: 1000px) {
+    #main-logo {
+        top: 3%;
+        left: 30%;
+    }
+}
+
 @keyframes myAnim {
 	0%,
 	100% {
@@ -59,9 +66,19 @@ body{
     justify-content: space-between;
     flex-direction: row;
     width: 65vw;
+    min-width: 400px;
     margin-left: auto;
     padding: 5vh;
     overflow-y: auto;
+}
+
+@media only screen and (max-width: 1000px) {
+    .main-container {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+    }
 }
 
 .gallery{
@@ -70,11 +87,17 @@ body{
     flex-direction: column;
     padding: 1vh;
     width: 25vw;
-    height: 45vh;
-    min-width: 200px;
-    min-height: 200px;
+    height: 50vh;
+    min-width: 300px;
+    min-height: 300px;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
+}
+
+@media only screen and (max-width: 1000px) {
+    .gallery {
+        height: 250px;
+    }
 }
 
 .gallery-block{
@@ -85,6 +108,7 @@ body{
     "img1 img1 img3"
     "img4 img5 img6";
     border-radius: 10px;
+    justify-items: center;
 
 }
 
@@ -160,13 +184,22 @@ body{
     width: 13.67vw;
     height: 25vh;
     max-height: 280px;
-    min-height: 240px;
+    min-height: 220px;
     min-width: 200px;
     padding: 5px;
     border-radius: 5px;
     box-shadow: 5.6px 11.2px 11.2px hsl(0deg 0% 0% / 0.33);
     background-color: #F6F6F6;
 }
+
+@media only screen and (max-width: 1000px) {
+    .instagram-container{
+        position: relative;
+        align-items: center;
+        margin-top: 2vh;
+        right: 0;
+    }
+  }
 
 .instagram-logo{
     width: 100%;
@@ -181,9 +214,19 @@ body{
 .instagram-container-inside{
     padding: 25px;
 }
+
+@media only screen and (max-width: 1000px) {
+    .instagram-container-inside{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+  }
+
 .instagram-container-inside button{
     width: 100%;
-    min-width: 50px;
+    min-width: 90px;
     padding: 8px;
     margin: 8px;
     border: none;
@@ -194,6 +237,12 @@ body{
     cursor: pointer;
     box-shadow: 0.8px 1.6px 1.6px hsl(0deg 0% 0% / 0.48);
 }
+
+@media only screen and (max-width: 1000px) {
+    .instagram-container-inside button{
+        margin: 0;
+    }
+  }
 .instagram-container-inside h5{
     color: #111111;
     text-align: center;
@@ -206,6 +255,12 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+@media only screen and (max-width: 1000px) {
+    .or h5{
+        width: 30px;
+    }
+  }
 footer {
     position: fixed;
     bottom: 0;
