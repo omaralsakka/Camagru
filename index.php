@@ -7,7 +7,6 @@ option to log in and leads to signin.php file -->
 include("./srcs/setup.php");
 $DB_DSN_INIT = "mysql:host=localhost";
 $sql = file_get_contents("./sql/init.sql");
-
 try {
 
     // connect to the server
@@ -18,7 +17,7 @@ try {
     
     // execute the sql query
     $conn->exec($sql);
-    
+
     // incase of error, write this message
 } catch(PDOException $error){
     echo $sql . "<br>" . $error->getMessage();
@@ -180,11 +179,11 @@ $idx = 1;
 				document.querySelector("#main-logo").style.display = "block";
 				document.querySelector(".main-container").style.display = "flex";
 				
-				let checkImg = document.querySelector(".img");
 				let gallery = document.querySelector(".gallery");
+				let imgCheck = document.querySelector(".img1");
 				let sloganText = document.querySelector(".slogan");
 				
-				if (!gallery.contains(checkImg)){
+				if (!gallery.contains(imgCheck)){
 					gallery.style.display = "none";
 					sloganText.style.display = "flex";
 				} else {
