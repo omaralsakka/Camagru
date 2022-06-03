@@ -177,12 +177,46 @@ body{
     border-radius: 5px;
 }
 
+.slogan{
+    display: flex;
+    margin-top: 20vh;
+    justify-content: center;
+    align-items: center;
+    padding: 1vh;
+    width: 25vw;
+    height: 50vh;
+    min-width: 300px;
+    min-height: 200px;
+    text-align: center;
+}
+
+@media only screen and (max-width: 1000px)  {
+    .slogan{
+        height: 10vh;
+    }
+    
+}
+
+.slogan-text{
+    font-size: calc(15px + 1.5vw);
+	background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+	background-size: 400%;
+	background-repeat: repeat;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: sloganAnimation 5s linear infinite;
+}
+
+@keyframes sloganAnimation{
+	to {background-position: 400%;}
+}
+
 .instagram-container{
     position: fixed;
     right: 10vw;
     top: 35%;
     width: 13.67vw;
-    height: 25vh;
+    height: 28vh;
     max-height: 280px;
     min-height: 220px;
     min-width: 200px;

@@ -138,7 +138,12 @@ $idx = 1;
 					</div>
 				</div>
 			</div>
-
+			
+			<!-- This slogan only visible when the gallery is empty -->
+			<div class="slogan">
+				<span class="slogan-text">Here starts <br>Your fun journy <br>With your friends!</span>
+			</div>
+			
 			<!-- sign up container box -->
 			<div class="instagram-container">
 				
@@ -174,6 +179,18 @@ $idx = 1;
 				document.querySelector("#loader").remove();
 				document.querySelector("#main-logo").style.display = "block";
 				document.querySelector(".main-container").style.display = "flex";
+				
+				let checkImg = document.querySelector(".img");
+				let gallery = document.querySelector(".gallery");
+				let sloganText = document.querySelector(".slogan");
+				
+				if (!gallery.contains(checkImg)){
+					gallery.style.display = "none";
+					sloganText.style.display = "flex";
+				} else {
+					gallery.style.display = "flex";
+					sloganText.style.display = "none";
+				}
 			}
 		};
 
