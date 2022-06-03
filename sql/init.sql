@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS camagru_website.`user` (
   fullname VARCHAR(150) NOT NULL,
   email VARCHAR(150) NOT NULL,
   `password` VARCHAR(150) NOT NULL,
+  `notifications` INT DEFAULT 1,
   `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   );
 

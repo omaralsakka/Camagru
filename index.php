@@ -127,7 +127,7 @@ $idx = 1;
 									echo '
 										<a class="active" id="button'.$k.'" href="#" onclick="showPages('.$k.', '.$block.')">'.$k.'</a>
 									';
-								} else{
+								} else {
 									echo '
 										<a id="button'.$k.'" href="#" onclick="showPages('.$k.', '.$block.')">'.$k.'</a>
 									';

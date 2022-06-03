@@ -84,7 +84,7 @@ hr{
     background-image: url('../media/122\ Cheerful\ Caramel.png');
     border: none;
     border-radius: 20px;
-    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.664);
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.134);
 }
 
 .new-inputs > *{
@@ -141,7 +141,7 @@ hr{
 .error_msg{
     display: flex;
     position: fixed;
-    top: 12vh;
+    top: 7vh;
     text-align: center;
     font-size: 1.5vw;
     color: red;
