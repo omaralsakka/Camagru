@@ -18,51 +18,13 @@ if(!isset($_SESSION['user_id'])){
 	$logged_user = $_SESSION['username'];
 }
 
-$dbh = new PDO("mysql:host=localhost;dbname=camagru_website", "root", "123456");
+require_once('config.php');
+
 $username = $_SESSION['username'];
 $stat = $dbh->prepare("SELECT * FROM user_images ORDER BY id DESC");
 $stat->execute();
 
-
-if(isset($_POST['submit-comment'])){
-
-	$comment = $_POST['comment'];
-	$image_id = $_POST['image_id'];
-	$_POST = array();
-	if (strlen($comment) > 0 && !empty(trim($comment))){
-		$query = $dbh->prepare("INSERT INTO user_comments(`image_id`, `username`, `comment`) 
-		VALUES (:image_id, :username, :comment)");
-
-		$query->bindParam('image_id',$image_id);
-		$query->bindParam('username',$username);
-		$query->bindParam('comment',$comment);
-		$query->execute();
-	}
-
-	$find_img_usr = $dbh->prepare("SELECT `username` FROM `user_images` WHERE `id`='$image_id'");
-	$find_img_usr->execute();
-	$img_usr = $find_img_usr->fetch();
 	
-	if ($img_usr['username'] != $username && $_SESSION['notifications']){
-		$img_owner = $img_usr['username'];
-		$get_usr_email = $dbh->prepare("SELECT `email` FROM `user` WHERE `username` = '$img_owner'");
-		$get_usr_email->execute();
-		$usr_table = $get_usr_email->fetch();
-		$to = $usr_table['email'];
-		$subject="Comment Notification - Camagru";
-		$from = 'info@camagru.hive';
-		$body = "You have received a new comment from ".$_SESSION['username']." on one of your images!";
-		$headers = "From:".$from;
-		mail($to,$subject,$body,$headers);
-	}
-
-}
-
-if (isset($_POST['remove_comment'])){
-	$comment_id = $_POST['comment_id'];
-	$d_comment_query = $dbh->prepare("DELETE FROM user_comments WHERE id = '$comment_id'");
-	$d_comment_query->execute();
-}	
 
 ?>
 
@@ -134,7 +96,7 @@ if (isset($_POST['remove_comment'])){
 							</div>
 
 							<div id="'.$image_id.'bc'.'" class="comment-container">
-								<form action="" method="post" class="comment-form">
+								<form action="comments.php" method="post" class="comment-form">
 									<input class="comment-field" type="text" name="comment">
 									<input type="hidden" name="image_id" value="'.$image_id.'">
 										<button type="submit" name="submit-comment" class="submit-comment">
@@ -166,7 +128,7 @@ if (isset($_POST['remove_comment'])){
 										<p class="comment-date">'.$comment_date.'</p>
 									</div>';
 					if ($_SESSION['username'] == $comment_username || $_SESSION['username'] == $username){
-						echo 	'<form action="" method="post" class="remove-comment-form">
+						echo 	'<form action="comments.php" method="post" class="remove-comment-form">
 									<button class="remove-comment-btn" type="submit" name="remove_comment" onClick="return confirmSubmit()">
 										<img src="../media/icons/remove-icon-red.png" class="remove-comment-img" alt="remove comment icon">
 										<input type="hidden" name="comment_id" value="'.$this_id.'">
