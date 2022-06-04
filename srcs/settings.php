@@ -1,9 +1,40 @@
 <?php
+error_reporting(0);
+session_start();
 
-    error_reporting(0);
+if(!isset($_SESSION['user_id'])){
+    header('location:signin.php');
+} else {
+    $username = $_SESSION['username'];
+    require_once('./config.php');
+    require_once('security_functions.php');
+}
 
-    session_start();
-    // require_once('settings-action.php');
+if (isset($_POST['delete_account'])){
+    
+    if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $_POST['password']))
+        $message = "Password should contain only letters and numbers";
+    else {
+        $user_pass = validate_data ( $_POST['password'] );
+        $_POST = array();
+        $user_pass = hash('whirlpool', $user_pass);
+        $check_pass = $dbh->prepare ("SELECT * FROM `user` WHERE `username` = '$username' AND `password` = '$user_pass'");
+        $check_pass->execute();
+        $user_info = $check_pass->fetch();
+        if ($user_info['password'] == $user_pass){
+            $delete_user = $dbh->prepare 
+            ("DELETE FROM `user` WHERE `username` = '$username';
+            DELETE FROM `user_images` WHERE `username` = '$username';
+            DELETE FROM `user_comments` WHERE `username` = '$username'");
+            $delete_user->execute();
+            $_SESSION = array();
+            header('location:../index.php');
+        }
+        else {
+            $message = "Incorrect Password!";
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -110,7 +141,7 @@
         </div>
 
         <div class="new-inputs delete-account">
-            <form class="settings-form" action="settings-action.php" method="post">
+            <form class="settings-form" action="" method="post">
                 <div class="first-phrase">
                     <p>We hate to see you leave!</p>
                     <img src="../media/icons/icons8-sad-64.png" alt="">
@@ -129,6 +160,8 @@
 <script>
     let msg = document.querySelector(".error_msg");
     let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    
+    // to display the popup for each clicked setting
     function displayInput(className){
         let newNameContainer = document.querySelector('.'+className);
         newNameContainer.style.display = 'flex';
@@ -141,28 +174,37 @@
         })
     }
 
+    // function to check for whitespace
     function hasWhiteSpace(s) {
         return /\s/g.test(s);
     }
 
+    // function to check if there are numbers in string
+    function hasNumber(myString) {
+        return /\d/.test(myString);
+    }
+
+    // checking if username matches the requirements 
     function checkUserName(){
         let newUserName = document.getElementById('new-user-name').value;
-        if (format.test(newUserName) || hasWhiteSpace(newUserName)){
+        if (format.test(newUserName) || hasWhiteSpace(newUserName) || hasNumber(newUserName)){
             msg.innerHTML = "username can contain letters only";
             return (false);
         } else
             return (true);
     }
-
+    
+    // checking if fullname matches the requirements 
     function checkFullName(){
         let newFullName = document.getElementById('new-full-name').value;
-        if (hasWhiteSpace(newFullName)){
+        if (format.test(newFullName) || hasNumber(newFullName)){
             msg.innerHTML = "Fullname can contain letters only";
             return (false);
         } else
             return (true);
     }
 
+    // check if email matches requirements
     function checkEmail(){
         let newEmail = document.getElementById('new-user-email').value;
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(newEmail))
@@ -173,8 +215,11 @@
             return (false)
     }
 
+    // check if password matches requirements
     function checkPassword(){
         let newPass = document.getElementById('new-user-password').value;
+        
+        // 8 characters, one lowercase, one uppercase and one number 
         let passRule = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
         if (format.test(newPass) || !newPass.match(passRule)){
             msg.innerHTML = "Password must contain at least 1 lowercase, 1 uppercase letter and one number\

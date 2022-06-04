@@ -10,6 +10,7 @@ if(!isset($_SESSION['user_id'])){
     require_once('./config.php');
     require_once('security_functions.php');
 }
+
 if (isset($_POST['notification_update'])){
     if ($_SESSION['notifications']){
         $notification_update = $dbh->prepare("UPDATE `user` SET `notifications` = 0 WHERE `username` = '$username'");
@@ -20,6 +21,7 @@ if (isset($_POST['notification_update'])){
     }
     $notification_update->execute();
 }
+
 if (isset($_POST['change_username'])){
     
     if (!preg_match("/^[a-zA-Z]*$/", $_POST['new_username']))
@@ -42,6 +44,7 @@ if (isset($_POST['change_username'])){
         }
     }
 }
+
 if (isset($_POST['change_name'])){
     
     if (!preg_match("/^[a-zA-Z\s]+$/", $_POST['new_name']))
@@ -55,6 +58,7 @@ if (isset($_POST['change_name'])){
         $_SESSION['fullname'] = $new_name;
     }
 }
+
 if (isset($_POST['change_email'])){
     if (!filter_var($_POST['new_email'], FILTER_VALIDATE_EMAIL))
         $message = "Incorrect email!";
@@ -65,6 +69,7 @@ if (isset($_POST['change_email'])){
         $email_query->execute();
     }
 }
+
 if (isset($_POST['change_pass'])){
     if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $_POST['new_pass'])){
         $message = "Password should contain only letters and numbers";
@@ -81,29 +86,6 @@ if (isset($_POST['change_pass'])){
         $pass_query->execute();
     }
 }
-if (isset($_POST['delete_account'])){
-    if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $_POST['password']))
-        $message = "Password should contain only letters and numbers";
-        else {
-        $user_pass = validate_data ( $_POST['password'] );
-        $_POST = array();
-        $user_pass = hash('whirlpool', $user_pass);
-        $check_pass = $dbh->prepare ("SELECT * FROM `user` WHERE `username` = '$username' AND `password` = '$user_pass'");
-        $check_pass->execute();
-        $user_info = $check_pass->fetch();
-        if ($user_info['password'] == $user_pass){
-            $delete_user = $dbh->prepare 
-            ("DELETE FROM `user` WHERE `username` = '$username';
-            DELETE FROM `user_images` WHERE `username` = '$username';
-            DELETE FROM `user_comments` WHERE `username` = '$username'");
-            $delete_user->execute();
-            $_SESSION = array();
-            header('location:../index.php');
-        }
-        else {
-            $message = "Incorrect Password!";
-        }
-    }
-}
+
 header('location:settings.php');
 ?>

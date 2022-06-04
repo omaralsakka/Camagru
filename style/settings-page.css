@@ -80,6 +80,7 @@ hr{
     top: 30vh;
     align-items: center;
     width: 25vw;
+    min-width: 250px;
     padding: 5vh;
     background-image: url('../media/122\ Cheerful\ Caramel.png');
     border: none;
@@ -101,6 +102,7 @@ hr{
     border: none;
     border-radius: 10px;
     width: 20vw;
+    min-width: 150px;
     padding: 1vh;
 }
 
@@ -113,6 +115,8 @@ hr{
     background-image: url('../media/007\ Sunny\ Morning.png');
     box-shadow: hsl(0deg 0% 0% / 0.33) 4px 4px 0px;
     transition: transform 200ms, box-shadow 200ms;
+    min-width: 50px;
+    font-size: calc(5px + 0.8vw);
 }
 
 .submit-btn:hover{
@@ -143,7 +147,8 @@ hr{
     position: fixed;
     top: 7vh;
     text-align: center;
-    font-size: 1.5vw;
+    font-size: calc(10px + 1.5vw);
+    padding: 1px;
     color: red;
 }
 
