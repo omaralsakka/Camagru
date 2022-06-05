@@ -33,7 +33,7 @@
     display: flex;
     justify-content: center;
     width: 10vw;
-    min-width: 120px;
+    min-width: 130px;
     border: none;
     border-radius: 50%;
 }
@@ -87,10 +87,27 @@
 
 .picture{
     width: 24.8%;
+    max-width: 20vw;
+    max-height: 34vh;
     border-radius: 10px;
     margin: 1px;
     transition: transform .2s, box-shadow .2s;
     box-shadow: rgba(0, 0, 0, 0.13) 0px 0px 0px;
+}
+
+@media only screen and (max-width: 400px){
+    .picture{
+        width: 400px;
+        height: 80px;
+    }
+}
+
+@media only screen and (max-width: 900px) and (min-width: 450px){
+    .picture{
+        width: 400px;
+        height: 150px;
+    }
+
 }
 
 .picture:hover{
@@ -124,6 +141,8 @@
 
 .max-picture{
     width: 100%;
+    max-width: 800px;
+    max-height: 600px;
     border: 1px solid #ffcb74;
     border-radius: 10px;
 }

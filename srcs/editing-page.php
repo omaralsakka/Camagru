@@ -40,8 +40,7 @@ if(!isset($_SESSION['user_id'])){
         <div id="view-media" class="view-image-container">
             <div id="displayScreen" class="display">
 
-                <video id="video"  autoplay></video>
-                
+                <video id="video" autoplay></video>
                 <div id="uploaded-picture"></div>
 
                 <div class="filter-display-container">
@@ -106,7 +105,6 @@ if(!isset($_SESSION['user_id'])){
     imageInput.addEventListener('change', function (){
         let readFile = new FileReader();
         let uploadedImage = '';
-        vidOff();
         readFile.addEventListener("load", function (){
             uploadedImage = readFile.result;
             video.style.display = 'none';
@@ -151,6 +149,12 @@ function postPicture(canvasUrl){
     xhr.open('POST', 'storeImage.php', true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send('image='+canvasUrl);
+}
+
+function removeFilter(){
+    filterDisplayed.src = "";
+    filterDisplayed.removeAttribute('class');
+    filterDisplayed.removeAttribute('style');
 }
 
 </script>
