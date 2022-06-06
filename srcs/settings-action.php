@@ -34,10 +34,15 @@ if (isset($_POST['change_username'])){
         if (!$checked['username']){
             $_POST = array();
             
-            $username_query = $dbh->prepare ("UPDATE `user`, `user_images`, `user_comments` 
-            SET `user`.`username` = '$new_username', `user_images`.`username` = '$new_username', `user_comments`.`username` = '$new_username'
-            WHERE `user`.`username` = '$username' AND `user_images`.`username` = '$username' AND `user_comments`.`username` = '$username'");
-            $username_query->execute();
+            $update_username_q = $dbh->prepare ("UPDATE `user` SET `username` = '$new_username' WHERE `username` = '$username'");
+            $update_images_q = $dbh->prepare("UPDATE `user_images` SET `username` = '$new_username' WHERE `username` = '$username'");
+            $update_user_comments_q = $dbh->prepare("UPDATE `user_comments` SET `username` = '$new_username' WHERE `username` = '$username'");
+            $update_user_likes_q = $dbh->prepare("UPDATE `likes_table` SET `username` = '$new_username' WHERE `username` = '$username'");
+            
+            $update_username_q->execute();
+            $update_images_q->execute();
+            $update_user_comments_q->execute();
+            $update_user_likes_q->execute();
             $_SESSION['username'] = $new_username;
         } else {
             $message = "Error: Username exist!";

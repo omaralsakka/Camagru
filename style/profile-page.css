@@ -133,8 +133,11 @@
 }
 
 .maximized-picture{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 40vw;
-    max-width: 60vw;
+    max-width: 40vw;
     min-width: 200px;
     max-height: 80vh;
 }

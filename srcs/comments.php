@@ -8,9 +8,7 @@ $username = $_SESSION['username'];
 if(isset($_POST['submit-comment'])){
 
 	$comment = validate_data ( $_POST['comment'] );
-    echo $comment;
 	$image_id = $_POST['image_id'];
-    echo $image_id;
 	if (strlen($comment) > 0 && !empty(trim($comment))){
 		$query = $dbh->prepare("INSERT INTO user_comments(`image_id`, `username`, `comment`) 
 		VALUES (:image_id, :username, :comment)");
@@ -25,17 +23,20 @@ if(isset($_POST['submit-comment'])){
 	$find_img_usr->execute();
 	$img_usr = $find_img_usr->fetch();
 	
-	if ($img_usr['username'] != $username && $_SESSION['notifications']){
+	if ($img_usr['username'] != $username){
 		$img_owner = $img_usr['username'];
-		$get_usr_email = $dbh->prepare("SELECT `email` FROM `user` WHERE `username` = '$img_owner'");
+		$get_usr_email = $dbh->prepare("SELECT * FROM `user` WHERE `username` = '$img_owner'");
 		$get_usr_email->execute();
 		$usr_table = $get_usr_email->fetch();
-		$to = $usr_table['email'];
-		$subject="Comment Notification - Camagru";
-		$from = 'info@camagru.hive';
-		$body = "You have received a new comment from ".$_SESSION['username']." on one of your images!";
-		$headers = "From:".$from;
-		mail($to,$subject,$body,$headers);
+		if ($usr_table['notifications'] == '1'){
+			$to = $usr_table['email'];
+			$subject="Comment Notification - Camagru";
+			$from = 'info@camagru.hive';
+			$body = "You have received a new comment from ".$_SESSION['username']." on one of your images!";
+			$headers = "From:".$from;
+			mail($to,$subject,$body,$headers);
+			echo "I am at the end";
+		}
 	}
 
 }
