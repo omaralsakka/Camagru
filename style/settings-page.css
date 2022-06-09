@@ -146,7 +146,7 @@ hr{
     position: fixed;
     top: 7vh;
     text-align: center;
-    font-size: calc(10px + 1.5vw);
+    font-size: calc(9px + 1vw);
     padding: 1px;
     color: red;
 }

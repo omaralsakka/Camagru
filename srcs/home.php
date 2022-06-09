@@ -186,10 +186,6 @@ $stat->execute();
 			commentsPart.style.display = 'block';
 	}
 
-	// this is the part for checking comments filtering.
-	function filterComments(){
-		let commentText = document.querySelector('.comment-field').value;
-	}
 	function ajaxLike(imageId){
 		
 		let xml = new XMLHttpRequest();
