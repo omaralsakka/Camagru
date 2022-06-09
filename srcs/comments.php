@@ -44,8 +44,25 @@ if(isset($_POST['submit-comment'])){
 
 if (isset($_POST['remove_comment'])){
 	$comment_id = $_POST['comment_id'];
-	$d_comment_query = $dbh->prepare("DELETE FROM user_comments WHERE id = '$comment_id'");
-	$d_comment_query->execute();
+	echo "here now";
+	// we fetch the username from the comments table
+	$check_c_del_q = $dbh->prepare("SELECT * FROM user_comments WHERE id = '$comment_id'");
+	$check_c_del_q->execute();
+	$fetch_c_q = $check_c_del_q->fetch();
+	$img_id_c = $fetch_c_q['image_id'];
+	
+	echo "$img_id_c";
+	// we fetch the username from the image table
+	$check_c_del_q2 = $dbh->prepare("SELECT * FROM user_images WHERE id = '$img_id_c'");
+	$check_c_del_q2->execute();
+	$username_on_img = $check_c_del_q2->fetch();
+	
+	// if the current username equals the comments username or the image username, delete the comment
+	if ($username  == $fetch_c_q['username'] || $username  == $username_on_img['username'])
+	{
+		$d_comment_query = $dbh->prepare("DELETE FROM user_comments WHERE id = '$comment_id'");
+		$d_comment_query->execute();
+	}
 }
 header('location:home.php');
 ?>

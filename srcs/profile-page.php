@@ -24,9 +24,18 @@ $avatar_q->execute();
 if (isset($_POST['delete_image'])){
     $image_to_delete = trim($_POST['delete_image_id'], "img");
     $_POST = array();
-    $delete_img_query = $dbh->prepare("DELETE FROM user_images WHERE id = '$image_to_delete';
-    DELETE FROM user_comments WHERE image_id = '$image_to_delete'");
-    $delete_img_query->execute();
+    
+    // we fetch the username on the image that is asked to be deleted
+    $check_img_q = $dbh->prepare("SELECT * FROM user_images WHERE id = '$image_to_delete'");
+    $check_img_q->execute();
+    $fetch_check = $check_img_q->fetch();
+
+    // if the current logged user are the same as the image owner, delete the image.
+    if ($username == $fetch_check['username']){
+        $delete_img_query = $dbh->prepare("DELETE FROM user_images WHERE id = '$image_to_delete';
+        DELETE FROM user_comments WHERE image_id = '$image_to_delete'");
+        $delete_img_query->execute();
+    }
     header("Location: profile-page.php");
 }
 
