@@ -97,7 +97,7 @@ $stat->execute();
 
 							<div id="'.$image_id.'bc'.'" class="comment-container">
 								<form action="comments.php" method="post" class="comment-form">
-									<input class="comment-field" type="text" name="comment">
+									<input class="comment-field" type="text" name="comment" maxlength="2200">
 									<input type="hidden" name="image_id" value="'.$image_id.'">
 										<button type="submit" name="submit-comment" class="submit-comment">
 											<img src="../media/icons/submit-comment-outline.png" alt="button image" class="submit-comment-img">
@@ -184,6 +184,11 @@ $stat->execute();
 			commentsPart.style.display = 'none';
 		else
 			commentsPart.style.display = 'block';
+	}
+
+	// this is the part for checking comments filtering.
+	function filterComments(){
+		let commentText = document.querySelector('.comment-field').value;
 	}
 	function ajaxLike(imageId){
 		
