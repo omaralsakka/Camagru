@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    require_once('config.php');
+    require_once('../config/database.php');
     if (!$_SESSION['verify'] && !$_SESSION['nwpass']){
         header('location:../index.php');
     };

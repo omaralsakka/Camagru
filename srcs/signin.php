@@ -5,8 +5,8 @@ option to sign up and leads to signup.php "sign up page" -->
 <?php
 
 error_reporting(0);
-
-require_once('config.php');
+require_once('../config/setup.php');
+require_once('../config/database.php');
 require_once('security_functions.php');
 session_start();
 

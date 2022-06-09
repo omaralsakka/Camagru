@@ -3,28 +3,28 @@ user to the sign up page. Incase the user has an account, there is a bottom
 option to log in and leads to signin.php file -->
 
 <?php
+require_once('./config/setup.php');
+require_once('../config/database.php');
+// $DB_DSN_INIT = "mysql:host=localhost";
+// $sql = file_get_contents("./sql/init.sql");
+// try {
 
-include("./srcs/setup.php");
-$DB_DSN_INIT = "mysql:host=localhost";
-$sql = file_get_contents("./sql/init.sql");
-try {
+//     // connect to the server
+//     $conn = new PDO($DB_DSN_INIT, $DB_USER, $DB_PASSWORD);
 
-    // connect to the server
-    $conn = new PDO($DB_DSN_INIT, $DB_USER, $DB_PASSWORD);
-
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//     // set the PDO error mode to exception
+//     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    // execute the sql query
-    $conn->exec($sql);
+//     // execute the sql query
+//     $conn->exec($sql);
 
-    // incase of error, write this message
-} catch(PDOException $error){
-    echo $sql . "<br>" . $error->getMessage();
+//     // incase of error, write this message
+// } catch(PDOException $error){
+//     echo $sql . "<br>" . $error->getMessage();
 
-}
+// }
 
-$conn = null;
+// $conn = null;
 
 include("./srcs/config.php");
 $image_query = $dbh->prepare("SELECT * FROM user_images ORDER BY id DESC");

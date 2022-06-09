@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once('config.php');
+require_once('../config/database.php');
 
 $username = $_SESSION['username'];
 

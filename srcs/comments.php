@@ -1,7 +1,7 @@
 <?php
 
 require_once('security_functions.php');
-require_once('config.php');
+require_once('../config/database.php');
 session_start();
 if(!isset($_SESSION['user_id']))
     header('location:signin.php');

@@ -18,7 +18,7 @@ if(!isset($_SESSION['user_id'])){
 	$logged_user = $_SESSION['username'];
 }
 
-require_once('config.php');
+require_once('../config/database.php');
 
 $username = $_SESSION['username'];
 $stat = $dbh->prepare("SELECT * FROM user_images ORDER BY id DESC");

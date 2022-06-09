@@ -2,7 +2,7 @@
 
 session_start();
 error_reporting(0);
-require_once('config.php');
+require_once('../config/database.php');
 
 //if the session does not have a user_id value, return to signin.php file
 if(!isset($_SESSION['user_id'])){

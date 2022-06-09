@@ -7,7 +7,7 @@ if(!isset($_SESSION['user_id'])){
     header('location:signin.php');
 } else {
     $username = $_SESSION['username'];
-    require_once('./config.php');
+    require_once('../config/database.php');
     require_once('security_functions.php');
 }
 

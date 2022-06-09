@@ -5,7 +5,7 @@
 error_reporting(0);
 
 // including the connection to mysql database file.
-require_once('config.php');
+require_once('../config/database.php');
 
 // starting session to pass through server the user data.
 session_start();

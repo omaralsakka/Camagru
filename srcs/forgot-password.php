@@ -4,7 +4,7 @@ error_reporting(0);
 
 session_start();
 
-require_once('config.php');
+require_once('../config/database.php');
 require_once('security_functions.php');
 if ($_SESSION['nwpass'] == 2){
     if (isset($_POST['submit-forgot'])){
