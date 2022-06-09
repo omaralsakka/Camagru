@@ -76,72 +76,75 @@ if(!isset($_SESSION['user_id'])){
 	<i>© oabdelfa camagru 2022  </i>
 </footer>
 <script>
-    let filterDisplayed = document.getElementById('filter-displayed')
-    , uploadedPicture = document.getElementById('uploaded-picture')
-    , captureButton = document.querySelector('.capture-button')
-    , displayScreen = document.getElementById('displayScreen')
-    , startVideo = document.getElementById('start-video')
-    , imageInput = document.querySelector("#image_input")
-    , viewMedia = document.getElementById('view-media')
-    , video = document.getElementById('video');
-
-    function selectFilter(clickedFilter){
-        
-        // getting the path of the filter and save it in display screen
-        filterDisplayed.src = "../media/filters/"+clickedFilter.id;
-        
-        // applying filter location
-        applyFilter(clickedFilter.classList[1]);
+let filterDisplayed = document.getElementById('filter-displayed')
+, uploadedPicture = document.getElementById('uploaded-picture')
+, captureButton = document.querySelector('.capture-button')
+, displayScreen = document.getElementById('displayScreen')
+, startVideo = document.getElementById('start-video')
+, imageInput = document.querySelector("#image_input")
+, viewMedia = document.getElementById('view-media')
+, video = document.getElementById('video');
+function selectFilter(clickedFilter){
+    
+    // getting the path of the filter and save it in display screen
+    filterDisplayed.src = "../media/filters/"+clickedFilter.id;
+    
+    // applying filter location
+    applyFilter(clickedFilter.classList[1]);
+}
+startVideo.addEventListener('click', async function(){
+    video.style.display = 'block';
+    uploadedPicture.style.backgroundImage = 'none';
+    let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+    video.srcObject = stream;
+})
+imageInput.addEventListener('change', function (){
+    let readFile = new FileReader();
+    let uploadedImage = '';
+    
+    // check to see if file size is bigger than 4mb
+    let fsize = Math.round((this.files[0].size / 1024));
+    if (fsize >= 4096) {
+        alert("File too big, please select a file less than 4mb");
     }
+    
+    readFile.addEventListener("load", function (){
+        uploadedImage = readFile.result;
+        video.style.display = 'none';
+        uploadedPicture.style.backgroundImage = `url(${uploadedImage})`
+        
+    });
+    readFile.readAsDataURL(this.files[0]);
+})
 
-    startVideo.addEventListener('click', async function(){
-
-        video.style.display = 'block';
-        uploadedPicture.style.backgroundImage = 'none';
-        let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-        video.srcObject = stream;
-    })
-
-    imageInput.addEventListener('change', function (){
-        let readFile = new FileReader();
-        let uploadedImage = '';
-        readFile.addEventListener("load", function (){
-            uploadedImage = readFile.result;
-            video.style.display = 'none';
-            uploadedPicture.style.backgroundImage = `url(${uploadedImage})`
-            
-        });
-        readFile.readAsDataURL(this.files[0]);
-    })
-
-    function captureCanvas(){
-        if ((filterDisplayed.getAttribute('src') !== '' && video.style.display === 'block')){
-            html2canvas(displayScreen).then(canvas =>{
-                appendThumbnail(canvas.toDataURL('image/jpeg', 1));
-                postPicture(canvas.toDataURL('image/jpeg', 1));
-            
-            })
-        } else if ((uploadedPicture.style.backgroundImage !== '' && video.style.display === 'none')) {
-            html2canvas(displayScreen).then(canvas =>{
-                appendThumbnail(canvas.toDataURL('image/jpeg', 1));
-                postPicture(canvas.toDataURL('image/jpeg', 1));
-            
-            })
-        }
+function captureCanvas(){
+    if ((filterDisplayed.getAttribute('src') !== '' && video.style.display === 'block')){
+        html2canvas(displayScreen).then(canvas =>{
+            appendThumbnail(canvas.toDataURL('image/jpeg', 1));
+            postPicture(canvas.toDataURL('image/jpeg', 1));
+        
+        })
+    } else if ((uploadedPicture.style.backgroundImage !== '' && video.style.display === 'none')) {
+        html2canvas(displayScreen).then(canvas =>{
+            appendThumbnail(canvas.toDataURL('image/jpeg', 1));
+            postPicture(canvas.toDataURL('image/jpeg', 1));
+        
+        })
+    }
 }
 
-    function appendThumbnail(resultImage){
-        let thumbnailImgContainer = document.createElement('div');
-        thumbnailImgContainer.className = 'thumbnail-image-container';
-
-        let thumbnailImg = document.createElement('img');
-        thumbnailImg.className = 'thumbnail-image';
-        thumbnailImg.src = resultImage;
-
-        let thumbnailsContainer = document.getElementById('thumbnails-container');
-        thumbnailImgContainer.appendChild(thumbnailImg);
-        thumbnailsContainer.appendChild(thumbnailImgContainer);
-    }
+function appendThumbnail(resultImage){
+    let thumbnailImgContainer = document.createElement('div');
+    thumbnailImgContainer.className = 'thumbnail-image-container';
+    
+    let thumbnailImg = document.createElement('img');
+    thumbnailImg.className = 'thumbnail-image';
+    thumbnailImg.src = resultImage;
+    
+    let thumbnailsContainer = document.getElementById('thumbnails-container');
+    thumbnailImgContainer.appendChild(thumbnailImg);
+    thumbnailsContainer.appendChild(thumbnailImgContainer);
+}
 
 function postPicture(canvasUrl){
     let xhr = new XMLHttpRequest();

@@ -3,8 +3,11 @@ user to the sign up page. Incase the user has an account, there is a bottom
 option to log in and leads to signin.php file -->
 
 <?php
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 require_once('./config/setup.php');
-require_once('../config/database.php');
+require_once('./config/database.php');
 // $DB_DSN_INIT = "mysql:host=localhost";
 // $sql = file_get_contents("./sql/init.sql");
 // try {
@@ -26,7 +29,7 @@ require_once('../config/database.php');
 
 // $conn = null;
 
-include("./srcs/config.php");
+// include("./srcs/config.php");
 $image_query = $dbh->prepare("SELECT * FROM user_images ORDER BY id DESC");
 $image_query->execute();
 $idx = 1;
