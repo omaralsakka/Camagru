@@ -33,7 +33,6 @@
             }
         }
     }
-    // header("refresh:10;url=../index.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">

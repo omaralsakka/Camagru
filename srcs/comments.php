@@ -3,6 +3,8 @@
 require_once('security_functions.php');
 require_once('config.php');
 session_start();
+if(!isset($_SESSION['user_id']))
+    header('location:signin.php');
 
 $username = $_SESSION['username'];
 if(isset($_POST['submit-comment'])){
@@ -35,7 +37,6 @@ if(isset($_POST['submit-comment'])){
 			$body = "You have received a new comment from ".$_SESSION['username']." on one of your images!";
 			$headers = "From:".$from;
 			mail($to,$subject,$body,$headers);
-			echo "I am at the end";
 		}
 	}
 

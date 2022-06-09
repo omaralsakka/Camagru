@@ -2,7 +2,7 @@
 
 session_start();
 
-$dbh = new PDO("mysql:host=localhost;dbname=camagru_website", "root", "123456");
+require_once('config.php');
 
 $username = $_SESSION['username'];
 
