@@ -78,7 +78,8 @@
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    max-width: 80vw;
+    width: 83vw;
+    padding: 10px;
     margin: 0.1vw;
     border-radius: 10px;
     box-shadow: 5.6px 11.2px 11.2px rgba(92, 92, 92, 0.33);
@@ -86,7 +87,7 @@
 }
 
 .picture{
-    width: 24.8%;
+    width: 100%;
     max-width: 20vw;
     max-height: 34vh;
     border-radius: 10px;

@@ -46,8 +46,7 @@ $stat->execute();
 				$image_id = $row['id'];
 				$username = $row['username'];
 				$date = date('Y.m.d', strtotime($row['date']));
-				$type = $row['type'];
-				$content = base64_encode($row['content']);
+				$content = $row['image'];
 				$comments_query = $dbh->prepare("SELECT * FROM user_comments WHERE `image_id` = '$image_id' ORDER BY `date` DESC");
 				$comments_check = $dbh->prepare("SELECT * FROM user_comments WHERE `image_id` = '$image_id' ORDER BY `date` DESC");
 				$comments_check->execute();
@@ -55,7 +54,7 @@ $stat->execute();
 				$comments_query->execute();
 				echo 	'<div class="item-container">
 							<div class="picture-container">
-								<img id="'.$image_id.'" src="'.$type.$content.'" alt="" class="picture">
+								<img id="'.$image_id.'" src="'.$content.'" alt="" class="picture">
 							</div>
 							<div class="action-container">';
 				

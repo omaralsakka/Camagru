@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS camagru_website.`user_verify` (
 CREATE TABLE IF NOT EXISTS camagru_website.`user_images` (
   id INT(11) AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(150) NOT NULL,
-  `type` VARCHAR(255) NOT NULL,
-  `content` LONGBLOB NOT NULL,
+  `image_name` VARCHAR(255) NOT NULL,
+  `image` LONGBLOB NOT NULL,
   `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   );
 

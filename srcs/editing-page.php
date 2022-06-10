@@ -41,8 +41,10 @@ if(!isset($_SESSION['user_id'])){
             <div id="displayScreen" class="display">
 
                 <video id="video" autoplay></video>
-                <div id="uploaded-picture"></div>
-
+                
+                <!-- <div id="uploaded-picture"></div> -->
+                <img src="" alt="" id="uploaded-picture">
+                <canvas id="canvas" width="640" height="480"></canvas>
                 <div class="filter-display-container">
                     <img src="" alt="" id="filter-displayed" class="">
                 </div>
@@ -84,6 +86,7 @@ let filterDisplayed = document.getElementById('filter-displayed')
 , imageInput = document.querySelector("#image_input")
 , viewMedia = document.getElementById('view-media')
 , video = document.getElementById('video');
+
 function selectFilter(clickedFilter){
     
     // getting the path of the filter and save it in display screen
@@ -92,12 +95,14 @@ function selectFilter(clickedFilter){
     // applying filter location
     applyFilter(clickedFilter.classList[1]);
 }
+
 startVideo.addEventListener('click', async function(){
     video.style.display = 'block';
-    uploadedPicture.style.backgroundImage = 'none';
+    uploadedPicture.style.display = 'none';
     let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
     video.srcObject = stream;
 })
+
 imageInput.addEventListener('change', function (){
     let readFile = new FileReader();
     let uploadedImage = '';
@@ -111,25 +116,28 @@ imageInput.addEventListener('change', function (){
     readFile.addEventListener("load", function (){
         uploadedImage = readFile.result;
         video.style.display = 'none';
-        uploadedPicture.style.backgroundImage = `url(${uploadedImage})`
+        uploadedPicture.style.display = 'block';
+        uploadedPicture.src = uploadedImage;
         
     });
     readFile.readAsDataURL(this.files[0]);
 })
 
+let canvas = document.getElementById('canvas');
+
 function captureCanvas(){
     if ((filterDisplayed.getAttribute('src') !== '' && video.style.display === 'block')){
-        html2canvas(displayScreen).then(canvas =>{
-            appendThumbnail(canvas.toDataURL('image/jpeg', 1));
-            postPicture(canvas.toDataURL('image/jpeg', 1));
-        
-        })
-    } else if ((uploadedPicture.style.backgroundImage !== '' && video.style.display === 'none')) {
-        html2canvas(displayScreen).then(canvas =>{
-            appendThumbnail(canvas.toDataURL('image/jpeg', 1));
-            postPicture(canvas.toDataURL('image/jpeg', 1));
-        
-        })
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        let image_data_url = canvas.toDataURL('image/jpeg');
+        postPicture(image_data_url, filterDisplayed.getAttribute('src'));
+
+    } else if ((uploadedPicture.getAttribute('src') !== '' && video.style.display === 'none')) {
+        canvas.getContext('2d').drawImage(uploadedPicture, 0, 0, canvas.width, canvas.height);
+        let image_data_url = canvas.toDataURL('image/jpeg');
+        if (filterDisplayed.getAttribute('src'))
+            postPicture(image_data_url, filterDisplayed.getAttribute('src'));
+        else
+            postPicture(image_data_url, 0);
     }
 }
 
@@ -146,12 +154,15 @@ function appendThumbnail(resultImage){
     thumbnailsContainer.appendChild(thumbnailImgContainer);
 }
 
-function postPicture(canvasUrl){
+function postPicture(canvasUrl, filter){
     let xhr = new XMLHttpRequest();
-    let resultImg = document.getElementById('imagePhp');
+
     xhr.open('POST', 'storeImage.php', true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send('image='+canvasUrl);
+    xhr.onload = function(){
+        appendThumbnail(this.response);
+    }
+    xhr.send('image='+canvasUrl+"&filter="+filter);
 }
 
 function removeFilter(){

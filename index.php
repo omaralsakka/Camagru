@@ -3,33 +3,9 @@ user to the sign up page. Incase the user has an account, there is a bottom
 option to log in and leads to signin.php file -->
 
 <?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
 require_once('./config/setup.php');
 require_once('./config/database.php');
-// $DB_DSN_INIT = "mysql:host=localhost";
-// $sql = file_get_contents("./sql/init.sql");
-// try {
 
-//     // connect to the server
-//     $conn = new PDO($DB_DSN_INIT, $DB_USER, $DB_PASSWORD);
-
-//     // set the PDO error mode to exception
-//     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-//     // execute the sql query
-//     $conn->exec($sql);
-
-//     // incase of error, write this message
-// } catch(PDOException $error){
-//     echo $sql . "<br>" . $error->getMessage();
-
-// }
-
-// $conn = null;
-
-// include("./srcs/config.php");
 $image_query = $dbh->prepare("SELECT * FROM user_images ORDER BY id DESC");
 $image_query->execute();
 $idx = 1;
@@ -90,8 +66,7 @@ $idx = 1;
 				// block to be a page 
 				$block = 1;
 				while($row = $image_query->fetch()){
-					$type = $row['type'];
-					$content = base64_encode($row['content']);
+					$content = $row['image'];
 					
 					if ($idx == 1){
 						echo "
@@ -99,7 +74,7 @@ $idx = 1;
 						";
 					}
 					echo "	
-						<img class='img".$idx."' src='".$type.$content."'>
+						<img class='img".$idx."' src='".$content."'>
 					";
 					$idx++;
 					if ($idx > 6){

@@ -4,6 +4,7 @@
 $DB_DSN_INIT = "mysql:host=localhost";
 $DB_USER = 'root';
 $DB_PASSWORD = '123456';
+$sql2 = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/sql/init.sql');
 $sql = "
 CREATE DATABASE IF NOT EXISTS `camagru_website`;
 CREATE TABLE IF NOT EXISTS camagru_website.`user` (
@@ -28,8 +29,8 @@ CREATE TABLE IF NOT EXISTS camagru_website.`user_verify` (
 CREATE TABLE IF NOT EXISTS camagru_website.`user_images` (
   id INT(11) AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(150) NOT NULL,
-  `type` VARCHAR(255) NOT NULL,
-  `content` LONGBLOB NOT NULL,
+  `image_name` VARCHAR(255) NOT NULL,
+  `image` LONGBLOB NOT NULL,
   `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   );
 CREATE TABLE IF NOT EXISTS camagru_website.`user_comments` (
@@ -61,7 +62,7 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // execute the sql query
-    $conn->exec($sql);
+    $conn->exec($sql2);
 
     // incase of error, write this message
 } catch(PDOException $error){

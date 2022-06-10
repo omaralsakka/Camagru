@@ -87,10 +87,18 @@ button{
     z-index: 1;
 }
 
-#uploaded-picture{
+#canvas{
+    display: none;
     position: absolute;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    border: none;
+    border-radius: 10px;
+}
+
+#uploaded-picture{
+    display: none;
+    position: absolute;
+    /* background-repeat: no-repeat; */
+    /* background-size: 100% 100%; */
     /* width: 33.3vw;
     height: 49.8vh; */
     border: none;
