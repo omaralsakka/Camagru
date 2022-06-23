@@ -4,7 +4,6 @@
 $DB_DSN_INIT = "mysql:host=localhost";
 $DB_USER = 'root';
 $DB_PASSWORD = '123456';
-$sql2 = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/sql/init.sql');
 $sql = "
 CREATE DATABASE IF NOT EXISTS `camagru_website`;
 CREATE TABLE IF NOT EXISTS camagru_website.`user` (
@@ -62,7 +61,7 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     // execute the sql query
-    $conn->exec($sql2);
+    $conn->exec($sql);
 
     // incase of error, write this message
 } catch(PDOException $error){
