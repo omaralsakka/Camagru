@@ -111,16 +111,16 @@ imageInput.addEventListener('change', function (){
     let fsize = Math.round((this.files[0].size / 1024));
     if (fsize >= 4096) {
         alert("File too big, please select a file less than 4mb");
+    } else {
+        readFile.addEventListener("load", function (){
+            uploadedImage = readFile.result;
+            video.style.display = 'none';
+            uploadedPicture.style.display = 'block';
+            uploadedPicture.src = uploadedImage;
+            
+        });
+        readFile.readAsDataURL(this.files[0]);
     }
-    
-    readFile.addEventListener("load", function (){
-        uploadedImage = readFile.result;
-        video.style.display = 'none';
-        uploadedPicture.style.display = 'block';
-        uploadedPicture.src = uploadedImage;
-        
-    });
-    readFile.readAsDataURL(this.files[0]);
 })
 
 let canvas = document.getElementById('canvas');
