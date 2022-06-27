@@ -1,1 +1,0 @@
-This folder is responsible to save locally the images that will be taken by the users or uploaded
