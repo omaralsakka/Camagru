@@ -49,11 +49,11 @@ if(!isset($_SESSION['user_id'])){
                     <?php
                         $avatar_f = $avatar_q->fetch();
                         if ($avatar_f['id']){
-                            $avatar_img = base64_encode($avatar_f['content']);
-                            $avatar_type = $avatar_f['type'];
+                            $avatar_img = $avatar_f['image'];
+                            
 
                             echo '
-                                <img src="'.$avatar_type.$avatar_img.'" alt="user avatar image" id="profile-image">
+                                <img src="'.$avatar_img.'" alt="user avatar image" id="profile-image">
                             ';
                         } else {
                             echo '
@@ -78,9 +78,9 @@ if(!isset($_SESSION['user_id'])){
 
                     while($row = $stat->fetch()){
                         $image_id = $row['id'];
-                        $type = $row['type'];
-                        $content = base64_encode($row['content']);
-                        echo "<img id='".$image_id."img' class='picture' src='".$type.$content."' onClick='maxImage(this.id)'/>";
+                        
+                        $content = $row['image'];
+                        echo "<img id='".$image_id."img' class='picture' src='".$content."' onClick='maxImage(this.id)'/>";
                     }
                 ?>
             </div>
