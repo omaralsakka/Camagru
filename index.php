@@ -64,11 +64,12 @@ $idx = 1;
 		<div class="gallery">
 			<?php
 				// block to be a page 
-				$block = 1;
+				$block = 0;
 				while($row = $image_query->fetch()){
-					$content = $row['image'];
+					$content = substr($row['image'], 1);
 					
 					if ($idx == 1){
+						$block++;
 						echo "
 							<div class='gallery-block' id='page".$block."'>
 						";
@@ -83,7 +84,7 @@ $idx = 1;
 						";
 						$idx = 1;
 						// full block done
-						$block++;
+						// $block++;
 					}
 				}
 				if ($idx != 1 && $idx < 7){
@@ -100,7 +101,7 @@ $idx = 1;
 			    <div class="pages-selector-container">
 					<div class="pagination-buttons">
 						<?php
-							for ($k = 1; $k < ($block + 1); $k++){
+							for ($k = 1; $k <= ($block); $k++){
 								if ($k == 1){
 									echo '
 										<a class="active" id="button'.$k.'" href="#" onclick="showPages('.$k.', '.$block.')">'.$k.'</a>
