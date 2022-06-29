@@ -24,6 +24,7 @@ without any frameworks, except for CSS frameworks that do not use any JavaScript
 - For **webcam pictures**, the user have to select a filter so they can capture the image, but this is not mandatory for uploads.
 - Once the user capture the image, it's done by converting the ```div``` into an ```image url``` then sent to the server to be<br>
 converted to an image.
+- On the server side, the image alongside the filter selected gets processed with **PHP GD Image Functions** to create the final result image. 
 - Finally it's stored into **images database** with ```BLOB``` format.
 - The user **profile-page** will fetch automatically all the user's images from the database.
 
