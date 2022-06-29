@@ -1,6 +1,6 @@
 # Camagru 
 
-Camagru/Hive Helsinki  --- **ON GOING PROJECT** 
+Camagru/Hive Helsinki
 
 <img src="media/logos/Camagru-logos_sideBySide_black.png" alt="project's logo" style="width: 150px;">
 
